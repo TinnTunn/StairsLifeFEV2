@@ -1,0 +1,25 @@
+/* Ikon berputar sedikit dengan pegas saat disentuh, seperti tombol tema V2. */
+.toggle svg {
+  transition: transform var(--duration-base) var(--ease-spring);
+}
+
+@media (hover: hover) {
+  .toggle:hover svg {
+    transform: rotate(18deg) scale(1.08);
+  }
+}
+
+.onDark {
+  color: var(--on-dark-muted);
+}
+
+.onDark:hover {
+  background: var(--on-dark-fill);
+  color: var(--on-dark);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toggle:hover svg {
+    transform: none;
+  }
+}

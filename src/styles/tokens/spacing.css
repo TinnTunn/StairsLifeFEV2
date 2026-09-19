@@ -1,0 +1,78 @@
+/* ============================================================
+   SPASI & UKURAN — basis 4px. Kepadatan "nyaman".
+   ============================================================ */
+
+:root {
+  --space-0: 0;
+  --space-1: 2px;
+  --space-2: 4px;
+  --space-3: 6px;
+  --space-4: 8px;
+  --space-5: 12px;
+  --space-6: 16px;
+  --space-7: 20px;
+  --space-8: 24px;
+  --space-9: 32px;
+  --space-10: 40px;
+  --space-11: 48px;
+  --space-12: 64px;
+  --space-13: 80px;
+  --space-14: 112px;
+
+  /* Ritme vertikal */
+  --gap-field: 6px;        /* label → input */
+  --gap-inline: 8px;       /* antar tombol/chip */
+  --gap-stack: 12px;       /* antar baris dalam kartu */
+  --gap-card: 16px;        /* antar kartu */
+  --gap-block: 24px;       /* antar blok dalam halaman app */
+  --section-y-app: 24px;   /* padding vertikal seksi aplikasi */
+  --section-y-marketing: 64px;
+  --section-y-marketing-lg: 112px;
+
+  /* Padding internal */
+  --pad-card: 16px;
+  --pad-card-lg: 20px;
+  --pad-cell-x: 16px;
+  --pad-cell-y: 12px;
+  --pad-page-x: 16px;      /* 360px */
+  --pad-page-x-md: 24px;   /* 768px */
+  --pad-page-x-dt: 40px;   /* 1024px — lebar desktop paling umum; 24px terbaca
+                              "rapat kiri" karena cap --width-container (1152px)
+                              belum menggigit di rentang 1024–1152 */
+  --pad-page-x-lg: 48px;   /* 1280px */
+  --pad-page-y: 20px;      /* 360px — jarak atas konten halaman aplikasi */
+  --pad-page-y-md: 24px;   /* 768px */
+  --pad-page-y-lg: 28px;   /* 1280px */
+  --pad-page-bottom: 96px;      /* ruang untuk BottomNav di mobile */
+  --pad-page-bottom-lg: 48px;   /* ≥1024px — BottomNav tersembunyi */
+
+  /* Tinggi kontrol — semua ≥ 44px di viewport sentuh */
+  --control-sm: 36px;
+  --control-md: 44px;
+  --control-lg: 52px;
+  --tap-min: 44px;
+  --row-height: 52px;      /* baris tabel, kepadatan nyaman */
+
+  /* Lebar */
+  --width-content: 720px;
+  --width-container: 1152px;
+  --width-sidebar: 248px;
+  --width-sidebar-collapsed: 68px;
+  --height-topbar: 64px;
+  --height-bottomnav: 60px;
+
+  /* Breakpoint (dokumentasi; media query pakai nilai literal) */
+  --bp-sm: 360px;
+  --bp-md: 768px;
+  --bp-lg: 1280px;
+}
+
+@media (min-width: 768px) {
+  :root { --pad-card: 20px; --pad-page-x: var(--pad-page-x-md); --pad-page-y: var(--pad-page-y-md); }
+}
+@media (min-width: 1024px) {
+  :root { --pad-page-bottom: var(--pad-page-bottom-lg); --pad-page-x: var(--pad-page-x-dt); }
+}
+@media (min-width: 1280px) {
+  :root { --pad-page-x: var(--pad-page-x-lg); --pad-page-y: var(--pad-page-y-lg); --section-y-marketing: var(--section-y-marketing-lg); }
+}

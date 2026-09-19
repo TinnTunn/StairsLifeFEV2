@@ -1,0 +1,73 @@
+/* ============================================================
+   RESET & DASAR — cukup untuk halaman spesimen, kartu, dan UI kit.
+   Di Next.js, blok ini setara @layer base di Tailwind.
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg-page);
+  color: var(--text-base);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: var(--leading-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6 { margin: 0; font-family: var(--font-display); color: var(--text-strong); letter-spacing: var(--tracking-heading); font-weight: var(--weight-semibold); line-height: var(--leading-snug); }
+p { margin: 0; text-wrap: pretty; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+img, svg { display: block; max-width: 100%; }
+
+a { color: var(--text-link); text-decoration-color: color-mix(in oklab, var(--text-link) 35%, transparent); text-underline-offset: 2px; transition: var(--transition-color); }
+a:hover { color: var(--text-link-hover); text-decoration-color: currentColor; }
+
+button, input, select, textarea { font: inherit; color: inherit; }
+
+:where(button, a, input, select, textarea, [tabindex]):focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: var(--radius-md);
+}
+
+::selection { background: var(--primary-soft); color: var(--primary-text); }
+
+/* Scrollbar hangat, tipis */
+* { scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent; }
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-thumb { background: var(--border-default); border-radius: var(--radius-pill); border: 3px solid transparent; background-clip: content-box; }
+*::-webkit-scrollbar-thumb:hover { background: var(--border-strong); background-clip: content-box; }
+
+/* Helper dipakai lintas komponen */
+.sl-visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.sl-container { width: 100%; max-width: var(--width-container); margin-inline: auto; padding-inline: var(--pad-page-x); }
+.sl-divider { height: 1px; background: var(--border-subtle); border: 0; }
+
+/* Switch — satu-satunya komponen yang butuh selector :checked (state tidak
+   bisa dibaca dari inline style). Warna & durasi tetap dari token. */
+.sl-switch-track { }
+input[role="switch"]:checked ~ .sl-switch-track {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+input[role="switch"]:checked ~ .sl-switch-knob {
+  transform: translateX(18px);
+  background: var(--text-on-primary);
+}
+input[role="switch"]:focus-visible ~ .sl-switch-track {
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Keyframes komponen — didefinisikan sekali di sini, bukan disuntikkan
+   per instance. <style> di dalam <button> bukan konten yang valid. */
+@keyframes sl-spin { to { transform: rotate(360deg) } }
+@keyframes sl-shimmer { 0% { background-position: 100% 0 } 100% { background-position: -100% 0 } }
+@keyframes sl-fade { from { opacity: 0 } to { opacity: 1 } }
+@keyframes sl-rise { from { transform: translateY(16px); opacity: .6 } to { transform: none; opacity: 1 } }
+@media (min-width: 768px) { .sl-modal-wrap { align-items: center !important } }

@@ -1,0 +1,37 @@
+/* Saldo yang disembunyikan.
+
+   Ukuran dan ruangnya dibuat sama dengan Money supaya menyalakan dan mematikan
+   penyembunyian tidak menggeser tata letak di sekitarnya. */
+.bungkus {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.label {
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+  font-weight: var(--weight-regular);
+}
+
+.tutup {
+  font-family: var(--font-display);
+  font-weight: var(--weight-black);
+  letter-spacing: var(--tracking-display);
+  white-space: nowrap;
+  /* Titik tengah lebih pendek dari angka, jadi tingginya dikunci supaya baris
+     tidak ikut memendek saat saldonya ditutup. */
+  line-height: var(--leading-snug);
+}
+
+.sm {
+  font-size: var(--text-money-sm);
+}
+
+.md {
+  font-size: var(--text-money);
+}
+
+.lg {
+  font-size: var(--text-money-lg);
+}

@@ -1,0 +1,121 @@
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.daftar {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-surface);
+  border: var(--border-width) solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+}
+
+.item + .item {
+  border-top: var(--border-width) solid var(--border-subtle);
+}
+
+.item[data-baru="true"] {
+  background: var(--brand-soft);
+}
+
+.item:has(.tautan):hover {
+  background: var(--bg-sunken);
+}
+
+.item:has(.tautan:focus-visible) {
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+  outline-offset: -3px;
+}
+
+.ikon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: var(--bg-sunken);
+  color: var(--text-muted);
+}
+
+.item[data-baru="true"] .ikon {
+  background: var(--bg-surface);
+  color: var(--brand);
+}
+
+.teks {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.judul {
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-bold);
+  color: var(--text-strong);
+}
+
+.tautan {
+  color: inherit;
+  text-decoration: none;
+}
+
+.tautan::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.tautan:focus-visible {
+  outline: none;
+}
+
+.isi {
+  margin: 0;
+  font-size: var(--text-body-sm);
+  color: var(--text-base);
+  line-height: var(--leading-relaxed);
+  max-width: 68ch;
+}
+
+.meta {
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+}
+
+/* Di atas tautan yang membentang ke seluruh baris. */
+.aksi {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  display: flex;
+  gap: var(--space-1);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

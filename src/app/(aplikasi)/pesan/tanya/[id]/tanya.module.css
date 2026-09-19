@@ -1,0 +1,34 @@
+/* Tombol kembali di kepala percakapan: bulat kecil, sejajar avatar. */
+.kembali {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  flex: none;
+  border-radius: var(--radius-pill);
+  color: var(--text-base);
+}
+
+.kembali:hover {
+  background: var(--bg-subtle);
+  color: var(--text-strong);
+}
+
+.nama {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: var(--leading-tight);
+}
+
+.nama b {
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  color: var(--text-strong);
+  overflow-wrap: anywhere;
+}
+
+.peran {
+  color: var(--text-muted);
+  font-size: var(--text-caption);
+}

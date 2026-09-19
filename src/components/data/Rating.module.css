@@ -1,0 +1,52 @@
+.wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.wrapSm {
+  gap: 5px;
+}
+
+.stars {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.starsEditable {
+  gap: 0;
+}
+
+/* Target sentuh 44px dicapai dengan memperbesar area, bukan glyph-nya:
+   bintang tetap 16px tapi kotak yang bisa disentuh penuh. */
+.starBox {
+  display: grid;
+  place-items: center;
+  min-width: var(--tap-min);
+  min-height: var(--tap-min);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.star {
+  display: block;
+  flex: none;
+}
+
+.value {
+  font-variant-numeric: tabular-nums;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--text-strong);
+}
+
+.valueLg {
+  font-size: var(--text-body);
+}
+
+.count {
+  font-variant-numeric: tabular-nums;
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+}

@@ -1,0 +1,336 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Bricolage Grotesque|Archivo))/i]",
+        "message": "Font not provided by the design system. Available: Bricolage Grotesque, Archivo."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Avatar'] > JSXAttribute > JSXIdentifier[name!=/^(?:name|src|size|verified|online|shape|key|ref|className|style|children|id|type|value|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<Avatar> doesn't accept that prop. Declared props: name, src, size, verified, online, shape."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Avatar'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:xs|sm|md|lg|xl)$/]",
+        "message": "<Avatar> size must be one of 'xs' | 'sm' | 'md' | 'lg' | 'xl'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Avatar'] > JSXAttribute[name.name='shape'] > Literal[value!=/^(?:circle|rounded)$/]",
+        "message": "<Avatar> shape must be one of 'circle' | 'rounded'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='BottomNavItem'] > JSXAttribute > JSXIdentifier[name!=/^(?:value|label|icon|badge|key|ref|className|style|children|id|name|type|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<BottomNavItem> doesn't accept that prop. Declared props: value, label, icon, badge."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|variant|size|fullWidth|disabled|loading|iconLeft|iconRight|type|href|key|ref|className|style|id|name|value|defaultValue|checked|defaultChecked|placeholder|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<Button> doesn't accept that prop. Declared props: children, variant, size, fullWidth, disabled, loading, iconLeft, iconRight, type, href."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:primary|secondary|ghost|destructive|white|outlineWhite)$/]",
+        "message": "<Button> variant must be one of 'primary' | 'secondary' | 'ghost' | 'destructive' | 'white' | 'outlineWhite'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md|lg|xl)$/]",
+        "message": "<Button> size must be one of 'sm' | 'md' | 'lg' | 'xl'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='type'] > Literal[value!=/^(?:button|submit|reset)$/]",
+        "message": "<Button> type must be one of 'button' | 'submit' | 'reset'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Card'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|as|padding|interactive|selected|raised|header|footer|key|ref|className|style|id|name|type|value|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<Card> doesn't accept that prop. Declared props: children, as, padding, interactive, selected, raised, header, footer."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Card'] > JSXAttribute[name.name='as'] > Literal[value!=/^(?:div|article|a|li|section)$/]",
+        "message": "<Card> as must be one of 'div' | 'article' | 'a' | 'li' | 'section'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Card'] > JSXAttribute[name.name='padding'] > Literal[value!=/^(?:none|sm|md|lg)$/]",
+        "message": "<Card> padding must be one of 'none' | 'sm' | 'md' | 'lg'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ChatBubble'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|side|author|time|status|attachment|system|showAvatar|avatar|key|ref|className|style|id|name|type|value|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<ChatBubble> doesn't accept that prop. Declared props: children, side, author, time, status, attachment, system, showAvatar, avatar."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ChatBubble'] > JSXAttribute[name.name='side'] > Literal[value!=/^(?:left|right)$/]",
+        "message": "<ChatBubble> side must be one of 'left' | 'right'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ChatBubble'] > JSXAttribute[name.name='status'] > Literal[value!=/^(?:sending|sent|read)$/]",
+        "message": "<ChatBubble> status must be one of 'sending' | 'sent' | 'read'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Checkbox'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|description|indeterminate|key|ref|className|style|children|id|name|type|value|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<Checkbox> doesn't accept that prop. Declared props: label, description, indeterminate."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ContractStep'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|meta|description|tone|key|ref|className|style|children|id|name|type|value|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<ContractStep> doesn't accept that prop. Declared props: label, meta, description, tone."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ContractStep'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:done|active|todo|alert)$/]",
+        "message": "<ContractStep> tone must be one of 'done' | 'active' | 'todo' | 'alert'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='TableColumn'] > JSXAttribute > JSXIdentifier[name!=/^(?:key|header|numeric|align|width|wrap|render|ref|className|style|children|id|name|type|value|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<TableColumn> doesn't accept that prop. Declared props: key, header, numeric, align, width, wrap, render."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='TableColumn'] > JSXAttribute[name.name='align'] > Literal[value!=/^(?:left|center|right)$/]",
+        "message": "<TableColumn> align must be one of 'left' | 'center' | 'right'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='DonutSlice'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|value|color|key|ref|className|style|children|id|name|type|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<DonutSlice> doesn't accept that prop. Declared props: label, value, color."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='EmptyState'] > JSXAttribute > JSXIdentifier[name!=/^(?:icon|title|description|action|secondaryAction|size|key|ref|className|style|children|id|name|type|value|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<EmptyState> doesn't accept that prop. Declared props: icon, title, description, action, secondaryAction, size."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='EmptyState'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:md|lg)$/]",
+        "message": "<EmptyState> size must be one of 'md' | 'lg'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='FeatureItem'] > JSXAttribute > JSXIdentifier[name!=/^(?:id|label|icon|count|eyebrow|title|body|meta|action|aside|key|ref|className|style|children|name|type|value|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<FeatureItem> doesn't accept that prop. Declared props: id, label, icon, count, eyebrow, title, body, meta, action, aside."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='UploadedFile'] > JSXAttribute > JSXIdentifier[name!=/^(?:name|size|key|ref|className|style|children|id|type|value|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<UploadedFile> doesn't accept that prop. Declared props: name, size."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='FilterOption'] > JSXAttribute > JSXIdentifier[name!=/^(?:value|label|count|key|ref|className|style|children|id|name|type|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<FilterOption> doesn't accept that prop. Declared props: value, label, count."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='HowItWorksStep'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|short|body|note|icon|aside|key|ref|className|style|children|id|name|type|value|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<HowItWorksStep> doesn't accept that prop. Declared props: label, short, body, note, icon, aside."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Icon'] > JSXAttribute > JSXIdentifier[name!=/^(?:name|size|strokeWidth|color|key|ref|className|style|children|id|type|value|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<Icon> doesn't accept that prop. Declared props: name, size, strokeWidth, color."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='IconButton'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|label|variant|size|disabled|key|ref|className|style|id|name|type|value|defaultValue|checked|defaultChecked|placeholder|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<IconButton> doesn't accept that prop. Declared props: children, label, variant, size, disabled."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='IconButton'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:ghost|outline|solid|danger)$/]",
+        "message": "<IconButton> variant must be one of 'ghost' | 'outline' | 'solid' | 'danger'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='IconButton'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md|lg)$/]",
+        "message": "<IconButton> size must be one of 'sm' | 'md' | 'lg'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Input'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|hint|error|size|prefix|suffix|iconLeft|trailing|numeric|uang|wrapperClassName|required|key|ref|className|style|children|id|name|type|value|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<Input> doesn't accept that prop. Declared props: label, hint, error, size, prefix, suffix, iconLeft, trailing, numeric, uang, wrapperClassName, required."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Input'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md|lg)$/]",
+        "message": "<Input> size must be one of 'sm' | 'md' | 'lg'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Job'] > JSXAttribute > JSXIdentifier[name!=/^(?:id|judul|bisnis|verified|lokasi|tipe|jadwal|gajiMin|gajiMaks|gajiNego|tags|diposting|pelamar|key|ref|className|style|children|name|type|value|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<Job> doesn't accept that prop. Declared props: id, judul, bisnis, verified, lokasi, tipe, jadwal, gajiMin, gajiMaks, gajiNego, tags, diposting, pelamar."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ChartPoint'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|value|key|ref|className|style|children|id|name|type|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<ChartPoint> doesn't accept that prop. Declared props: label, value."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Logo'] > JSXAttribute > JSXIdentifier[name!=/^(?:size|wordmark|wood|surface|key|ref|className|style|children|id|name|type|value|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<Logo> doesn't accept that prop. Declared props: size, wordmark, wood, surface."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Logo'] > JSXAttribute[name.name='wood'] > Literal[value!=/^(?:teak|walnut|flat)$/]",
+        "message": "<Logo> wood must be one of 'teak' | 'walnut' | 'flat'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='MediaSlot'] > JSXAttribute > JSXIdentifier[name!=/^(?:icon|label|hint|action|ratio|size|tone|key|ref|className|style|children|id|name|type|value|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<MediaSlot> doesn't accept that prop. Declared props: icon, label, hint, action, ratio, size, tone."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='MediaSlot'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md|lg)$/]",
+        "message": "<MediaSlot> size must be one of 'sm' | 'md' | 'lg'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='MediaSlot'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:neutral|primary)$/]",
+        "message": "<MediaSlot> tone must be one of 'neutral' | 'primary'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='MetricCard'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|value|delta|deltaLabel|icon|iconTone|invertDelta|deltaTone|key|ref|className|style|children|id|name|type|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<MetricCard> doesn't accept that prop. Declared props: label, value, delta, deltaLabel, icon, iconTone, invertDelta, deltaTone."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='MetricCard'] > JSXAttribute[name.name='iconTone'] > Literal[value!=/^(?:primary|success|warning|neutral)$/]",
+        "message": "<MetricCard> iconTone must be one of 'primary' | 'success' | 'warning' | 'neutral'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='MetricCard'] > JSXAttribute[name.name='deltaTone'] > Literal[value!=/^(?:success|danger|neutral)$/]",
+        "message": "<MetricCard> deltaTone must be one of 'success' | 'danger' | 'neutral'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Modal'] > JSXAttribute > JSXIdentifier[name!=/^(?:open|onClose|title|description|children|footer|size|tone|dismissible|style|key|ref|className|id|name|type|value|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<Modal> doesn't accept that prop. Declared props: open, onClose, title, description, children, footer, size, tone, dismissible, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Modal'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md|lg)$/]",
+        "message": "<Modal> size must be one of 'sm' | 'md' | 'lg'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Modal'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:default|danger|success)$/]",
+        "message": "<Modal> tone must be one of 'default' | 'danger' | 'success'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Money'] > JSXAttribute > JSXIdentifier[name!=/^(?:value|size|tone|sign|label|key|ref|className|style|children|id|name|type|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<Money> doesn't accept that prop. Declared props: value, size, tone, sign, label."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Money'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md|lg)$/]",
+        "message": "<Money> size must be one of 'sm' | 'md' | 'lg'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Money'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:default|in|out|held|muted)$/]",
+        "message": "<Money> tone must be one of 'default' | 'in' | 'out' | 'held' | 'muted'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='NotificationItem'] > JSXAttribute > JSXIdentifier[name!=/^(?:id|title|description|time|icon|tone|unread|href|key|ref|className|style|children|name|type|value|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|target|rel|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<NotificationItem> doesn't accept that prop. Declared props: id, title, description, time, icon, tone, unread, href."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='NotificationItem'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:primary|success|warning|danger|neutral)$/]",
+        "message": "<NotificationItem> tone must be one of 'primary' | 'success' | 'warning' | 'danger' | 'neutral'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Pagination'] > JSXAttribute > JSXIdentifier[name!=/^(?:page|pageCount|total|perPage|onChange|key|ref|className|style|children|id|name|type|value|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<Pagination> doesn't accept that prop. Declared props: page, pageCount, total, perPage, onChange."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='QRPayment'] > JSXAttribute > JSXIdentifier[name!=/^(?:amount|status|secondsLeft|orderId|onRegenerate|onConfirm|onUploadProof|steps|key|ref|className|style|children|id|name|type|value|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<QRPayment> doesn't accept that prop. Declared props: amount, status, secondsLeft, orderId, onRegenerate, onConfirm, onUploadProof, steps."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='QRPayment'] > JSXAttribute[name.name='status'] > Literal[value!=/^(?:menunggu_pembayaran|menunggu_konfirmasi|lunas|gagal)$/]",
+        "message": "<QRPayment> status must be one of 'menunggu_pembayaran' | 'menunggu_konfirmasi' | 'lunas' | 'gagal'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Radio'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|description|key|ref|className|style|children|id|name|type|value|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<Radio> doesn't accept that prop. Declared props: label, description."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Rating'] > JSXAttribute > JSXIdentifier[name!=/^(?:value|count|size|showValue|editable|onChange|label|key|ref|className|style|children|id|name|type|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<Rating> doesn't accept that prop. Declared props: value, count, size, showValue, editable, onChange, label."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Rating'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md|lg)$/]",
+        "message": "<Rating> size must be one of 'sm' | 'md' | 'lg'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='SearchField'] > JSXAttribute > JSXIdentifier[name!=/^(?:placeholder|value|defaultValue|onChange|onSubmit|onExpandChange|size|collapsedWidth|expandedWidth|fullWidth|gooey|label|autoCollapse|key|ref|className|style|children|id|name|type|checked|defaultChecked|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<SearchField> doesn't accept that prop. Declared props: placeholder, value, defaultValue, onChange, onSubmit, onExpandChange, size, collapsedWidth, expandedWidth, fullWidth, gooey, label, autoCollapse."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='SearchField'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:md|lg)$/]",
+        "message": "<SearchField> size must be one of 'md' | 'lg'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='SelectOption'] > JSXAttribute > JSXIdentifier[name!=/^(?:value|label|disabled|key|ref|className|style|children|id|name|type|defaultValue|checked|defaultChecked|placeholder|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<SelectOption> doesn't accept that prop. Declared props: value, label, disabled."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='SidebarItem'] > JSXAttribute > JSXIdentifier[name!=/^(?:value|label|icon|badge|badgeTone|section|key|ref|className|style|children|id|name|type|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<SidebarItem> doesn't accept that prop. Declared props: value, label, icon, badge, badgeTone, section."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='SidebarItem'] > JSXAttribute[name.name='badgeTone'] > Literal[value!=/^(?:neutral|danger)$/]",
+        "message": "<SidebarItem> badgeTone must be one of 'neutral' | 'danger'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Skeleton'] > JSXAttribute > JSXIdentifier[name!=/^(?:width|height|radius|circle|key|ref|className|style|children|id|name|type|value|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<Skeleton> doesn't accept that prop. Declared props: width, height, radius, circle."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='StatusBadge'] > JSXAttribute > JSXIdentifier[name!=/^(?:status|label|size|key|ref|className|style|children|id|name|type|value|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<StatusBadge> doesn't accept that prop. Declared props: status, label, size."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='StatusBadge'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md)$/]",
+        "message": "<StatusBadge> size must be one of 'sm' | 'md'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='TimelineItem'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|time|description|by|tone|key|ref|className|style|children|id|name|type|value|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<TimelineItem> doesn't accept that prop. Declared props: label, time, description, by, tone."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='TimelineItem'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:done|active|todo|alert)$/]",
+        "message": "<TimelineItem> tone must be one of 'done' | 'active' | 'todo' | 'alert'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Switch'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|description|checked|defaultChecked|disabled|key|ref|className|style|children|id|name|type|value|defaultValue|placeholder|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<Switch> doesn't accept that prop. Declared props: label, description, checked, defaultChecked, disabled."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='TabItem'] > JSXAttribute > JSXIdentifier[name!=/^(?:value|label|count|icon|key|ref|className|style|children|id|name|type|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<TabItem> doesn't accept that prop. Declared props: value, label, count, icon."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Textarea'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|hint|error|rows|maxLength|showCount|required|key|ref|className|style|children|id|name|type|value|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|autoComplete|autoFocus|minLength|min|max|step|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<Textarea> doesn't accept that prop. Declared props: label, hint, error, rows, maxLength, showCount, required."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Toast'] > JSXAttribute > JSXIdentifier[name!=/^(?:tone|title|description|action|onClose|key|ref|className|style|children|id|name|type|value|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|role|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<Toast> doesn't accept that prop. Declared props: tone, title, description, action, onClose."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Toast'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:info|success|warning|danger)$/]",
+        "message": "<Toast> tone must be one of 'info' | 'success' | 'warning' | 'danger'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='VerificationBanner'] > JSXAttribute > JSXIdentifier[name!=/^(?:status|role|reason|onAction|actionLabel|key|ref|className|style|children|id|name|type|value|defaultValue|checked|defaultChecked|placeholder|disabled|readOnly|required|autoComplete|autoFocus|maxLength|minLength|min|max|step|rows|cols|inputMode|pattern|form|multiple|accept|href|target|rel|title|tabIndex|htmlFor|hidden|onClick|onChange|onInput|onBlur|onFocus|onKeyDown|onKeyUp|onSubmit|onMouseEnter|onMouseLeave|onMouseDown|onMouseUp|aria-[a-z]+|data-[a-z-]+)$/]",
+        "message": "<VerificationBanner> doesn't accept that prop. Declared props: status, role, reason, onAction, actionLabel."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='VerificationBanner'] > JSXAttribute[name.name='status'] > Literal[value!=/^(?:belum_diajukan|menunggu_review|terverifikasi|ditolak|disuspend)$/]",
+        "message": "<VerificationBanner> status must be one of 'belum_diajukan' | 'menunggu_review' | 'terverifikasi' | 'ditolak' | 'disuspend'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='VerificationBanner'] > JSXAttribute[name.name='role'] > Literal[value!=/^(?:mahasiswa|bisnis)$/]",
+        "message": "<VerificationBanner> role must be one of 'mahasiswa' | 'bisnis'."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "src/styles/**",
+        "src/lib/**"
+      ],
+      "rules": {
+        "no-restricted-syntax": "off"
+      }
+    }
+  ]
+}

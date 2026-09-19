@@ -1,0 +1,109 @@
+/* Formulir pasang proyek gaya V2: tiga bagian bernomor di kartu terpisah. */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: 52rem;
+}
+
+.bagian {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  min-width: 0;
+  margin: 0;
+  padding: 22px 24px 24px;
+  background: var(--bg-surface);
+  border: var(--border-width) solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  animation: sl-naik 480ms var(--ease-out) backwards;
+}
+
+.bagian:nth-of-type(2) {
+  animation-delay: 70ms;
+}
+
+.bagian:nth-of-type(3) {
+  animation-delay: 140ms;
+}
+
+/* legend di dalam fieldset tidak ikut flex gap, jadi jaraknya diberi sendiri. */
+.bagianJudul {
+  float: left;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: var(--space-2);
+  padding: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-black);
+  letter-spacing: -0.02em;
+  color: var(--text-strong);
+}
+
+.bagianJudul + * {
+  clear: both;
+}
+
+.bagianIkon {
+  width: 36px;
+  height: 36px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: var(--brand-soft);
+  color: var(--brand);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  gap: var(--space-6);
+  align-items: start;
+}
+
+/* Setiap layar yang menyangkut dana menjawab ke mana uangnya pergi, sebelum
+   pengguna menekan tombol. */
+.note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0;
+  padding: 12px 14px;
+  background: var(--success-soft);
+  border-radius: var(--radius-md);
+  font-size: var(--text-caption);
+  color: var(--text-base);
+  line-height: var(--leading-relaxed);
+}
+
+.noteIkon {
+  flex: none;
+  margin-top: 2px;
+  color: var(--success-text);
+}
+
+.kirim {
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media (max-width: 640px) {
+  .bagian {
+    padding: 18px;
+  }
+
+  .kirim > * {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bagian {
+    animation: none;
+  }
+}

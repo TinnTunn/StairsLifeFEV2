@@ -1,0 +1,75 @@
+<!-- @dsCard group="Components" viewport="700x740" name="Feedback — Modal, Toast, Notifikasi, Empty, Skeleton, Timeline, Banner" subtitle="Konfirmasi, toast, panel notifikasi, keadaan kosong, riwayat status, banner verifikasi" -->
+<!doctype html><html lang="id"><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.js"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{padding:18px 20px;background:var(--bg-page)}.two{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}.stack{display:flex;flex-direction:column;gap:10px}
+/* modal ditampilkan inline agar terlihat di kartu */
+.inline-modal{position:relative!important}</style>
+</head><body><div id="root"></div>
+<script type="text/babel">
+const { Toast, EmptyState, SkeletonCard, SkeletonTable, Button, Icon, Money, ContractStepper, StatusTimeline, VerificationBanner, NotificationCenter } = window.StairsLifeDesignSystem_075594;
+function FakeModal(){return (
+<div style={{background:"var(--bg-surface-raised)",borderTop:"3px solid var(--success)",borderRadius:"var(--radius-xl)",boxShadow:"var(--shadow-lg)",overflow:"hidden"}}>
+  <div style={{padding:"var(--pad-card-lg)",display:"flex",flexDirection:"column",gap:"var(--gap-stack)"}}>
+    <div style={{display:"flex",justifyContent:"space-between",gap:12}}>
+      <div><h2 style={{fontSize:"var(--text-h2)"}}>Setujui hasil kerja?</h2><p className="sl-body-sm" style={{color:"var(--text-muted)",marginTop:4}}>Setelah disetujui, Rp 2.500.000 langsung dilepas ke dompet Rani dan tidak bisa ditarik kembali.</p></div>
+    </div>
+    <div style={{display:"flex",justifyContent:"space-between",padding:"12px",background:"var(--bg-subtle)",borderRadius:"var(--radius-md)"}}>
+      <Money value={2500000} size="sm" tone="held" label="Ditahan di escrow"/>
+      <Money value={2500000} size="sm" tone="in" label="Diterima Rani"/>
+    </div>
+  </div>
+  <div style={{padding:"var(--pad-card) var(--pad-card-lg)",borderTop:"var(--border-width) solid var(--border-subtle)",background:"var(--bg-subtle)",display:"flex",justifyContent:"flex-end",gap:8}}>
+    <Button variant="secondary" size="sm">Minta revisi</Button><Button size="sm">Setujui &amp; lepas dana</Button>
+  </div>
+</div>);}
+function Demo(){return (
+<div className="two">
+  <div className="stack">
+    <FakeModal/>
+    <Toast tone="success" title="Dana masuk ke dompetmu" description="Rp 2.500.000 dari Kopi Senja Malang sudah tersedia." action={<Button size="sm" variant="ghost">Lihat dompet</Button>} onClose={()=>{}}/>
+    <Toast tone="warning" title="Verifikasi identitas belum selesai" description="Unggah KTM agar bisa menarik dana." onClose={()=>{}}/>
+    <Toast tone="danger" title="Penarikan gagal" description="Rekening BCA ····7890 tidak aktif. Coba rekening lain." onClose={()=>{}}/>
+  </div>
+  <div className="stack">
+    <div style={{background:"var(--bg-surface)",border:"var(--border-width) solid var(--border-subtle)",borderRadius:"var(--radius-lg)"}}>
+      <EmptyState icon={<Icon name="Inbox" size={30} strokeWidth={1.5}/>} title="Belum ada lamaran masuk" description="Proyekmu baru tayang 2 jam lalu. Lamaran pertama biasanya datang dalam sehari." action={<Button size="sm">Bagikan proyek</Button>}/>
+    </div>
+    <SkeletonCard media lines={2}/>
+    <SkeletonTable rows={2} cols={4}/>
+  </div>
+  <div style={{display:"flex",flexDirection:"column",gap:10,marginTop:18}}>
+    <span style={{fontSize:"var(--text-overline)",letterSpacing:"var(--tracking-overline)",textTransform:"uppercase",color:"var(--text-subtle)",fontWeight:600}}>NotificationCenter · panel terbuka</span>
+    <div style={{position:"relative",height:300,background:"var(--bg-surface)",border:"var(--border-width) solid var(--border-subtle)",borderRadius:"var(--radius-lg)",padding:"10px 14px"}}>
+      <div style={{display:"flex",alignItems:"center",gap:10,height:44}}>
+        <span style={{flex:1,minWidth:0,fontSize:"var(--text-body-sm)",fontWeight:600,color:"var(--text-strong)"}}>Topbar mahasiswa</span>
+        <NotificationCenter live onSeeAll={()=>{}} items={[
+          {id:1,icon:<Icon name="MessageSquare" size={16}/>,tone:"primary",unread:true,title:"Rimbun Plant House mengirim pesan",description:"“Baik, Senin pagi ya.”",time:"12 menit lalu"},
+          {id:2,icon:<Icon name="UserCheck" size={16}/>,tone:"success",unread:true,title:"Lamaranmu masuk tahap seleksi",description:"Konten Instagram 12 post",time:"1 jam lalu"},
+          {id:3,icon:<Icon name="Clock" size={16}/>,tone:"warning",unread:true,title:"Fotografer produk katalog tutup 3 hari lagi",time:"Kemarin"},
+          {id:4,icon:<Icon name="ShieldCheck" size={16}/>,tone:"success",title:"Identitasmu berhasil diverifikasi",time:"14 Feb 2026"}]}/>
+      </div>
+      <span style={{position:"absolute",left:14,bottom:12,fontSize:"var(--text-caption)",color:"var(--text-muted)",maxWidth:"38ch",lineHeight:1.5}}>Titik terakota hanya muncul kalau ada yang belum dibaca. Jumlahnya ada di judul panel, bukan di lonceng.</span>
+    </div>
+  </div>
+  <div style={{display:"flex",flexDirection:"column",gap:10,marginTop:18}}>
+    <span style={{fontSize:"var(--text-overline)",letterSpacing:"var(--tracking-overline)",textTransform:"uppercase",color:"var(--text-subtle)",fontWeight:600}}>VerificationBanner · empat state</span>
+    <VerificationBanner status="belum_diajukan" role="mahasiswa" onAction={()=>{}}/>
+    <VerificationBanner status="ditolak" role="bisnis" reason="Foto NIB terpotong di sisi kanan sehingga nomornya tidak terbaca." onAction={()=>{}}/>
+  </div>
+  <div style={{display:"flex",gap:22,marginTop:18,alignItems:"flex-start",flexWrap:"wrap"}}>
+    <div style={{display:"flex",flexDirection:"column",gap:10,minWidth:280,flex:1}}>
+      <span style={{fontSize:"var(--text-overline)",letterSpacing:"var(--tracking-overline)",textTransform:"uppercase",color:"var(--text-subtle)",fontWeight:600}}>StatusTimeline · riwayat lamaran</span>
+      <StatusTimeline items={[
+        {label:"Lamaran dikirim",time:"10 Sep 2026 · 09:14"},
+        {label:"Dilihat bisnis",time:"10 Sep 2026 · 16:02",by:"Kopi Senja Malang"},
+        {label:"Masuk seleksi",time:"12 Sep 2026 · 11:30",tone:"active",description:"Kamu akan dihubungi untuk wawancara singkat."},
+        {label:"Hasil akhir",tone:"todo"}]}/>
+    </div>
+  </div>
+</div>);}
+ReactDOM.createRoot(document.getElementById("root")).render(<Demo/>);
+</script></body></html>

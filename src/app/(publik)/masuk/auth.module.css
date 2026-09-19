@@ -1,0 +1,263 @@
+/* Isi kartu auth gaya V2. Padding ada di kartu AuthShell, bukan di sini. */
+.page {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-h1);
+  font-weight: var(--weight-black);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--text-strong);
+  text-wrap: balance;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: var(--text-body-sm);
+  color: var(--text-muted);
+  line-height: var(--leading-relaxed);
+}
+
+.subtitle a,
+.foot a {
+  color: var(--brand);
+  font-weight: var(--weight-bold);
+  text-decoration: none;
+}
+
+.subtitle a:hover,
+.foot a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.alt {
+  margin: 0;
+  padding-top: var(--space-6);
+  border-top: var(--border-width) solid var(--border-subtle);
+  font-size: var(--text-body-sm);
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.alt a {
+  color: var(--brand);
+  font-weight: var(--weight-bold);
+  text-decoration: none;
+}
+
+.alt a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  font-size: var(--text-body-sm);
+  color: var(--text-muted);
+}
+
+.footKanan {
+  justify-content: flex-end;
+  margin-top: calc(var(--space-4) * -1);
+}
+
+.lihatSandi {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: var(--tap-min);
+  padding: 0 4px 0 0;
+  border: 0;
+  background: none;
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.lihatSandi:hover {
+  color: var(--text-strong);
+}
+
+/* Kabar netral, bukan galat: sesi yang berakhir bukan kesalahan pengguna. */
+.info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 12px 14px;
+  background: var(--info-soft);
+  border: var(--border-width) solid var(--info-border);
+  border-radius: var(--radius-md);
+  color: var(--info-text);
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-relaxed);
+}
+
+.error {
+  display: flex;
+  gap: 10px;
+  margin: 0;
+  padding: 12px 14px;
+  background: var(--danger-soft);
+  border: var(--border-width) solid var(--danger-border);
+  border-radius: var(--radius-md);
+  color: var(--danger-text);
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-relaxed);
+  animation: sl-pop 320ms var(--ease-spring);
+}
+
+.errorList {
+  display: flex;
+  flex-direction: column;
+}
+
+.errorBaris {
+  display: block;
+}
+
+.demo {
+  padding: 12px 14px;
+  background: var(--warning-soft);
+  border: var(--border-width) solid var(--warning-border);
+  border-radius: var(--radius-md);
+  color: var(--warning-text);
+  font-size: var(--text-caption);
+  line-height: var(--leading-relaxed);
+}
+
+.demoList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.roleCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+  gap: var(--space-6);
+}
+
+.roleCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px;
+  background: var(--bg-surface);
+  border: 1.5px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  text-decoration: none;
+  color: inherit;
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+}
+
+.roleCard:hover,
+.roleCard:focus-visible {
+  transform: translateY(-3px);
+  border-color: var(--brand);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.roleIcon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: var(--brand-soft);
+  color: var(--brand);
+  transition: transform var(--duration-base) var(--ease-spring);
+}
+
+.roleCard:hover .roleIcon {
+  transform: translateY(-2px) rotate(-6deg);
+}
+
+.roleTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-black);
+  letter-spacing: -0.02em;
+  color: var(--text-strong);
+}
+
+.roleBody {
+  font-size: var(--text-body-sm);
+  color: var(--text-muted);
+  line-height: var(--leading-relaxed);
+}
+
+.roleArrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 6px;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-bold);
+  color: var(--brand);
+}
+
+.roleArrow svg {
+  transition: transform var(--duration-base) var(--ease-spring);
+}
+
+.roleCard:hover .roleArrow svg {
+  transform: translateX(4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .error {
+    animation: none;
+  }
+
+  .roleCard:hover,
+  .roleCard:focus-visible,
+  .roleCard:hover .roleIcon,
+  .roleCard:hover .roleArrow svg {
+    transform: none;
+  }
+}
+
+.error a {
+  color: inherit;
+  font-weight: var(--weight-bold);
+}

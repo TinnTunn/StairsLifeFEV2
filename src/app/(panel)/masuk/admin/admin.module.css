@@ -1,0 +1,114 @@
+/* Pintu masuk panel: satu kartu tenang di tengah, tanpa panel cerita produk.
+   Latarnya permukaan datar, bukan mesh cream seperti halaman pemasaran, supaya
+   terasa sebagai perkakas internal sejak layar pertama. */
+.halaman {
+  flex: 1;
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: var(--space-8) var(--pad-page-x) var(--space-10);
+  background: var(--bg-subtle);
+}
+
+.kartu {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-7) var(--space-6) var(--space-6);
+  background: var(--bg-surface);
+  border: var(--border-width) solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+}
+
+.kepala {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.merek {
+  display: inline-flex;
+  color: var(--text-strong);
+}
+
+/* Lencana peran: penanda bahwa pintu ini bukan untuk pengguna biasa. */
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 4px var(--space-3);
+  border: var(--border-width) solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  background: var(--bg-subtle);
+  color: var(--text-base);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.judul {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-black);
+  line-height: 1.2;
+  letter-spacing: var(--tracking-display);
+  color: var(--text-strong);
+}
+
+.sub {
+  margin: var(--space-2) 0 var(--space-6);
+  color: var(--text-muted);
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-relaxed);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.galat {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  background: var(--danger-soft);
+  border: var(--border-width) solid var(--danger-border);
+  border-radius: var(--radius-md);
+  color: var(--danger-text);
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-relaxed);
+}
+
+/* Jejak audit disebut di pintu masuk, bukan setelah orang berada di dalam:
+   pengurus perlu tahu bahwa tindakannya tercatat sebelum mulai bekerja. */
+.catatan {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin: 0;
+  padding-top: var(--space-4);
+  border-top: var(--border-width) solid var(--border-subtle);
+  color: var(--text-muted);
+  font-size: var(--text-caption);
+  line-height: var(--leading-relaxed);
+}
+
+.tautan {
+  align-self: center;
+  color: var(--text-base);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+}
+
+.tautan:hover {
+  color: var(--text-strong);
+}

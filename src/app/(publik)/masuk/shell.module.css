@@ -1,0 +1,312 @@
+/* Halaman masuk dan daftar gaya V2: kolom aurora gelap di kiri, kartu formulir
+   di atas cream-mesh di kanan. Panelnya menjawab pertanyaan yang membuat orang
+   ragu mendaftar (siapa memegang uangnya), bukan hiasan pengisi ruang. */
+
+.shell {
+  display: grid;
+  min-height: calc(100dvh - var(--height-topbar));
+}
+
+/* Di bawah 1024px panel disembunyikan: di layar kecil formulir harus jadi hal
+   pertama yang terlihat. */
+.art {
+  display: none;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding: var(--space-10) var(--pad-page-x) var(--space-12);
+  background: var(--grad-cream-mesh);
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  padding: 36px 32px 32px;
+  overflow: hidden;
+  background: var(--bg-surface);
+  border: var(--border-width) solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  animation: sl-naik 560ms var(--ease-out) backwards;
+}
+
+/* Garis gradien brand di tepi atas kartu (auth-card V2). */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: var(--grad-brand);
+}
+
+.cardLebar {
+  max-width: 720px;
+}
+
+/* Isi kartu masuk berurutan sekali saat halaman dibuka. */
+.card > * > * {
+  animation: sl-naik 560ms var(--ease-out) backwards;
+}
+
+.card > * > :nth-child(2) {
+  animation-delay: 70ms;
+}
+
+.card > * > :nth-child(3) {
+  animation-delay: 140ms;
+}
+
+.card > * > :nth-child(n + 4) {
+  animation-delay: 210ms;
+}
+
+@media (max-width: 480px) {
+  .form {
+    padding-top: var(--space-8);
+    padding-inline: 12px;
+  }
+
+  .card {
+    padding: 28px 20px 24px;
+    border-radius: var(--radius-lg);
+  }
+}
+
+@media (min-width: 1024px) {
+  .shell {
+    grid-template-columns: minmax(360px, 0.92fr) minmax(0, 1.08fr);
+  }
+
+  .art {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 28px;
+    padding: 56px 48px 44px;
+    background: var(--grad-aurora);
+    color: var(--on-dark);
+  }
+
+  /* Dua bulatan cahaya yang melayang pelan (slOrbA/slOrbB V2). */
+  .art::before,
+  .art::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .art::before {
+    width: 360px;
+    height: 360px;
+    top: -110px;
+    right: -120px;
+    background: radial-gradient(circle, var(--aurora-1), transparent 66%);
+    animation: sl-melayang 15s ease-in-out infinite;
+  }
+
+  .art::after {
+    width: 240px;
+    height: 240px;
+    bottom: 60px;
+    left: -60px;
+    background: radial-gradient(circle, var(--aurora-3), transparent 70%);
+    animation: sl-melayang 19s ease-in-out infinite reverse;
+  }
+}
+
+.artIsi {
+  display: flex;
+  flex-direction: column;
+  max-width: 30rem;
+}
+
+.eyebrow {
+  margin-bottom: 14px;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--on-dark-muted);
+  animation: sl-naik 600ms var(--ease-out) backwards;
+}
+
+.artJudul {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-auth-judul);
+  font-weight: var(--weight-black);
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  color: var(--on-dark);
+  text-wrap: balance;
+  animation: sl-naik 600ms var(--ease-out) 80ms backwards;
+}
+
+/* Frasa aksen berkilau pelan (slTextShimmer V2) memakai warna spark logo. */
+.aksen {
+  background: linear-gradient(100deg, var(--spark) 0%, var(--on-dark) 50%, var(--spark) 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: sl-kilau-teks 5.5s linear infinite;
+}
+
+.artSub {
+  margin: 16px 0 0;
+  max-width: 40ch;
+  font-size: var(--text-body);
+  line-height: 1.6;
+  color: var(--on-dark-muted);
+  animation: sl-naik 600ms var(--ease-out) 160ms backwards;
+}
+
+.artPoin {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 26px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.artItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--on-dark);
+  animation: sl-naik 600ms var(--ease-out) backwards;
+  animation-delay: calc(240ms + var(--urutan, 0) * 80ms);
+}
+
+.artIkon {
+  width: 30px;
+  height: 30px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border: var(--border-width) solid var(--on-dark-line-strong);
+  border-radius: 9px;
+  background: var(--on-dark-fill-strong);
+  color: var(--spark);
+}
+
+/* Kartu kaca yang melayang: alur satu kontrak, bukan testimoni. */
+.alur {
+  padding: 16px 18px;
+  border: var(--border-width) solid var(--glass-border-dark);
+  border-radius: var(--radius-lg);
+  background: var(--glass-bg-dark);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  animation: sl-melayang 7s ease-in-out infinite;
+}
+
+.alurKepala {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  border-bottom: var(--border-width) solid var(--on-dark-line);
+}
+
+.alurJudul {
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-black);
+  color: var(--on-dark);
+}
+
+.alurStatus {
+  padding: 4px 10px;
+  border: var(--border-width) solid var(--on-dark-line-strong);
+  border-radius: var(--radius-pill);
+  background: var(--on-dark-fill);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-bold);
+  color: var(--on-dark);
+  white-space: nowrap;
+}
+
+.alurLangkah {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.alurItem {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  color: var(--on-dark-subtle);
+}
+
+.alurItem[data-keadaan="selesai"],
+.alurItem[data-keadaan="aktif"] {
+  color: var(--on-dark);
+}
+
+.alurTitik {
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: var(--border-width) solid var(--on-dark-line-strong);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-black);
+}
+
+.alurItem[data-keadaan="selesai"] .alurTitik {
+  background: var(--spark);
+  border-color: var(--spark);
+  color: var(--tinta);
+}
+
+.alurItem[data-keadaan="aktif"] .alurTitik {
+  border-color: var(--spark);
+  color: var(--spark);
+  --denyut-warna: var(--sorot);
+  animation: sl-denyut 2.1s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .card > * > *,
+  .eyebrow,
+  .artJudul,
+  .artSub,
+  .artItem,
+  .alur,
+  .alurItem[data-keadaan="aktif"] .alurTitik,
+  .art::before,
+  .art::after {
+    animation: none;
+  }
+
+  .aksen {
+    animation: none;
+    -webkit-text-fill-color: var(--spark);
+    background: none;
+    color: var(--spark);
+  }
+}

@@ -1,0 +1,108 @@
+/* Verify-banner gaya V2: ikon dalam chip, judul tebal, subjudul, dan tombol
+   aksi yang berwarna senada. */
+.banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  border: var(--border-width) solid;
+  border-radius: var(--radius-lg);
+  animation: sl-muncul 400ms var(--ease-out);
+}
+
+.warning {
+  background: var(--warning-soft);
+  border-color: var(--warning-border);
+  color: var(--warning-text);
+}
+
+.neutral {
+  background: var(--brand-soft);
+  border-color: var(--brand-soft-border);
+  color: var(--brand);
+}
+
+.danger {
+  background: var(--danger-soft);
+  border-color: var(--danger-border);
+  color: var(--danger-text);
+}
+
+.mark {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--bg-surface);
+  color: inherit;
+}
+
+.text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.title {
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-bold);
+  color: var(--text-strong);
+}
+
+.body {
+  font-size: var(--text-label);
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.action {
+  flex: none;
+  min-height: 38px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--radius-sm);
+  background: currentColor;
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
+  font-weight: var(--weight-bold);
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+/* Teks tombol memakai warna permukaan di atas isian currentColor. */
+.action {
+  -webkit-text-fill-color: var(--bg-surface);
+}
+
+.action:hover {
+  transform: translateY(-1px);
+}
+
+@media (max-width: 560px) {
+  .banner {
+    flex-wrap: wrap;
+  }
+
+  .action {
+    width: 100%;
+    justify-content: center;
+    min-height: var(--tap-min);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .banner {
+    animation: none;
+  }
+
+  .action:hover {
+    transform: none;
+  }
+}

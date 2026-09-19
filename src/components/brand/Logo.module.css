@@ -1,0 +1,28 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  color: var(--text-strong);
+}
+
+/* Di atas permukaan gelap permanen (hero, footer, panel masuk). */
+.ink {
+  color: var(--on-dark);
+}
+
+.mark {
+  display: block;
+  flex: none;
+}
+
+/* Wordmark gaya V2: huruf kecil, Manrope 800, spasi huruf rapat. Warna
+   mark tetap kayu dan terakota seperti logo sekarang. */
+.wordmark {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-black);
+  letter-spacing: -0.045em;
+  text-transform: lowercase;
+  line-height: 1.1;
+  white-space: nowrap;
+  color: inherit;
+}

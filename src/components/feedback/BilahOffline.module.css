@@ -1,0 +1,28 @@
+/* Menempel di bawah supaya tidak menutupi topbar dan judul halaman, dan tetap
+   di atas bottom nav di layar sempit. */
+.bilah {
+  position: fixed;
+  left: 50%;
+  bottom: calc(var(--height-bottomnav, 0px) + var(--space-4));
+  transform: translateX(-50%);
+  /* Setingkat toast: di atas isi halaman dan bottom nav, di bawah modal. */
+  z-index: 80;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  max-width: min(420px, calc(100vw - var(--space-6)));
+  padding: var(--space-3) var(--space-4);
+  border: var(--border-width) solid var(--warning-border);
+  border-radius: var(--radius-md);
+  background: var(--warning-soft);
+  color: var(--warning-text);
+  box-shadow: var(--shadow-lg);
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-relaxed);
+}
+
+.teks {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}

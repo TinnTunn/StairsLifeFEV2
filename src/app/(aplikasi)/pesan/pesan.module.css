@@ -1,0 +1,27 @@
+.cuplikan {
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 60ch;
+}
+
+.waktu {
+  font-size: var(--text-caption);
+  color: var(--text-subtle);
+}
+
+.lencana {
+  min-width: 22px;
+  height: 22px;
+  padding-inline: var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--brand);
+  color: var(--text-on-primary);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-bold);
+  line-height: 22px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}

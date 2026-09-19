@@ -1,0 +1,148 @@
+/* Formulir ubah profil gaya V2: bagian bernomor dalam kartu, pratinjau foto bulat. */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: 52rem;
+}
+
+.bagian {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  min-width: 0;
+  margin: 0;
+  padding: 22px 24px 24px;
+  background: var(--bg-surface);
+  border: var(--border-width) solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  animation: sl-naik 480ms var(--ease-out) backwards;
+}
+
+.bagian:nth-of-type(2) {
+  animation-delay: 60ms;
+}
+
+.bagian:nth-of-type(n + 3) {
+  animation-delay: 120ms;
+}
+
+.bagianJudul {
+  float: left;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: var(--space-2);
+  padding: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-black);
+  letter-spacing: -0.02em;
+  color: var(--text-strong);
+}
+
+.bagianIkon {
+  width: 36px;
+  height: 36px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: var(--brand-soft);
+  color: var(--brand);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.foto {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+}
+
+.fotoBingkai {
+  width: 88px;
+  height: 88px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  padding: 4px;
+  border-radius: 50%;
+  background: var(--bg-surface);
+  box-shadow: 0 0 0 2px var(--brand-soft-border), var(--shadow-md);
+  overflow: hidden;
+}
+
+.fotoPratinjau {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  animation: sl-pop 360ms var(--ease-spring);
+}
+
+.fotoTeks {
+  flex: 1;
+  min-width: min(220px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.fotoAksi {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+/* Bilah simpan melayang di bawah supaya tombol simpan selalu terjangkau di formulir panjang. */
+.kaki {
+  position: sticky;
+  bottom: 12px;
+  z-index: 2;
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  padding: 10px 12px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: var(--border-width) solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Di bawah 1024px ruang bawah dipakai bottom nav, jadi bilah simpan tidak
+   ikut melayang supaya tidak menutupi kolom di tengah layar. */
+@media (max-width: 1023px) {
+  .kaki {
+    position: static;
+    box-shadow: var(--shadow-card);
+  }
+}
+
+@media (max-width: 640px) {
+  .bagian {
+    padding: 18px;
+  }
+
+  .kaki > * {
+    flex: 1 1 auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bagian,
+  .fotoPratinjau {
+    animation: none;
+  }
+}

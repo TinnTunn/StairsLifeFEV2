@@ -1,0 +1,20 @@
+/* ============================================================
+   RADIUS — bahasa sudut lembut 8px. Tidak ada pill untuk tombol;
+   pill hanya untuk chip/tag, avatar, dan indikator bulat.
+   ============================================================ */
+
+:root {
+  --radius-xs: 4px;   /* checkbox, dot, badge kecil */
+  --radius-sm: 6px;   /* tag, chip persegi, sel highlight */
+  --radius-md: 8px;   /* tombol, input, select, kartu */
+  --radius-lg: 12px;  /* kartu besar, modal, panel */
+  --radius-xl: 16px;  /* sheet mobile, hero blok */
+  --radius-2xl: 24px; /* set-piece landing */
+  --radius-pill: 999px;
+  --radius-full: 50%;
+
+  --border-width: 1px;
+  --border-width-strong: 1.5px;
+  --focus-ring-width: 3px;
+  --focus-ring-offset: 2px;
+}

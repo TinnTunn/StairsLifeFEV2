@@ -1,0 +1,173 @@
+.kepala {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+.judul {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  font-weight: var(--weight-black);
+  letter-spacing: -0.02em;
+  line-height: var(--leading-tight);
+  color: var(--text-strong);
+  text-wrap: balance;
+}
+
+.meta {
+  margin: 0;
+  font-size: var(--text-body-sm);
+  color: var(--text-muted);
+}
+
+.langkah {
+  padding: var(--space-5);
+  background: var(--bg-surface);
+  border: var(--border-width) solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: var(--space-6);
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.kolom {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  min-width: 0;
+}
+
+.kartu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--pad-card);
+  background: var(--bg-surface);
+  border: var(--border-width) solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.kartu > * {
+  max-width: 100%;
+}
+
+.kartuJudul {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-body-lg);
+  font-weight: var(--weight-bold);
+  color: var(--text-strong);
+}
+
+.alasan {
+  margin: 0;
+  font-size: var(--text-body);
+  line-height: var(--leading-relaxed);
+  color: var(--text-base);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  max-width: 68ch;
+}
+
+.bukti {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.tambah {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-top: var(--space-4);
+  border-top: var(--border-width) solid var(--border-subtle);
+}
+
+.ok {
+  margin: 0;
+  font-size: var(--text-body-sm);
+  color: var(--success-text);
+}
+
+.menunggu,
+.hasil {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-relaxed);
+  width: 100%;
+}
+
+.menunggu {
+  background: var(--warning-soft);
+  color: var(--warning-text);
+}
+
+.hasil {
+  background: var(--success-soft);
+  color: var(--success-text);
+  font-weight: var(--weight-semibold);
+}
+
+.catatan {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-size: var(--text-body-sm);
+  color: var(--text-base);
+}
+
+.catatan p {
+  margin: 0;
+  line-height: var(--leading-relaxed);
+  white-space: pre-wrap;
+}
+
+.fakta {
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.fakta div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.fakta dt {
+  font-size: var(--text-body-sm);
+  color: var(--text-muted);
+}
+
+.fakta dd {
+  margin: 0;
+}
+
+.mediasi {
+  align-items: stretch;
+}

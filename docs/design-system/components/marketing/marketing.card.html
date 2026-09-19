@@ -1,0 +1,58 @@
+<!-- @dsCard group="Components" viewport="700x820" name="Marketing — HowItWorks, FeatureCarousel" subtitle="Dua komponen khusus landing & onboarding; layar aplikasi memakai Stepper, Tabs, dan FilterPanel" -->
+<!doctype html><html lang="id" data-theme="light"><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.js"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{padding:18px 20px;background:var(--bg-page)}
+.sec{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.k{font-size:var(--text-overline);letter-spacing:var(--tracking-overline);text-transform:uppercase;color:var(--text-subtle);font-weight:600}</style>
+</head><body><div id="root"></div>
+<script type="text/babel">
+const { HowItWorks, FeatureCarousel, Icon, Button, StatusBadge, Money } = window.StairsLifeDesignSystem_075594;
+
+function Demo() {
+  return (
+    <div>
+      <div className="sec">
+        <span className="k">HowItWorks · kartu bisa diklik, bilah menunjukkan sisa waktu</span>
+        <HowItWorks steps={[
+          { label: "Bisnis memposting", short: "Direview admin sebelum tayang", icon: <Icon name="FileText" size={21} />,
+            body: "Setiap lowongan diperiksa tim kami: nominal gaji harus jelas dan tidak boleh mengarahkan pelamar ke kontak di luar platform.",
+            note: "Biasanya tayang dalam 1 hari kerja." },
+          { label: "Kamu melamar", short: "Gratis, tanpa batas jumlah", icon: <Icon name="Send" size={21} />,
+            body: "Kirim surat lamaran dan CV. Bisnis melihat nama, jurusan, dan ratingmu — nomor teleponmu baru terbuka setelah kamu diterima." },
+          { label: "Dana ditahan escrow", short: "Bukan di tangan bisnis", icon: <Icon name="ShieldCheck" size={21} />,
+            body: "Begitu kontrak dimulai, bisnis menyetor ke escrow StairsLife. Tidak ada pihak yang bisa menariknya sampai hasil kerja disetujui.",
+            aside: <span style={{display:"flex",flexDirection:"column",gap:3,padding:"12px 14px",background:"var(--status-escrow-bg)",border:"1px solid var(--status-escrow-bd)",borderRadius:"var(--radius-md)",minWidth:150}}><span className="sl-overline" style={{color:"var(--status-escrow-fg)"}}>Ditahan</span><Money value={2500000} size="md" tone="held"/></span> },
+        ]} />
+      </div>
+
+      <div className="sec">
+        <span className="k">FeatureCarousel · semua kategori tetap terbaca sebagai chip</span>
+        <FeatureCarousel items={[
+          { id: "desain", label: "Desain grafis", icon: <Icon name="Palette" size={16} />, count: 18,
+            title: "Logo, brand kit, dan kemasan",
+            body: "Paling banyak dicari UMKM yang baru buka. Rata-rata proyek selesai dalam dua minggu.",
+            meta: [{ label: "Lowongan aktif", value: "18" }, { label: "Rata-rata gaji", value: "Rp 1.800.000" }],
+            action: <Button size="sm" style={{alignSelf:"flex-start",marginTop:4}}>Lihat lowongan desain</Button> },
+          { id: "sosmed", label: "Sosial media", icon: <Icon name="Instagram" size={16} />, count: 12,
+            title: "Konten harian dan kalender posting",
+            body: "Pekerjaan berulang dengan jam kerja fleksibel — cocok disambi kuliah.",
+            meta: [{ label: "Lowongan aktif", value: "12" }, { label: "Rata-rata gaji", value: "Rp 1.200.000" }] },
+          { id: "foto", label: "Fotografi", icon: <Icon name="Camera" size={16} />, count: 7,
+            title: "Foto produk dan katalog",
+            body: "Sering onsite di Malang dan sekitarnya. Peralatan biasanya disediakan bisnis.",
+            meta: [{ label: "Lowongan aktif", value: "7" }, { label: "Rata-rata gaji", value: "Rp 1.800.000" }] },
+          { id: "tulis", label: "Penulisan", icon: <Icon name="PenLine" size={16} />, count: 9,
+            title: "Artikel, caption, dan penerjemahan",
+            body: "Dibayar per artikel. Paling ramah untuk yang baru mulai freelance.",
+            meta: [{ label: "Lowongan aktif", value: "9" }, { label: "Rata-rata gaji", value: "Rp 50.000/artikel" }] },
+        ]} />
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<Demo/>);
+</script></body></html>

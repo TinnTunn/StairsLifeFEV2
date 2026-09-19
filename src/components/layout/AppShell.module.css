@@ -1,0 +1,309 @@
+/* App shell gaya V2: kanvas cream-mesh, topbar kaca yang lengket, sidebar
+   permukaan terangkat. */
+.shell {
+  display: flex;
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--bg-page);
+}
+
+.side {
+  height: 100%;
+  flex: none;
+}
+
+.scrim {
+  display: none;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--grad-cream-mesh);
+}
+
+.topbar {
+  flex: none;
+  min-height: var(--height-topbar);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-inline: var(--pad-page-x);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-bottom: var(--border-width) solid var(--border-subtle);
+  position: relative;
+  z-index: 5;
+}
+
+.titles {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-black);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--text-strong);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.subtitle {
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.topActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+}
+
+.slotAksi {
+  display: contents;
+}
+
+.topPrefs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding-left: 8px;
+  margin-left: 4px;
+  border-left: var(--border-width) solid var(--border-subtle);
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-8) var(--pad-page-x) var(--space-10);
+}
+
+.inner {
+  width: 100%;
+  /* --width-content (720px) adalah lebar kolom baca. Dashboard membawa grid
+     statistik dan tabel, jadi memakai lebar kontainer aplikasi. */
+  max-width: var(--width-container);
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* Isi halaman masuk berurutan (fade-up bertingkat seperti stat tile V2).
+   Fill-mode backwards supaya transform tidak tertahan dan hover lift di
+   kartu tetap berjalan. */
+.inner > * {
+  animation: sl-naik 480ms var(--ease-out) backwards;
+}
+
+.inner > :nth-child(2) {
+  animation-delay: 60ms;
+}
+
+.inner > :nth-child(3) {
+  animation-delay: 120ms;
+}
+
+.inner > :nth-child(4) {
+  animation-delay: 180ms;
+}
+
+.inner > :nth-child(n + 5) {
+  animation-delay: 240ms;
+}
+
+.menuButton,
+.brandMobile,
+.bottomNav,
+.prefs {
+  display: none;
+}
+
+.prefs {
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 6px 10px;
+}
+
+/* Di bawah 1024px sidebar menjadi drawer off-canvas, BUKAN display:none.
+   Rute seperti Dokumen dan Pengaturan hanya ada di sidebar; menyembunyikannya
+   membuat halaman itu tidak terjangkau di perangkat utama pengguna. */
+@media (max-width: 1023px) {
+  .menuButton,
+  .brandMobile {
+    display: inline-flex;
+  }
+
+  .bottomNav {
+    display: flex;
+  }
+
+  .side {
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 45;
+    width: 280px;
+    max-width: 86vw;
+    box-shadow: var(--shadow-xl);
+    transform: translateX(-100%);
+    visibility: hidden;
+    transition:
+      transform var(--duration-slow) var(--ease-out),
+      visibility 0s linear var(--duration-slow);
+  }
+
+  .side[data-open="true"] {
+    transform: translateX(0);
+    visibility: visible;
+    transition: transform var(--duration-slow) var(--ease-out);
+  }
+
+  .scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 44;
+    background: var(--bg-overlay);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--duration-base) var(--ease-out);
+    border: 0;
+  }
+
+  .scrim[data-open="true"] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .content {
+    padding-top: var(--space-6);
+    /* Ruang untuk bottom nav plus safe area, supaya isi terakhir tidak
+       tersembunyi di baliknya. */
+    padding-bottom: calc(var(--height-bottomnav) + env(safe-area-inset-bottom, 0px) + var(--space-8));
+  }
+}
+
+/* Topbar sempit: bahasa dan tema pindah ke drawer. */
+@media (max-width: 639px) {
+  .topPrefs {
+    display: none;
+  }
+
+  .prefs {
+    display: flex;
+  }
+
+  .title {
+    font-size: var(--text-body-lg);
+  }
+
+  .topbar {
+    gap: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inner > * {
+    animation: none;
+  }
+
+  .side,
+  .side[data-open="true"],
+  .scrim {
+    transition: none;
+  }
+}
+
+.userCard {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border-radius: var(--radius-md);
+  background: var(--bg-sunken);
+}
+
+.userText {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.userName {
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-bold);
+  color: var(--text-strong);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.userEmail {
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.logout {
+  display: inline-flex;
+  flex: none;
+  border-radius: var(--radius-sm);
+  transition: background-color var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
+}
+
+.logout:hover {
+  background: var(--danger-soft);
+  color: var(--danger-text);
+}
+
+/* Tautan merek tetap setinggi ambang sentuh walau glyph-nya kecil: area
+   diperbesar, bukan logonya. */
+.brandLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  text-decoration: none;
+}
+
+/* Aksi halaman: topbar di layar lebar, di atas isi di layar sempit. */
+.aksiLebar {
+  display: contents;
+}
+
+.aksiSempit {
+  display: none;
+}
+
+@media (max-width: 639px) {
+  .aksiLebar {
+    display: none;
+  }
+
+  .aksiSempit {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+}

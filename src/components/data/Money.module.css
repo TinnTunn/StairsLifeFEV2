@@ -1,0 +1,54 @@
+.wrap {
+  display: inline-flex;
+  flex-direction: row;
+}
+
+.withLabel {
+  flex-direction: column;
+  gap: 2px;
+}
+
+.label {
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+  font-weight: var(--weight-regular);
+  letter-spacing: 0;
+}
+
+/* sl-money membawa tabular-nums dari token tipografi, sehingga kolom rupiah
+   tetap rata walau digitnya berbeda lebar. */
+.value {
+  white-space: nowrap;
+}
+
+.sm {
+  font-size: var(--text-money-sm);
+}
+
+.md {
+  font-size: var(--text-money);
+}
+
+.lg {
+  font-size: var(--text-money-lg);
+}
+
+.toneDefault {
+  color: var(--text-strong);
+}
+
+.toneIn {
+  color: var(--money-in);
+}
+
+.toneOut {
+  color: var(--money-out);
+}
+
+.toneHeld {
+  color: var(--money-held);
+}
+
+.toneMuted {
+  color: var(--text-muted);
+}

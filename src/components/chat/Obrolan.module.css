@@ -1,0 +1,264 @@
+.obrolan {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--bg-surface);
+  border: var(--border-width) solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+/* Kepala percakapan menempel di kotaknya, bukan di topbar halaman: nama lawan
+   bicara adalah milik percakapan ini, sedangkan topbar menyebut bagian
+   aplikasinya. Dipisah jauh dari isinya, keduanya terasa tidak berhubungan. */
+.kepala {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: var(--border-width) solid var(--border-subtle);
+  background: var(--bg-surface);
+}
+
+.pembuka {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  background: var(--info-soft);
+  border-bottom: var(--border-width) solid var(--info-border);
+  color: var(--info-text);
+  font-size: var(--text-caption);
+  line-height: var(--leading-relaxed);
+}
+
+.pembuka [data-ikon] {
+  flex: none;
+  margin-top: 1px;
+}
+
+.daftar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  height: clamp(280px, 48dvh, 520px);
+  overflow-y: auto;
+  padding: var(--space-4);
+  background: var(--bg-sunken);
+  overscroll-behavior: contain;
+}
+
+.daftar:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+  outline-offset: calc(var(--focus-ring-width) * -1);
+}
+
+.status {
+  margin: auto;
+  max-width: 36ch;
+  text-align: center;
+  font-size: var(--text-body-sm);
+  color: var(--text-muted);
+}
+
+.kelompok {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.hari {
+  display: flex;
+  justify-content: center;
+  margin-block: var(--space-2);
+}
+
+.hari span {
+  padding: 2px var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--bg-surface);
+  border: var(--border-width) solid var(--border-subtle);
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+}
+
+.baris {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.baris[data-milikku="true"] {
+  justify-content: flex-end;
+}
+
+.gelembung {
+  max-width: min(78%, 560px);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md) var(--radius-md) var(--radius-md) var(--radius-xs);
+  background: var(--bg-surface);
+  border: var(--border-width) solid var(--border-subtle);
+  color: var(--text-base);
+}
+
+.baris[data-milikku="true"] .gelembung {
+  border-radius: var(--radius-md) var(--radius-md) var(--radius-xs) var(--radius-md);
+  background: var(--brand-soft);
+  border-color: var(--brand-soft-border);
+}
+
+.gelembung[data-admin="true"] {
+  background: var(--info-soft);
+  border-color: var(--info-border);
+}
+
+.gelembung[data-status="mengirim"] {
+  opacity: 0.7;
+}
+
+.gelembung[data-status="gagal"] {
+  border-color: var(--danger-border);
+}
+
+.pengirim {
+  font-size: var(--text-caption);
+  font-weight: var(--weight-bold);
+  color: var(--text-strong);
+}
+
+.isi {
+  margin: 0;
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-relaxed);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.waktu {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  align-self: flex-end;
+  font-size: var(--text-caption);
+  color: var(--text-subtle);
+}
+
+/* Satu centang: sampai di server. Dua centang: sudah dibuka lawan bicara.
+   Warnanya ikut berubah saat dibaca, supaya bedanya terlihat tanpa menghitung
+   jumlah centang. */
+.centang {
+  display: inline-flex;
+  color: var(--text-subtle);
+}
+
+.centang[data-dibaca="true"] {
+  color: var(--info-text);
+}
+
+.ulang {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  border: 0;
+  padding: 0;
+  background: transparent;
+  font: inherit;
+  color: var(--danger-text);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.komposer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border-top: var(--border-width) solid var(--border-subtle);
+  background: var(--bg-surface);
+}
+
+.masukan {
+  width: 100%;
+  min-height: 48px;
+  max-height: 160px;
+  resize: vertical;
+  padding: var(--space-3);
+  border: var(--border-width-strong) solid var(--border-default);
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
+  color: var(--text-base);
+  font: inherit;
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-normal);
+}
+
+.masukan:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 var(--focus-ring-width) var(--brand-glow);
+}
+
+.komposerKaki {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.petunjuk {
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+}
+
+.kirim {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--control-md);
+  padding-inline: var(--space-4);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--primary);
+  color: var(--text-on-primary);
+  font: inherit;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-bold);
+  cursor: pointer;
+  transition: var(--transition-color);
+}
+
+.kirim:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+.kirim:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.kirim:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 479px) {
+  .petunjuk {
+    display: none;
+  }
+
+  .komposerKaki {
+    justify-content: flex-end;
+  }
+}

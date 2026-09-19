@@ -1,0 +1,60 @@
+<!-- @dsCard group="Components" viewport="700x420" name="Data — Card, StatusBadge, Avatar, Rating, Money, Table" subtitle="Badge status escrow, nominal tabular, tabel kepadatan nyaman" -->
+<!doctype html><html lang="id"><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.js"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{padding:18px 20px;background:var(--bg-page)}.stack{display:flex;flex-direction:column;gap:14px}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.two{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;align-items:start}</style>
+</head><body><div id="root"></div>
+<script type="text/babel">
+const { Card, StatusBadge, Tag, Avatar, AvatarGroup, Rating, Money, DataTable, Pagination, Button, Icon } = window.StairsLifeDesignSystem_075594;
+function Demo(){return (
+<div className="stack">
+  <div className="row">
+    {["draft","aktif","menunggu_pembayaran","escrow_ditahan","dikerjakan","menunggu_review","selesai","sengketa","ditolak"].map(s=><StatusBadge key={s} status={s}/>)}
+  </div>
+  <div className="two">
+    <Card interactive footer={<><Button size="sm">Lamar proyek</Button><Button size="sm" variant="ghost">Simpan</Button></>}>
+      <div style={{display:"flex",justifyContent:"space-between",gap:12}}>
+        <h3 className="sl-h3" style={{margin:0}}>Desain logo &amp; brand kit untuk kedai kopi</h3>
+        <StatusBadge status="aktif" size="sm"/>
+      </div>
+      <div className="row" style={{gap:8}}><Avatar name="Kopi Senja Malang" shape="rounded" size="xs" verified/><span className="sl-body-sm" style={{color:"var(--text-muted)"}}>Kopi Senja Malang · 7 proyek selesai</span></div>
+      <Money value={2500000}/>
+      <div className="row" style={{gap:6}}><Tag>Logo</Tag><Tag>Branding</Tag><Tag>Illustrator</Tag></div>
+      <div className="row" style={{justifyContent:"space-between"}}>
+        <span className="sl-caption">Deadline 20 Sep 2026</span>
+        <div className="row" style={{gap:8}}><AvatarGroup size="xs" max={3} people={[{name:"Rani Pratiwi"},{name:"Dimas Ardi"},{name:"Sinta Halim"},{name:"Bagus W"}]}/><span className="sl-caption">12 pelamar</span></div>
+      </div>
+    </Card>
+    <div className="stack">
+      <Card padding="md"><Money value={4150000} size="lg" label="Saldo tersedia"/><Money value={2500000} size="sm" tone="held" label="Tertahan di escrow"/></Card>
+      <Card padding="md">
+        <div className="row" style={{gap:10}}>
+          <Avatar name="Rani Pratiwi" size="lg" verified/>
+          <div style={{display:"flex",flexDirection:"column",gap:2}}>
+            <b className="sl-body">Rani Pratiwi</b>
+            <span className="sl-caption">DKV · Universitas Brawijaya</span>
+            <Rating value={4.8} count={23} size="sm"/>
+          </div>
+        </div>
+      </Card>
+    </div>
+  </div>
+  <DataTable
+    columns={[
+      {key:"tanggal",header:"Tanggal",numeric:true,width:110},
+      {key:"proyek",header:"Proyek"},
+      {key:"status",header:"Status",render:r=><StatusBadge status={r.s} size="sm"/>},
+      {key:"nominal",header:"Nominal",numeric:true,render:r=><Money value={r.n} size="sm" tone={r.t} sign/>},
+    ]}
+    rows={[
+      {id:1,tanggal:"12 Sep 2026",proyek:"Logo & brand kit — Kopi Senja Malang",s:"escrow_ditahan",n:2500000,t:"held"},
+      {id:2,tanggal:"04 Sep 2026",proyek:"Ilustrasi menu — Warung Ibu Tri",s:"selesai",n:850000,t:"in"},
+      {id:3,tanggal:"28 Agu 2026",proyek:"Penarikan ke BCA ····7890",s:"selesai",n:-1200000,t:"out"},
+    ]}/>
+  <Pagination page={1} pageCount={9} total={86} perPage={10}/>
+</div>);}
+ReactDOM.createRoot(document.getElementById("root")).render(<Demo/>);
+</script></body></html>

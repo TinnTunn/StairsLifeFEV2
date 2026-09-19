@@ -1,0 +1,52 @@
+<!-- @dsCard group="Components" viewport="700x420" name="Navigation — Sidebar, BottomNav, Tabs, ContractStepper" subtitle="Navigasi peran, tab dalam halaman, dan progres escrow" -->
+<!doctype html><html lang="id"><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.js"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{padding:18px 20px;background:var(--bg-page)}.wrap{display:grid;grid-template-columns:248px 1fr 230px;gap:18px;align-items:start}.pane{display:flex;flex-direction:column;gap:16px}.frame{border:var(--border-width) solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden;background:var(--bg-surface)}</style>
+</head><body><div id="root"></div>
+<script type="text/babel">
+const { Sidebar, BottomNav, Tabs, ContractStepper, Icon, Button } = window.StairsLifeDesignSystem_075594;
+function Demo(){const [tab,setTab]=React.useState("semua");const [nav,setNav]=React.useState("cari");return (
+<div className="wrap">
+  <div className="frame" style={{height:360}}>
+    <Sidebar role="Mahasiswa" active="dompet" onNavigate={()=>{}} style={{height:"100%",borderRight:0}}
+      brand={<><img src="../../assets/logo-mark.svg" width="20" alt="" style={{filter:"none"}}/><b style={{fontFamily:"var(--font-display)",fontSize:15}}>StairsLife</b></>}
+      items={[
+        {value:"dashboard",label:"Dashboard",icon:<Icon name="LayoutDashboard" size={18}/>},
+        {value:"cari",label:"Cari proyek",icon:<Icon name="Search" size={18}/>},
+        {value:"lamaran",label:"Lamaran saya",icon:<Icon name="Send" size={18}/>,badge:3},
+        {section:"Keuangan"},
+        {value:"kontrak",label:"Kontrak",icon:<Icon name="FileText" size={18}/>},
+        {value:"dompet",label:"Dompet",icon:<Icon name="Wallet" size={18}/>},
+        {value:"sengketa",label:"Sengketa",icon:<Icon name="Scale" size={18}/>,badge:1,badgeTone:"danger"},
+      ]}/>
+  </div>
+  <div className="pane">
+    <Tabs items={[{value:"semua",label:"Semua",count:12},{value:"diseleksi",label:"Diseleksi",count:3},{value:"ditolak",label:"Ditolak"}]} value={tab} onChange={setTab}/>
+    <Tabs variant="pill" items={[{value:"masuk",label:"Dana masuk"},{value:"keluar",label:"Penarikan"}]} defaultValue="masuk"/>
+    <ContractStepper current={2} steps={[{label:"Kontrak",meta:"10 Sep"},{label:"Escrow",meta:"10 Sep"},{label:"Dikerjakan",meta:"Tenggat 20 Sep"},{label:"Serah terima"},{label:"Dana dilepas"}]}/>
+    <div className="frame" style={{maxWidth:320}}>
+      <BottomNav active={nav} onNavigate={setNav} items={[
+        {value:"beranda",label:"Beranda",icon:<Icon name="Home" size={21}/>},
+        {value:"cari",label:"Cari",icon:<Icon name="Search" size={21}/>},
+        {value:"kontrak",label:"Kontrak",icon:<Icon name="FileText" size={21}/>},
+        {value:"chat",label:"Chat",icon:<Icon name="MessageSquare" size={21}/>,badge:2},
+        {value:"dompet",label:"Dompet",icon:<Icon name="Wallet" size={21}/>},
+      ]}/>
+    </div>
+  </div>
+  <div className="frame" style={{padding:14}}>
+    <ContractStepper orientation="vertical" current={2} steps={[
+      {label:"Kontrak disepakati",meta:"10 Sep 2026"},
+      {label:"Dana masuk escrow",meta:"10 Sep 2026",description:"Rp 2.500.000 ditahan StairsLife."},
+      {label:"Sedang dikerjakan",meta:"Tenggat 20 Sep 2026"},
+      {label:"Serah terima hasil"},
+      {label:"Dana dilepas ke dompet"},
+    ]}/>
+  </div>
+</div>);}
+ReactDOM.createRoot(document.getElementById("root")).render(<Demo/>);
+</script></body></html>

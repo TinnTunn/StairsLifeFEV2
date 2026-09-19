@@ -1,0 +1,142 @@
+/* Halaman sistem (404, galat, rute yang belum dibangun) gaya V2: kanvas
+   cream-mesh, logo di pojok, kartu di tengah dengan angka besar bergradien. */
+.layar {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--grad-cream-mesh);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.layar::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 520px;
+  height: 520px;
+  top: -180px;
+  right: -160px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--sorot), transparent 66%);
+  animation: sl-melayang 16s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.atas {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  max-width: var(--width-container);
+  margin-inline: auto;
+  min-height: var(--height-topbar);
+  padding-inline: var(--pad-page-x);
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  text-decoration: none;
+}
+
+.pengaturan {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tengah {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding: var(--space-8) var(--pad-page-x) var(--space-12);
+}
+
+.kartu {
+  width: 100%;
+  max-width: 540px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 40px 32px 34px;
+  text-align: center;
+  background: var(--bg-surface);
+  border: var(--border-width) solid var(--border-subtle);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-xl);
+  animation: sl-pop 560ms var(--ease-spring) backwards;
+}
+
+.kode {
+  font-family: var(--font-display);
+  font-size: var(--text-kode);
+  font-weight: var(--weight-black);
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+  background: var(--grad-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.ikon {
+  width: 72px;
+  height: 72px;
+  display: grid;
+  place-items: center;
+  border-radius: 22px;
+  background: var(--brand-soft);
+  color: var(--brand);
+  animation: sl-melayang 6s ease-in-out infinite;
+}
+
+.judul {
+  margin: 6px 0 0;
+  font-family: var(--font-display);
+  font-size: var(--text-h1);
+  font-weight: var(--weight-black);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--text-strong);
+  text-wrap: balance;
+}
+
+.isi {
+  margin: 0;
+  max-width: 44ch;
+  font-size: var(--text-body);
+  line-height: var(--leading-relaxed);
+  color: var(--text-muted);
+}
+
+.aksi {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+@media (max-width: 480px) {
+  .kartu {
+    padding: 32px 20px 26px;
+    border-radius: var(--radius-xl);
+  }
+
+  .aksi > * {
+    flex: 1 1 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .layar::before,
+  .kartu,
+  .ikon {
+    animation: none;
+  }
+}

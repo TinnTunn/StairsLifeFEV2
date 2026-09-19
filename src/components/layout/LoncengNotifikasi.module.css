@@ -1,0 +1,267 @@
+.akar {
+  position: relative;
+  display: flex;
+}
+
+.tombol {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: var(--control-md);
+  height: var(--control-md);
+  border-radius: var(--radius-sm);
+  border: var(--border-width) solid transparent;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition-color);
+}
+
+.tombol:hover,
+.tombol[aria-expanded="true"] {
+  background: var(--bg-hover);
+  color: var(--text-strong);
+}
+
+.tombol:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.lencana {
+  position: absolute;
+  top: 6px;
+  right: 5px;
+  min-width: 18px;
+  height: 18px;
+  padding-inline: 5px;
+  border-radius: var(--radius-full);
+  background: var(--brand);
+  color: var(--text-on-primary);
+  font-size: var(--text-overline);
+  font-weight: var(--weight-bold);
+  line-height: 18px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  box-shadow: 0 0 0 2px var(--bg-surface);
+}
+
+.panel {
+  position: absolute;
+  top: calc(100% + var(--space-2));
+  right: 0;
+  z-index: 40;
+  width: min(380px, calc(100vw - var(--space-8)));
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-surface-raised);
+  border: var(--border-width) solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  animation: sl-pop 220ms var(--ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel {
+    animation: none;
+  }
+}
+
+/* Di layar sempit panel menempel ke tepi layar, bukan ke tombol, supaya tidak
+   terpotong di kiri. */
+@media (max-width: 639px) {
+  .akar {
+    position: static;
+  }
+
+  .panel {
+    position: fixed;
+    top: calc(var(--height-topbar) + var(--space-2));
+    left: var(--space-4);
+    right: var(--space-4);
+    width: auto;
+  }
+}
+
+.kepala {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-4) var(--space-3);
+  border-bottom: var(--border-width) solid var(--border-subtle);
+}
+
+.judul {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-body-lg);
+  font-weight: var(--weight-bold);
+  color: var(--text-strong);
+}
+
+.tautanKecil {
+  border: 0;
+  background: transparent;
+  padding: var(--space-2);
+  margin: calc(var(--space-2) * -1);
+  font: inherit;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  color: var(--text-link);
+  cursor: pointer;
+  border-radius: var(--radius-xs);
+}
+
+.tautanKecil:hover {
+  color: var(--text-link-hover);
+  text-decoration: underline;
+}
+
+.tautanKecil:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+}
+
+.status {
+  margin: 0;
+  padding: var(--space-6) var(--space-4);
+  font-size: var(--text-body-sm);
+  color: var(--text-muted);
+}
+
+.kosong {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-6) var(--space-4);
+  font-size: var(--text-body-sm);
+  color: var(--text-muted);
+}
+
+.kosong b {
+  color: var(--text-strong);
+}
+
+.daftar {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: min(60dvh, 420px);
+  overflow-y: auto;
+}
+
+.daftar li + li {
+  border-top: var(--border-width) solid var(--border-subtle);
+}
+
+.item {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 0;
+  background: transparent;
+  text-align: left;
+  font: inherit;
+  color: var(--text-base);
+  cursor: pointer;
+}
+
+.item:hover {
+  background: var(--bg-hover);
+}
+
+.item:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+  outline-offset: calc(var(--focus-ring-width) * -1);
+}
+
+.item[data-baru="true"] {
+  background: var(--brand-soft);
+}
+
+.item[data-baru="true"]:hover {
+  background: var(--brand-soft-hover);
+}
+
+.ikon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-sunken);
+  color: var(--text-muted);
+}
+
+.teks {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.itemJudul {
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--text-strong);
+}
+
+.itemIsi {
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.waktu {
+  font-size: var(--text-caption);
+  color: var(--text-subtle);
+}
+
+.titik {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  margin-top: 6px;
+  border-radius: var(--radius-full);
+  background: var(--brand);
+}
+
+.kaki {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  min-height: var(--control-md);
+  border-top: var(--border-width) solid var(--border-subtle);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--text-link);
+  text-decoration: none;
+}
+
+.kaki:hover {
+  background: var(--bg-hover);
+  color: var(--text-link-hover);
+}
+
+.kaki:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+  outline-offset: calc(var(--focus-ring-width) * -1);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

@@ -1,0 +1,599 @@
+/* ============ Pita statistik (stats-banner V2) ============ */
+.stats {
+  background: var(--brand);
+  border-bottom: var(--border-width) solid var(--brand-pressed);
+  padding: 40px var(--pad-page-x);
+  color: var(--text-on-primary);
+}
+
+.statsGrid {
+  max-width: var(--width-container);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px 20px;
+}
+
+.stat {
+  text-align: center;
+}
+
+.statVal {
+  font-family: var(--font-display);
+  font-size: var(--text-stat);
+  font-weight: var(--weight-black);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: proportional-nums;
+}
+
+.statLbl {
+  margin-top: 8px;
+  font-size: var(--text-label);
+  font-weight: var(--weight-medium);
+  opacity: 0.88;
+}
+
+@media (min-width: 768px) {
+  .statsGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* ============ Seksi umum ============ */
+.section {
+  width: 100%;
+  max-width: var(--width-container);
+  margin-inline: auto;
+  padding: 72px var(--pad-page-x);
+}
+
+.sectionCream {
+  background: var(--grad-cream-mesh);
+}
+
+.eyebrowBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  max-width: 45rem;
+  margin-bottom: 40px;
+}
+
+.centered {
+  align-items: center;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.eyebrow {
+  font-size: var(--text-overline);
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brand);
+}
+
+.h2 {
+  margin: 0;
+  font-size: var(--text-display-2);
+  font-weight: var(--weight-black);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  color: var(--text-strong);
+}
+
+.lead {
+  max-width: 35rem;
+  font-size: var(--text-body-lg);
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+/* ============ Bento ============ */
+.bento {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.b {
+  position: relative;
+  overflow: hidden;
+  grid-column: span 12;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 200px;
+  padding: 26px;
+  border-radius: var(--radius-2xl);
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .b:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+@media (min-width: 720px) {
+  .span6,
+  .span4 {
+    grid-column: span 6;
+  }
+}
+
+@media (min-width: 1000px) {
+  .span4 {
+    grid-column: span 4;
+  }
+}
+
+.brandSoft {
+  background: var(--brand-soft);
+  color: var(--brand);
+}
+
+.cream {
+  background: var(--bg-surface);
+  border: var(--border-width) solid var(--border-subtle);
+  color: var(--text-strong);
+  box-shadow: var(--shadow-card);
+}
+
+.tinta {
+  background: var(--tinta);
+  color: var(--on-dark);
+}
+
+.brand {
+  background: var(--brand);
+  color: var(--text-on-primary);
+}
+
+.num {
+  font-family: var(--font-display);
+  font-size: var(--text-bento-num);
+  font-weight: var(--weight-black);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.cream .num {
+  color: var(--warm);
+}
+
+.tinta .num {
+  color: var(--spark);
+}
+
+.bTitle {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-h2);
+  font-weight: var(--weight-black);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: inherit;
+}
+
+.bText {
+  margin: 0;
+  font-size: var(--text-body-sm);
+  line-height: 1.6;
+  color: inherit;
+  opacity: 0.86;
+}
+
+.cream .bText {
+  color: var(--text-muted);
+  opacity: 1;
+}
+
+.tinta .bText {
+  color: var(--on-dark-muted);
+  opacity: 1;
+}
+
+/* ============ Chip ikon fitur (feat-ico V2) ============ */
+.featIco {
+  width: 48px;
+  height: 48px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-md);
+  transition: transform var(--duration-base) var(--ease-spring);
+}
+
+.featIco[data-warna="brand"] {
+  background: var(--brand-soft);
+  color: var(--brand);
+}
+
+.featIco[data-warna="success"] {
+  background: var(--success-soft);
+  color: var(--success-text);
+}
+
+.featIco[data-warna="info"] {
+  background: var(--info-soft);
+  color: var(--info-text);
+}
+
+.featIco[data-warna="rating"] {
+  background: var(--rating-soft);
+  color: var(--rating-text);
+}
+
+.featIco[data-warna="warm"] {
+  background: var(--warm-soft);
+  color: var(--warm);
+}
+
+.featureTile:hover .featIco,
+.audCard:hover .featIco {
+  transform: translateY(-3px) rotate(-5deg);
+}
+
+/* ============ Untuk siapa (aud-switch V2) ============ */
+.audWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+.audToggle {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  width: min(100%, 440px);
+  padding: 4px;
+  border: var(--border-width) solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  background: var(--bg-sunken);
+}
+
+.audThumb {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc(50% - 6px);
+  border-radius: var(--radius-pill);
+  background: var(--bg-surface);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--duration-slow) var(--ease-spring);
+}
+
+.audToggle[data-aktif="bisnis"] .audThumb {
+  transform: translateX(calc(100% + 4px));
+}
+
+.audTab {
+  position: relative;
+  z-index: 1;
+  min-height: var(--tap-min);
+  padding: 0 12px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-bold);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.audTab[aria-selected="true"] {
+  color: var(--brand);
+}
+
+.audTab:hover:not([aria-selected="true"]) {
+  color: var(--text-strong);
+}
+
+.audTab:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.audPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  animation: sl-muncul 420ms var(--ease-out);
+}
+
+.audCards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.audCard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px;
+  border: var(--border-width) solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: var(--bg-surface);
+  box-shadow: var(--shadow-card);
+  animation: sl-pop 500ms var(--ease-out) backwards;
+  animation-delay: calc(var(--urutan, 0) * 70ms);
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .audCard:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.audCardTitle {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-body-lg);
+  font-weight: var(--weight-black);
+  letter-spacing: -0.01em;
+  color: var(--text-strong);
+}
+
+.audCardDesc {
+  font-size: var(--text-body-sm);
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+@media (min-width: 760px) {
+  .audCards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ============ Tentang kami ============ */
+.tentangGrid {
+  display: grid;
+  gap: 16px;
+  align-items: stretch;
+}
+
+@media (min-width: 900px) {
+  .tentangGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.kartuBesar {
+  display: flex;
+  flex-direction: column;
+  padding: 28px;
+  border: var(--border-width) solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: var(--bg-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.kartuJudul {
+  margin: 0 0 12px;
+  font-family: var(--font-sans);
+  font-size: var(--text-body-lg);
+  font-weight: var(--weight-black);
+  color: var(--text-strong);
+}
+
+.kartuTeks {
+  margin-bottom: 18px;
+  font-size: var(--text-body-sm);
+  line-height: 1.75;
+  color: var(--text-muted);
+}
+
+.linimasa,
+.nilai {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.linimasaItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px;
+  border: var(--border-width) solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--bg-page);
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.linimasaItem:hover {
+  transform: translateX(3px);
+}
+
+.pill {
+  flex: none;
+  padding: 4px 11px;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-bold);
+  white-space: nowrap;
+}
+
+.pill[data-warna="success"] {
+  background: var(--success-soft);
+  color: var(--success-text);
+}
+
+.pill[data-warna="warning"] {
+  background: var(--warning-soft);
+  color: var(--warning-text);
+}
+
+.pill[data-warna="brand"] {
+  background: var(--brand-soft);
+  color: var(--brand);
+}
+
+.linimasaJudul {
+  margin-bottom: 2px;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-bold);
+  color: var(--text-strong);
+}
+
+.linimasaTeks {
+  font-size: var(--text-label);
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.nilaiItem {
+  display: flex;
+  gap: 12px;
+  padding: 6px 0;
+}
+
+.nilaiIkon {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--brand-soft);
+  color: var(--brand);
+}
+
+.nilaiGambar {
+  display: block;
+  width: 26px;
+  height: 26px;
+  transition: transform var(--duration-base) var(--ease-spring);
+}
+
+.nilaiItem:hover .nilaiGambar {
+  transform: translateY(-2px) scale(1.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nilaiItem:hover .nilaiGambar {
+    transform: none;
+  }
+}
+
+.garis {
+  height: 1px;
+  margin: 18px 0;
+  background: var(--border-subtle);
+}
+
+.tentangAksi {
+  display: grid;
+  gap: 10px;
+  margin-top: auto;
+}
+
+/* ============ CTA aurora ============ */
+.cta {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--grad-aurora);
+  color: var(--on-dark);
+  padding: 72px var(--pad-page-x);
+  text-align: center;
+}
+
+.ctaInner {
+  position: relative;
+  z-index: 1;
+  max-width: 45rem;
+  margin-inline: auto;
+}
+
+.ctaTitle {
+  margin: 0 0 14px;
+  font-size: var(--text-display-2);
+  font-weight: var(--weight-black);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--on-dark);
+}
+
+.ctaDesc {
+  max-width: 33rem;
+  margin: 0 auto 28px;
+  font-size: var(--text-body-lg);
+  line-height: 1.6;
+  color: var(--on-dark-muted);
+}
+
+.ctaActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+@media (max-width: 479px) {
+  .section {
+    padding-block: 56px;
+  }
+
+  .b,
+  .kartuBesar {
+    padding: 22px;
+  }
+
+  .ctaActions > * {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .b,
+  .audCard,
+  .audPanel,
+  .audThumb,
+  .linimasaItem,
+  .featIco {
+    animation: none;
+    transition: none;
+  }
+
+  .b:hover,
+  .audCard:hover,
+  .linimasaItem:hover {
+    transform: none;
+  }
+}
+
+/* Tautan header (/#cara-kerja, /#fitur, /#tentang) mendarat di bawah header
+   yang lengket, bukan di belakangnya. */
+.section[id],
+.sectionCream[id] {
+  scroll-margin-top: var(--height-topbar);
+}

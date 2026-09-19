@@ -1,0 +1,191 @@
+/* Tombol gaya V2: radius sedang, tebal 600 sampai 700, naik 1px saat hover,
+   bayangan brand pada tombol utama, kilau menyapu saat hover, dan tekan yang
+   sedikit mengecil. */
+.btn {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-weight: var(--weight-bold);
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    transform var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.btn:not(:disabled):not([aria-disabled="true"]):hover {
+  transform: translateY(-1px);
+}
+
+.btn:not(:disabled):not([aria-disabled="true"]):active {
+  transform: translateY(0) scale(0.975);
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* ---------- Ukuran ---------- */
+.sm {
+  height: 38px;
+  padding: 0 14px;
+  font-size: var(--text-label);
+  gap: 6px;
+}
+
+.md {
+  height: var(--control-md);
+  min-width: var(--tap-min);
+  padding: 0 18px;
+  font-size: var(--text-body-sm);
+  gap: 7px;
+}
+
+.lg {
+  height: var(--control-lg);
+  min-width: var(--tap-min);
+  padding: 0 24px;
+  font-size: var(--text-body);
+  border-radius: var(--radius-md);
+  gap: 8px;
+}
+
+.xl {
+  height: 56px;
+  min-width: var(--tap-min);
+  padding: 0 30px;
+  font-size: var(--text-body-lg);
+  border-radius: var(--radius-md);
+  gap: 10px;
+}
+
+.fullWidth {
+  display: flex;
+  width: 100%;
+}
+
+/* ---------- Varian ---------- */
+.primary {
+  background: var(--brand);
+  color: var(--text-on-primary);
+}
+
+.primary:not(:disabled):not([aria-disabled="true"]):hover {
+  background: var(--brand-hover);
+  box-shadow: var(--shadow-brand);
+}
+
+/* Kilau menyapu sekali setiap hover, seperti tombol utama V2. */
+.primary::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -130%;
+  width: 55%;
+  background: linear-gradient(100deg, transparent, var(--kilau), transparent);
+  transform: skewX(-18deg);
+  pointer-events: none;
+}
+
+.primary:not(:disabled):not([aria-disabled="true"]):hover::after {
+  animation: sl-kilau 850ms var(--ease-out);
+}
+
+.secondary {
+  background: var(--brand-soft);
+  color: var(--brand);
+  border-color: var(--brand-soft-border);
+}
+
+.secondary:not(:disabled):not([aria-disabled="true"]):hover {
+  background: var(--brand-soft-hover);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--text-muted);
+  border-color: var(--border-default);
+}
+
+.ghost:not(:disabled):not([aria-disabled="true"]):hover {
+  background: var(--bg-sunken);
+  color: var(--text-strong);
+  border-color: var(--border-strong);
+}
+
+.destructive {
+  background: var(--danger);
+  color: var(--text-on-danger);
+}
+
+.destructive:not(:disabled):not([aria-disabled="true"]):hover {
+  background: var(--danger-hover);
+  box-shadow: var(--shadow-md);
+}
+
+/* Di atas hero, CTA banner, dan panel gelap. */
+.white {
+  background: var(--on-dark);
+  color: var(--tinta);
+}
+
+.white:not(:disabled):not([aria-disabled="true"]):hover {
+  background: var(--sand-50);
+  box-shadow: var(--shadow-lg);
+}
+
+.outlineWhite {
+  background: transparent;
+  color: var(--on-dark);
+  border-color: var(--on-dark-line-strong);
+}
+
+.outlineWhite:not(:disabled):not([aria-disabled="true"]):hover {
+  background: var(--on-dark-fill);
+  border-color: var(--on-dark-muted);
+}
+
+.spinner {
+  flex: none;
+  display: block;
+  border-radius: var(--radius-full);
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  animation: sl-spin 620ms linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primary:not(:disabled):not([aria-disabled="true"]):hover::after {
+    animation: none;
+  }
+
+  /* Spinner adalah tanda proses berjalan, bukan hiasan: tetap berputar,
+     hanya lebih pelan. */
+  .spinner {
+    animation-duration: 1.8s;
+  }
+
+  .btn:not(:disabled):not([aria-disabled="true"]):hover,
+  .btn:not(:disabled):not([aria-disabled="true"]):active {
+    transform: none;
+  }
+}

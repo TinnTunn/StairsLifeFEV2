@@ -1,0 +1,177 @@
+/* Bilah saring proyek: kolom pencarian yang mengembang, lalu chip tingkat.
+
+   Satu baris di semua lebar. Kolomnya melebar dari lingkaran ikon, dan chip di
+   sebelahnya bergeser mengikuti lebar itu dalam durasi yang sama, jadi yang
+   terlihat satu gerakan, bukan dua animasi yang kebetulan bersamaan. */
+.bilah {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.cari {
+  display: flex;
+  align-items: center;
+  flex: none;
+  width: var(--control-sm);
+  height: var(--control-sm);
+  background: var(--bg-surface);
+  border: var(--border-width) solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  transition:
+    width var(--duration-slow) var(--ease-spring),
+    border-color var(--duration-fast) var(--ease-out);
+}
+
+.cari:hover {
+  border-color: var(--brand-soft-border);
+}
+
+/* Cincin fokus sama seperti kolom isian lain: garis tepi yang berubah warna
+   saja tidak cukup, karena saat terbuka tepinya memang sudah oranye. */
+.cari:focus-within {
+  box-shadow: 0 0 0 1px var(--brand), 0 0 0 4px var(--brand-glow);
+}
+
+/* Bingkainya memotong isinya, jadi cincin fokus tombol digambar ke dalam
+   supaya tidak terpotong tepi kapsul. */
+.tombolIkon:focus-visible,
+.tombolTutup:focus-visible {
+  outline-offset: calc(-1 * var(--focus-ring-width));
+}
+
+.bilah[data-buka="true"] .cari {
+  width: min(340px, 100%);
+  border-color: var(--brand);
+}
+
+/* Lingkaran ikon: saat terlipat tugasnya membuka kolom, saat terbuka mengirim
+   pencarian. Ukurannya mengisi bingkai supaya sasaran tekannya tetap penuh. */
+.tombolIkon,
+.tombolTutup {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: calc(var(--control-sm) - 2 * var(--border-width));
+  height: calc(var(--control-sm) - 2 * var(--border-width));
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.tombolIkon:hover,
+.tombolTutup:hover {
+  color: var(--brand);
+}
+
+.masukan {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: none;
+  color: var(--text-strong);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+}
+
+.masukan::placeholder {
+  color: var(--text-muted);
+}
+
+.masukan:focus {
+  outline: none;
+}
+
+/* Tombol hapus bawaan peramban dimatikan: tombol tutup di kanan sudah
+   mengerjakan itu sekaligus melipat kolomnya. */
+.masukan::-webkit-search-cancel-button {
+  display: none;
+}
+
+/* Isi kolom baru muncul setelah bingkainya melebar, bukan bersamaan: teks yang
+   ikut melar dari nol terbaca seperti kesalahan render. */
+.masukan,
+.tombolTutup {
+  opacity: 0;
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.bilah[data-buka="true"] .masukan,
+.bilah[data-buka="true"] .tombolTutup {
+  opacity: 1;
+  transition-delay: 120ms;
+}
+
+.bilah[data-buka="true"] .tombolTutup {
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    opacity var(--duration-fast) var(--ease-out) 120ms;
+}
+
+/* Chip menggulir mendatar kalau ruangnya menyempit, tidak membungkus jadi tiga
+   baris yang mendorong kartu ke bawah. Lebar minimumnya membuat chip pindah ke
+   baris berikutnya di layar sempit alih-alih tergencet jadi nol. */
+.chips {
+  display: flex;
+  gap: var(--space-2);
+  /* Basis tetap, bukan auto: keputusan membungkus jadi mengikuti ruang yang
+     benar-benar dipakai kolom pencarian, bukan panjang teks chip yang berbeda
+     antara bahasa Indonesia dan Inggris. Saat kolomnya terlipat semuanya muat
+     satu baris; saat melebar di layar sempit, chip pindah ke baris berikutnya
+     utuh, bukan tergencet. */
+  flex: 1 1 200px;
+  min-width: 0;
+  overflow-x: auto;
+  padding-block: var(--space-1);
+  scrollbar-width: none;
+}
+
+.chips::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  flex: none;
+  min-height: var(--control-sm);
+  padding: 0 var(--space-4);
+  border: var(--border-width) solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  background: var(--bg-surface);
+  color: var(--text-base);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    background var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out),
+    transform var(--duration-slow) var(--ease-spring);
+}
+
+/* Geseran chip sudah dikerjakan tata letak saat kolomnya melebar. Dorongan
+   kecil bertingkat ini yang membuat barisnya terbaca seperti didorong, bukan
+   seperti satu balok kaku yang pindah. */
+.bilah[data-buka="true"] .chip {
+  transform: translateX(calc(var(--urutan, 0) * 2px));
+  transition-delay: calc(var(--urutan, 0) * 40ms);
+}
+
+.chip:hover {
+  border-color: var(--brand-soft-border);
+  color: var(--text-strong);
+}
+
+.chip[data-aktif="true"] {
+  background: var(--brand-soft);
+  border-color: var(--brand-soft-border);
+  color: var(--brand);
+  font-weight: var(--weight-semibold);
+}

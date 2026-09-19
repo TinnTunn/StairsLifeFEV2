@@ -1,0 +1,70 @@
+<!-- @dsCard group="Publik" viewport="1280x760" name="Publik — P1 sampai P12" subtitle="Landing, registrasi, login, pilih peran, verifikasi email, reset password, halaman statis, error" -->
+<!doctype html><html lang="id" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>StairsLife — Halaman publik</title>
+<link rel="stylesheet" href="../../styles.css">
+<link rel="icon" href="../../assets/logo-mark-wood.svg">
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.js"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;background:var(--bg-page)}
+#pilih{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:200;display:flex;gap:4px;padding:5px;background:var(--bg-surface);border:1px solid var(--border-default);border-radius:var(--radius-pill);box-shadow:var(--shadow-lg);max-width:calc(100vw - 24px);overflow-x:auto}
+#pilih button{min-height:32px;padding:0 12px;border:0;background:transparent;color:var(--text-muted);border-radius:var(--radius-pill);font-family:var(--font-sans);font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap}
+#pilih button[aria-pressed=true]{background:var(--primary-soft);color:var(--primary-text);font-weight:600}
+</style>
+</head><body><div id="root"></div>
+<script type="text/babel" src="ScreenLanding.jsx"></script>
+<script type="text/babel" src="ScreenRegister.jsx"></script>
+<script type="text/babel" src="ScreenAuth.jsx"></script>
+<script type="text/babel" src="ScreenStatik.jsx"></script>
+<script type="text/babel">
+const { Toast, ToastStack } = window.StairsLifeDesignSystem_075594;
+const LAYAR = [
+  ["landing", "P1 Landing"], ["daftar", "P7 Registrasi"], ["login", "P5 Masuk"],
+  ["peran", "P6 Pilih peran"], ["email", "P9 Verifikasi email"], ["lupa", "P10 Lupa password"],
+  ["reset", "P10 Reset"], ["statik", "P11 Statis"], ["e404", "404"], ["e403", "403"], ["e500", "500"],
+];
+
+function Site() {
+  const [layar, setLayar] = React.useState("landing");
+  const [toasts, setToasts] = React.useState([]);
+  const notify = (t) => {
+    const id = Date.now();
+    setToasts((v) => [...v, { ...t, id }]);
+    setTimeout(() => setToasts((v) => v.filter((x) => x.id !== id)), 4200);
+  };
+  const go = setLayar;
+
+  // Peta thunk, bukan peta elemen — lihat catatan di AppShell.jsx:
+  // berkas Babel tiba tak berurutan, jadi peta elemen memanggil
+  // createElement untuk layar yang globalnya belum ada.
+  const LAYAR_ISI = {
+    landing: () => <ScreenLanding onDaftar={() => go("daftar")} />,
+    daftar: () => <ScreenRegister onSelesai={() => go("landing")} />,
+    login: () => <AuthLogin notify={notify} go={go} />,
+    peran: () => <AuthPeran notify={notify} go={go} />,
+    email: () => <AuthEmail notify={notify} go={go} />,
+    lupa: () => <AuthLupa notify={notify} go={go} />,
+    reset: () => <AuthReset notify={notify} go={go} />,
+    statik: () => <StatikHalaman go={go} />,
+    e404: () => <ErrorHalaman kode="e404" go={go} />,
+    e403: () => <ErrorHalaman kode="e403" go={go} />,
+    e500: () => <ErrorHalaman kode="e500" go={go} />,
+  };
+  const buat = LAYAR_ISI[layar];
+  const isi = buat ? buat() : null;
+
+  return (
+    <>
+      {isi}
+      <div id="pilih" role="group" aria-label="Pilih halaman">
+        {LAYAR.map(([v, l]) => (
+          <button key={v} type="button" aria-pressed={layar === v} onClick={() => go(v)}>{l}</button>
+        ))}
+      </div>
+      <ToastStack>{toasts.map((t) => <Toast key={t.id} tone={t.tone} title={t.title} description={t.description} onClose={() => setToasts((v) => v.filter((x) => x.id !== t.id))} />)}</ToastStack>
+    </>
+  );
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<Site/>);
+</script></body></html>

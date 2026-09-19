@@ -1,0 +1,157 @@
+/* Checkbox, Radio, dan Switch memakai input asli yang disembunyikan secara
+   visual, bukan dihapus dari pohon aksesibilitas. Kotak yang terlihat adalah
+   saudara input, sehingga :checked dan :focus-visible bisa dibaca dari CSS. */
+
+.row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  min-height: var(--tap-min);
+  padding: 6px 0;
+  cursor: pointer;
+}
+
+.rowWithDescription {
+  align-items: flex-start;
+}
+
+.rowDisabled {
+  cursor: not-allowed;
+}
+
+.box {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border: var(--border-width-strong) solid var(--border-strong);
+  border-radius: var(--radius-xs);
+  background: var(--bg-surface);
+  color: var(--text-on-primary);
+  transition: var(--transition-color), box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.boxRadio {
+  border-radius: var(--radius-full);
+}
+
+.input:checked ~ .box,
+.input:indeterminate ~ .box {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+/* Tanpa aturan ini kotak tidak menunjukkan apa pun saat dijelajah keyboard,
+   karena input aslinya disembunyikan secara visual. */
+.input:focus-visible ~ .box {
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.input:disabled ~ .box {
+  opacity: 0.5;
+}
+
+.mark {
+  display: none;
+}
+
+.input:checked ~ .box .mark {
+  display: block;
+}
+
+.input:indeterminate ~ .box .mark {
+  display: none;
+}
+
+.dash {
+  display: none;
+  width: 10px;
+  height: 2px;
+  border-radius: 1px;
+  background: currentColor;
+}
+
+.input:indeterminate ~ .box .dash {
+  display: block;
+}
+
+.dot {
+  display: none;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: currentColor;
+}
+
+.input:checked ~ .boxRadio .dot {
+  display: block;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.input:disabled ~ .text {
+  opacity: 0.6;
+}
+
+.title {
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  color: var(--text-strong);
+}
+
+.description {
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+}
+
+.boxOffset {
+  margin-top: 2px;
+}
+
+/* Switch: dipakai untuk pengaturan yang berlaku seketika. Pilihan yang baru
+   berlaku setelah Simpan tetap memakai Checkbox. */
+.track {
+  width: 40px;
+  height: 22px;
+  flex: none;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  border: var(--border-width) solid var(--border-strong);
+  border-radius: var(--radius-full);
+  background: var(--bg-sunken);
+  transition: var(--transition-color);
+}
+
+.input:checked ~ .track {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.input:focus-visible ~ .track {
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.input:disabled ~ .track {
+  opacity: 0.5;
+}
+
+.knob {
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-full);
+  background: var(--text-muted);
+  transition: transform var(--duration-fast) var(--ease-out), background-color var(--duration-fast) var(--ease-out);
+}
+
+.input:checked ~ .track .knob {
+  transform: translateX(18px);
+  background: var(--text-on-primary);
+}

@@ -1,0 +1,14 @@
+/* dvh, bukan vh: 100vh menghitung chrome browser sehingga meluber di HP. */
+.shell {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* overflow-x: clip, bukan hidden: elemen reveal yang masih tergeser ke
+   samping tidak boleh memunculkan scroll horizontal, tapi main tidak boleh
+   jadi kontainer scroll karena itu mematikan position: sticky di dalamnya. */
+.main {
+  flex: 1;
+  overflow-x: clip;
+}

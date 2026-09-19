@@ -1,0 +1,6 @@
+/* Font dimuat lewat next/font/google di src/app/layout.tsx, bukan dari sini.
+   next/font meng-self-host binary-nya saat build, jadi tidak ada permintaan ke
+   server pihak ketiga dan tidak ada pergeseran layout saat font tiba.
+
+   Berkas ini sengaja dibiarkan kosong agar rantai @import di styles.css tetap
+   sama persis dengan design system sumber. */

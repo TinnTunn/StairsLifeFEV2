@@ -1,0 +1,378 @@
+/* ============ Hero aurora gaya V2, warna logo ============ */
+.hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--grad-aurora);
+  color: var(--on-dark);
+  padding: 64px 0;
+}
+
+/* Cahaya aurora yang bergeser pelan di belakang konten (V2 sl-hero-drift). */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: -25%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(38% 38% at 22% 28%, var(--aurora-1) 0%, transparent 60%),
+    radial-gradient(34% 34% at 78% 62%, var(--aurora-2) 0%, transparent 62%);
+  filter: blur(8px);
+  animation: sl-aurora 16s ease-in-out infinite alternate;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: var(--noise);
+  mix-blend-mode: overlay;
+  opacity: 0.5;
+}
+
+.orb {
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  filter: blur(6px);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.orbKiri {
+  width: 290px;
+  height: 290px;
+  top: 6%;
+  left: -58px;
+  background: radial-gradient(circle, var(--aurora-2) 0%, transparent 70%);
+}
+
+.orbKanan {
+  width: 210px;
+  height: 210px;
+  bottom: 8%;
+  right: 3%;
+  background: radial-gradient(circle, var(--aurora-3) 0%, transparent 70%);
+}
+
+.inner {
+  width: 100%;
+  max-width: var(--width-container);
+  margin-inline: auto;
+  padding-inline: var(--pad-page-x);
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.teks {
+  flex: 1.1;
+  min-width: 0;
+}
+
+/* Masuk berurutan saat halaman dibuka (anim-up V2). */
+.masuk {
+  animation: sl-naik 600ms var(--ease-out) backwards;
+}
+
+.masuk1 {
+  animation-delay: 80ms;
+}
+
+.masuk2 {
+  animation-delay: 160ms;
+}
+
+.masuk3 {
+  animation-delay: 240ms;
+}
+
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding: 7px 15px;
+  border: var(--border-width) solid var(--on-dark-line-strong);
+  border-radius: var(--radius-pill);
+  background: var(--on-dark-fill);
+  backdrop-filter: saturate(160%) blur(8px);
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  color: var(--on-dark);
+}
+
+.judul {
+  margin: 0 0 20px;
+  font-size: var(--text-display-1);
+  font-weight: var(--weight-black);
+  line-height: 1.04;
+  letter-spacing: var(--tracking-display);
+  color: var(--on-dark);
+}
+
+.aksen {
+  position: relative;
+  display: inline-block;
+  z-index: 0;
+  color: var(--spark);
+}
+
+/* Bar sorot di belakang frasa kedua, tumbuh dari kiri (slUnderline V2). */
+.aksen::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.04em;
+  height: 0.16em;
+  z-index: -1;
+  border-radius: 6px;
+  background: var(--sorot);
+  transform-origin: left center;
+  animation: sl-garis 900ms var(--ease-out) 550ms backwards;
+}
+
+.deskripsi {
+  max-width: 34rem;
+  margin: 0 0 28px;
+  font-size: var(--text-body-lg);
+  line-height: 1.7;
+  color: var(--on-dark-muted);
+}
+
+.aksi {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.kartuKolom {
+  flex: 0.9;
+  display: flex;
+  justify-content: center;
+  animation: sl-pop 700ms var(--ease-out) 300ms backwards;
+}
+
+/* ---------- Kartu kaca ---------- */
+.stage {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  max-width: 460px;
+  transform: perspective(900px) rotateX(var(--miring-x, 0deg)) rotateY(var(--miring-y, 0deg));
+  transform-style: preserve-3d;
+  transition: transform 200ms var(--ease-out);
+}
+
+/* Halo cahaya yang berputar di belakang kartu (sl-orbit V2). */
+.halo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: -1;
+  width: 110%;
+  aspect-ratio: 1;
+  border-radius: 46%;
+  background: conic-gradient(from 0deg, var(--halo-1), var(--halo-2), var(--halo-3), var(--halo-2), var(--halo-1));
+  filter: blur(36px);
+  opacity: 0.55;
+  pointer-events: none;
+  animation: sl-orbit 9s linear infinite;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 22px;
+  border: var(--border-width) solid var(--glass-border-dark);
+  border-radius: var(--radius-xl);
+  background: var(--glass-bg-dark);
+  backdrop-filter: saturate(160%) blur(20px);
+  -webkit-backdrop-filter: saturate(160%) blur(20px);
+  box-shadow: var(--shadow-hero-card);
+  animation: sl-melayang 7.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+.cardHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.tier {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 11px;
+  border-radius: var(--radius-pill);
+  background: var(--tier-bg);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-bold);
+  color: var(--ink-success);
+}
+
+.cardMeta {
+  font-size: var(--text-caption);
+  color: var(--on-dark-subtle);
+}
+
+.cardTitle {
+  margin: 0 0 12px;
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-bold);
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--on-dark);
+}
+
+.cardLink {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cardLink::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-xl);
+}
+
+.cardLink:focus-visible {
+  outline: none;
+}
+
+.card:has(.cardLink:focus-visible) {
+  outline: var(--focus-ring-width) solid var(--spark);
+  outline-offset: 4px;
+}
+
+.company {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  font-size: var(--text-body-sm);
+  color: var(--on-dark-muted);
+}
+
+.inisial {
+  width: 24px;
+  height: 24px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--brand-soft);
+  color: var(--brand);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-bold);
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.skill {
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--on-dark-fill-strong);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  color: var(--on-dark);
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.card:hover .skill {
+  transform: translateY(-2px);
+}
+
+/* Pil anggaran dengan kilau yang menyapu berkala (sl-sweep V2). */
+.budget {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 13px;
+  border-radius: var(--radius-sm);
+  background: var(--budget-bg);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-bold);
+  font-variant-numeric: tabular-nums;
+  color: var(--on-dark);
+}
+
+.budget [data-ikon] {
+  flex: none;
+  color: var(--spark);
+}
+
+.budget::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 32%, var(--kilau) 50%, transparent 68%);
+  transform: translateX(-120%);
+  animation: sl-sapu 5s ease-in-out 1.2s infinite;
+}
+
+.cardLabel {
+  margin-top: 14px;
+  font-size: var(--text-overline);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--on-dark-subtle);
+}
+
+@media (min-width: 768px) {
+  .hero {
+    padding: 80px 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    padding: 96px 0;
+  }
+
+  .inner {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero::before,
+  .masuk,
+  .aksen::after,
+  .kartuKolom,
+  .halo,
+  .card,
+  .budget::after {
+    animation: none;
+  }
+
+  .orb {
+    display: none;
+  }
+
+  .stage,
+  .card:hover .skill {
+    transform: none;
+  }
+}

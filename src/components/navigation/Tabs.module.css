@@ -1,0 +1,119 @@
+.tablist {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: 2px;
+  border-bottom: var(--border-width) solid var(--border-subtle);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.pill {
+  gap: 4px;
+  padding: 4px;
+  background: var(--bg-sunken);
+  border-bottom: 0;
+  border-radius: var(--radius-md);
+}
+
+.tab {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: none;
+  height: var(--control-md);
+  padding: 0 4px;
+  margin-right: 20px;
+  border: 0;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition-color), transform var(--duration-base) var(--ease-spring);
+}
+
+.tab:hover:not([aria-selected="true"]) {
+  color: var(--text-strong);
+}
+
+.fullWidth .tab {
+  flex: 1;
+  margin-right: 0;
+}
+
+.tab[aria-selected="true"] {
+  color: var(--brand);
+  font-weight: var(--weight-bold);
+}
+
+/* Satu penanda yang meluncur dari tab lama ke tab baru, bukan garis yang
+   diskalakan di masing-masing tab. Ukuran dan posisinya ditulis Tabs.tsx dari
+   kotak tab yang sedang aktif; yang diatur di sini hanya rupanya. */
+.penanda {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  margin-bottom: -1px;
+  border-bottom: 3px solid var(--brand);
+  border-radius: 3px 3px 0 0;
+  opacity: 0;
+  pointer-events: none;
+  /* ease-entrance, bukan ease-spring: penanda yang melewati tujuannya lalu
+     mundur lagi bertabrakan dengan dial MOTION 1 design system (tanpa bounce).
+     Kurva ini berangkat cepat lalu mendarat tepat. */
+  transition:
+    transform var(--duration-base) var(--ease-entrance),
+    width var(--duration-base) var(--ease-entrance),
+    height var(--duration-base) var(--ease-entrance),
+    opacity var(--duration-fast) var(--ease-out);
+}
+
+.pill .penanda {
+  border-bottom: 0;
+  margin-bottom: 0;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.pill .tab {
+  height: var(--control-sm);
+  padding: 0 14px;
+  margin-right: 0;
+  border-radius: var(--radius-sm);
+}
+
+/* Latar putihnya digambar penanda, jadi di sini tinggal warna teksnya. */
+.pill .tab[aria-selected="true"] {
+  color: var(--brand);
+}
+
+.count {
+  padding: 1px 6px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-sunken);
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--text-overline);
+  font-weight: var(--weight-semibold);
+}
+
+.tab[aria-selected="true"] .count {
+  background: var(--brand);
+  color: var(--text-on-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .penanda,
+  .tab {
+    transition: none;
+  }
+}

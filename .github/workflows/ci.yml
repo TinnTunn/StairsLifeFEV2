@@ -1,0 +1,40 @@
+# Dijalankan di setiap PR dan push ke main. Belum pernah dijalankan di GitHub:
+# repositori ini belum di-push. Backend (StairsLifeBEV2) ada di repositori lain
+# dan butuh workflow sendiri untuk `npm test` (jest).
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      NEXT_PUBLIC_API_BASE_URL: http://localhost:3000/api/v1
+      NEXT_PUBLIC_USE_MOCK: "0"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Lint, token CSS, typecheck
+        run: npm run check
+      - name: Unit test
+        run: npm test
+      - name: Build
+        run: npm run build
+      - name: Pasang Chromium untuk Playwright
+        run: npx playwright install --with-deps chromium
+      - name: Uji E2E (API dimock, tanpa database)
+        run: npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report
+          retention-days: 7

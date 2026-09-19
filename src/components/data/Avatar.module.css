@@ -1,0 +1,75 @@
+.wrap {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+}
+
+.face {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: var(--radius-full);
+  border: var(--border-width) solid var(--border-subtle);
+  background: var(--primary-soft);
+  color: var(--primary-text);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.01em;
+}
+
+.rounded {
+  border-radius: var(--radius-md);
+}
+
+.withPhoto {
+  background: var(--bg-sunken);
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Centang terverifikasi memakai --text-on-success, bukan putih: di mode gelap
+   --success menerang dan putih di atasnya gagal AA. */
+.check {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  display: grid;
+  place-items: center;
+  background: var(--success);
+  color: var(--text-on-success);
+  border-radius: var(--radius-full);
+  border: 2px solid var(--bg-surface);
+}
+
+.online {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background: var(--success);
+  border-radius: var(--radius-full);
+  border: 2px solid var(--bg-surface);
+}
+
+.group {
+  display: inline-flex;
+  align-items: center;
+}
+
+.stacked {
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 0 2px var(--bg-surface);
+}
+
+.more {
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-full);
+  background: var(--bg-sunken);
+  color: var(--text-muted);
+  font-weight: var(--weight-semibold);
+  font-variant-numeric: tabular-nums;
+  box-shadow: 0 0 0 2px var(--bg-surface);
+}

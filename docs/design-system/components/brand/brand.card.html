@@ -1,0 +1,33 @@
+<!-- @dsCard group="Components" viewport="700x340" name="Brand — Logo" subtitle="Lockup: mark kayu + wordmark sebagai teks hidup, bukan gambar raster" -->
+<!doctype html><html lang="id" data-theme="light"><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{padding:18px 20px;background:var(--bg-page)}
+.row{display:flex;gap:26px;align-items:flex-end;flex-wrap:wrap}
+.cap{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.k{font-size:var(--text-overline);letter-spacing:var(--tracking-overline);text-transform:uppercase;color:var(--text-subtle);font-weight:600}
+.ink{background:var(--ink-surface);padding:14px 18px;border-radius:var(--radius-md)}
+.clay{background:var(--clay-surface);padding:14px 18px;border-radius:var(--radius-md)}
+.note{margin-top:16px;padding:11px 13px;background:var(--bg-subtle);border:1px solid var(--border-subtle);border-radius:var(--radius-md);font-size:var(--text-body-sm);color:var(--text-muted);line-height:1.6;max-width:80ch}
+.note b{color:var(--text-body)}</style>
+</head><body><div id="root"></div>
+<script type="text/babel">
+const { Logo } = window.StairsLifeDesignSystem_075594;
+function Demo(){return (
+<div>
+  <div className="row">
+    <span className="cap"><Logo size={34} basePath="../../assets"/><i className="k">34px · header landing</i></span>
+    <span className="cap"><Logo size={22} basePath="../../assets"/><i className="k">22px · sidebar</i></span>
+    <span className="cap"><Logo size={18} wordmark={false} wood="flat" basePath="../../assets"/><i className="k">18px · mark datar</i></span>
+  </div>
+  <div className="row" style={{marginTop:22}}>
+    <span className="cap"><span className="ink"><Logo size={26} color="var(--ink-text)" basePath="../../assets"/></span><i className="k">Permukaan tinta</i></span>
+    <span className="cap"><span className="clay"><Logo size={26} color="var(--clay-surface-text)" basePath="../../assets"/></span><i className="k">Permukaan terakota</i></span>
+    <span className="cap"><Logo size={26} wood="walnut" basePath="../../assets"/><i className="k">Walnut · cetak</i></span>
+  </div>
+  <p className="note"><b>Wordmark adalah teks, bukan gambar.</b> Dirender dalam <b>--font-display</b> sehingga tajam di segala ukuran dan ikut warna induknya — satu komponen melayani mode terang, gelap, tinta, dan terakota tanpa aset tambahan. Untuk keperluan di luar web ada <b>assets/logo-lockup.svg</b> (vektor penuh). Di bawah 22px pakai <b>wood="flat"</b>: serat kayu tidak terbaca dan hanya membuat balok kelihatan kotor.</p>
+</div>);}
+ReactDOM.createRoot(document.getElementById("root")).render(<Demo/>);
+</script></body></html>

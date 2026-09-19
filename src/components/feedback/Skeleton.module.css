@@ -1,0 +1,47 @@
+.bar {
+  display: block;
+  background: linear-gradient(
+    90deg,
+    var(--bg-sunken) 0%,
+    var(--bg-subtle) 40%,
+    var(--bg-sunken) 80%
+  );
+  background-size: 200% 100%;
+  border-radius: var(--radius-sm);
+  animation: sl-shimmer 1.4s linear infinite;
+}
+
+.circle {
+  border-radius: var(--radius-full);
+}
+
+/* Shimmer berjalan terus tanpa dipicu pengguna, jadi ia berhenti saat gerak
+   diredam. Bentuk baloknya sendiri sudah cukup menandai "sedang dimuat". */
+@media (prefers-reduced-motion: reduce) {
+  .bar {
+    animation: none;
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: var(--pad-card);
+  background: var(--bg-surface);
+  border: var(--border-width) solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+}
+
+.cardHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cardHeadText {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

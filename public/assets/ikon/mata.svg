@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-hidden="true">
+  <defs>
+    <radialGradient id="mata-bola" cx="0.45" cy="0.4" r="0.7">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#E6E1DC"/>
+    </radialGradient>
+    <radialGradient id="mata-iris" cx="0.4" cy="0.35" r="0.75">
+      <stop offset="0" stop-color="#B07A45"/>
+      <stop offset="1" stop-color="#6B4122"/>
+    </radialGradient>
+  </defs>
+  <g>
+    <ellipse cx="13.6" cy="24" rx="9.4" ry="14" fill="url(#mata-bola)" stroke="#CFC7BF" stroke-width="1.2"/>
+    <circle cx="15.6" cy="25.5" r="5.6" fill="url(#mata-iris)"/>
+    <circle cx="15.6" cy="25.5" r="2.7" fill="#2A1A0F"/>
+    <circle cx="17.2" cy="23.7" r="1.2" fill="#FFFFFF"/>
+  </g>
+  <g>
+    <ellipse cx="34.4" cy="24" rx="9.4" ry="14" fill="url(#mata-bola)" stroke="#CFC7BF" stroke-width="1.2"/>
+    <circle cx="36.4" cy="25.5" r="5.6" fill="url(#mata-iris)"/>
+    <circle cx="36.4" cy="25.5" r="2.7" fill="#2A1A0F"/>
+    <circle cx="38" cy="23.7" r="1.2" fill="#FFFFFF"/>
+  </g>
+</svg>

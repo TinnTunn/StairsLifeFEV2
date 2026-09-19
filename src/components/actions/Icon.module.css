@@ -1,0 +1,21 @@
+/* Ikon PNG monokrom sebagai mask: warnanya currentColor, sama seperti stroke
+   ikon Lucide, jadi ikut warna teks, status, dan tema gelap. */
+.gambar {
+  display: block;
+  flex: none;
+  background-color: currentColor;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+/* Mode kontras tinggi Windows mengganti warna latar; tanpa ini ikonnya hilang. */
+@media (forced-colors: active) {
+  .gambar {
+    background-color: CanvasText;
+    forced-color-adjust: none;
+  }
+}

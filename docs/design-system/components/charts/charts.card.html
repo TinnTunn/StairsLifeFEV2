@@ -1,0 +1,40 @@
+<!-- @dsCard group="Components" viewport="700x420" name="Charts — MetricCard, LineChart, DonutChart" subtitle="Khusus panel admin: kartu metrik dengan tren, grafik garis, donut antrean" -->
+<!doctype html><html lang="id"><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.js"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{padding:18px 20px;background:var(--bg-page)}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.two{display:grid;grid-template-columns:1.25fr 1fr;gap:14px;margin-top:14px;align-items:start}
+.panel{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:16px;display:flex;flex-direction:column;gap:12px}
+.hd{display:flex;justify-content:space-between;align-items:baseline;gap:12px}</style>
+</head><body><div id="root"></div>
+<script type="text/babel">
+const { MetricCard, LineChart, DonutChart, Icon, Button } = window.StairsLifeDesignSystem_075594;
+function Demo(){return (
+<div>
+  <div className="grid4">
+    <MetricCard label="Ditahan di escrow" value="Rp 18.450.000" delta={12} icon={<Icon name="ShieldCheck" size={19}/>}/>
+    <MetricCard label="Dilepas bulan ini" value="Rp 41.200.000" delta={8} iconTone="success" icon={<Icon name="Wallet" size={19}/>}/>
+    <MetricCard label="Sengketa terbuka" value="2" delta={-3} invertDelta iconTone="warning" icon={<Icon name="Scale" size={19}/>}/>
+    <MetricCard label="Kontrak selesai" value="31" delta={5} iconTone="neutral" icon={<Icon name="FileText" size={19}/>}/>
+  </div>
+  <div className="two">
+    <div className="panel">
+      <div className="hd"><h3 style={{fontSize:"var(--text-h3)"}}>Dana dilepas dari escrow</h3><span className="sl-caption">6 bulan terakhir</span></div>
+      <LineChart height={196} valueFormat={(v)=>(v/1e6).toFixed(0)+" jt"} data={[
+        {label:"Apr",value:18400000},{label:"Mei",value:24100000},{label:"Jun",value:31400000},
+        {label:"Jul",value:28900000},{label:"Agu",value:36700000},{label:"Sep",value:41200000}]}/>
+    </div>
+    <div className="panel">
+      <div className="hd"><h3 style={{fontSize:"var(--text-h3)"}}>Antrean moderasi</h3><Button size="sm" variant="ghost">Lihat semua</Button></div>
+      <DonutChart size={168} centerValue="17" centerLabel="antrean" data={[
+        {label:"Verifikasi identitas",value:3,color:"var(--primary)"},
+        {label:"Moderasi proyek",value:2,color:"var(--warning)"},
+        {label:"Sengketa escrow",value:2,color:"var(--danger)"},
+        {label:"Selesai hari ini",value:10,color:"var(--success)"}]}/>
+    </div>
+  </div>
+</div>);}
+ReactDOM.createRoot(document.getElementById("root")).render(<Demo/>);
+</script></body></html>

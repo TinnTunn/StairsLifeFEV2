@@ -1,0 +1,50 @@
+<!-- @dsCard group="Components" viewport="700x560" name="Lowongan — JobCard, FilterPanel, QRPayment" subtitle="Kartu lowongan 3 varian, panel filter dua kolom, setor dana ke escrow via QRIS" -->
+<!doctype html><html lang="id" data-theme="light"><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{padding:18px 20px;background:var(--bg-page)}
+.sec{display:flex;flex-direction:column;gap:9px;margin-bottom:20px}
+.k{font-size:var(--text-overline);letter-spacing:var(--tracking-overline);text-transform:uppercase;color:var(--text-subtle);font-weight:600}
+.g2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.g3{display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:14px;align-items:start}</style>
+</head><body><div id="root"></div>
+<script type="text/babel">
+const { JobCard, FilterPanel, QRPayment, Button } = window.StairsLifeDesignSystem_075594;
+
+const JOB = { judul: "Desainer grafis untuk konten media sosial", bisnis: "Kopi Senja Malang", verified: true,
+  lokasi: "Malang", tipe: "Paruh waktu", jadwal: "3 hari/minggu", gajiMin: 2500000, gajiMaks: 3500000,
+  tags: ["Figma", "Illustrator", "Branding"], diposting: "2 hari lalu", pelamar: 12 };
+const JOB2 = { judul: "Penulis konten blog kuliner", bisnis: "Rimbun Plant House", lokasi: "Remote",
+  tipe: "Magang", gajiNego: true, tags: ["Copywriting", "SEO"], diposting: "5 jam lalu", pelamar: 4 };
+
+const GRUP = [
+  { key: "kategori", label: "Kategori", multi: true, options: [{ label: "Desain", count: 24 }, { label: "Pemasaran", count: 18 }, { label: "Penulisan", count: 11 }] },
+  { key: "tipe", label: "Tipe kerja", options: ["Penuh waktu", "Paruh waktu", "Magang", "Remote"] },
+];
+
+function Demo(){
+  const [f, setF] = React.useState({ kategori: ["Desain"], tipe: "Paruh waktu" });
+  return (
+  <div>
+    <div className="sec"><span className="k">JobCard · varian grid &amp; list</span>
+      <div className="g2">
+        <JobCard job={JOB} onOpen={()=>{}} onSave={()=>{}} saved
+          actions={<Button size="sm">Lamar</Button>} />
+        <div style={{display:"flex",flexDirection:"column",gap:12,minWidth:0}}>
+          <JobCard variant="list" job={JOB2} applied onOpen={()=>{}} onSave={()=>{}} />
+          <JobCard variant="compact" job={JOB} onOpen={()=>{}} />
+        </div>
+      </div>
+    </div>
+    <div className="sec"><span className="k">FilterPanel · chip aktif bisa dihapus satu per satu</span>
+      <div className="g3">
+        <FilterPanel groups={GRUP} value={f} onChange={setF} onReset={()=>setF({})} />
+        <QRPayment amount={2500000} orderId="ESC-20260912-004" secondsLeft={847} onConfirm={()=>{}} />
+      </div>
+    </div>
+  </div>);
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<Demo/>);
+</script></body></html>

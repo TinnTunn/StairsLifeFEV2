@@ -1,0 +1,545 @@
+/* ============================================================
+   WARNA — StairsLife "Bata"
+   Netral pasir/kertas hangat + terakota sebagai satu-satunya aksi utama.
+   Aturan: bodi antarmuka netral; terakota hanya untuk aksi utama, status
+   escrow, dan momen keberhasilan. Hijau khusus "aman/selesai".
+   Ungu/indigo/violet DILARANG — warna brand lama.
+   ============================================================ */
+
+:root {
+  /* Tanpa pilihan pengguna, skemanya ikut sistem. Dua aturan di bawah ini
+     menyamakannya dengan tema yang benar-benar dipakai saat pengguna memaksa
+     salah satu, dan itu bukan soal rapi-rapi saja: warna yang digambar
+     peramban sendiri (isian otomatis, scrollbar, pemilih tanggal, tombol putar
+     angka) diambil dari skema ini, bukan dari token kita. Saat keduanya
+     berbeda, Chrome menulis teks isian otomatis dengan warna skema yang salah,
+     dan teksnya jadi putih di atas kolom putih. */
+  color-scheme: light dark;
+
+  /* --- Skala netral pasir (base) --- */
+  --sand-25: #FCF8F2;
+  --sand-50: #F7F1E8;
+  --sand-100: #F1E7D9;
+  --sand-200: #E8DFD2;
+  --sand-300: #DCD0C0;
+  --sand-400: #C3B4A2;
+  --sand-500: #9C8B7E;
+  --sand-600: #7B6B5B; /* teks subtle — digelapkan dari #857567 agar lolos 4.5:1 di atas kertas */
+  --sand-700: #6A5D53;
+  --sand-800: #43392F;
+  --sand-900: #2E261F;
+  --sand-950: #231D18;
+
+  /* --- Terakota (base primary) --- */
+  --clay-50: #FBEDE2;
+  --clay-100: #F6DAC6;
+  --clay-200: #F2D6BF;
+  --clay-300: #E29B6C;
+  --clay-400: #D0762F;
+  --clay-500: #C75E27;
+  --clay-600: #B4531F;
+  --clay-700: #9C4519;
+  --clay-800: #85390F;
+  --clay-900: #63290A;
+
+  /* --- Kayu teak: KHUSUS balok logo (bukan warna UI) ---
+     Tone utama dipilih karena bekerja di mode terang DAN gelap dengan satu
+     file; walnut (--wood-800/900) disimpan untuk cetak dan merchandise. */
+  --wood-100: #F0D6AC;
+  --wood-200: #E0C08A;
+  --wood-300: #CB9C5C;
+  --wood-400: #C09154;
+  --wood-500: #AE7F45;
+  --wood-600: #8C6231;
+  --wood-700: #7E572A;
+  --wood-800: #5E3A21;
+  --wood-900: #3A2414;
+  --wood-sheen: rgba(240, 214, 172, 0.26);
+
+  /* --- Semantik base --- */
+  --green-50: #E4F1EA;
+  --green-500: #16704F;
+  --green-600: #0F5B40;
+  --green-700: #0B4632;
+  --amber-50: #FBEEDA;
+  --amber-500: #A16207;
+  --amber-600: #7C4A06;
+  --red-50: #FBE9E7;
+  --red-500: #B42318;
+  --red-600: #911C12;
+  --blue-50: #E7EDFB;
+  --blue-500: #1D4ED8;
+  --blue-600: #1A3FA8;
+
+  /* ==========================================================
+     ALIAS SEMANTIK — pakai ini di komponen, bukan base di atas.
+     ========================================================== */
+
+  /* Permukaan */
+  --bg-page: var(--sand-25);
+  --bg-surface: #FFFFFF;
+  --bg-surface-raised: #FFFFFF;
+  --bg-subtle: var(--sand-50);
+  --bg-sunken: var(--sand-100);
+  --bg-inverse: var(--sand-950);
+  --bg-hover: rgba(35, 29, 24, 0.04);
+  --bg-active: rgba(35, 29, 24, 0.08);
+  --bg-selected: var(--clay-50);
+  --bg-overlay: rgba(35, 29, 24, 0.48);
+
+  /* Teks */
+  --text-strong: var(--sand-950);
+  --text-base: #33291F;
+  --text-muted: var(--sand-700);
+  --text-subtle: var(--sand-600);
+  --text-inverse: var(--sand-25);
+  --text-on-primary: #FFFFFF;
+  --text-on-danger: #FFFFFF;
+  --text-on-success: #FFFFFF;
+  --text-on-warning: #FFFFFF;
+  --text-link: var(--clay-700);
+  --text-link-hover: var(--clay-800);
+
+  /* Garis */
+  --border-subtle: var(--sand-200);
+  --border-default: var(--sand-300);
+  --border-strong: var(--sand-400);
+  --border-focus: var(--clay-600);
+  --border-inverse: rgba(255, 255, 255, 0.18);
+
+  /* Aksi utama */
+  --primary: var(--clay-600);
+  --primary-hover: var(--clay-700);
+  --primary-active: var(--clay-800);
+  --primary-soft: var(--clay-50);
+  --primary-soft-hover: var(--clay-100);
+  --primary-border: var(--clay-200);
+  --primary-text: var(--clay-700);
+  --focus-ring: rgba(180, 83, 31, 0.32);
+
+  /* Semantik feedback */
+  --success: var(--green-500);
+  --success-soft: var(--green-50);
+  --success-text: var(--green-600);
+  --success-border: #BFE0CD;
+  --warning: var(--amber-500);
+  --warning-soft: var(--amber-50);
+  --warning-text: var(--amber-600);
+  --warning-border: #EED9AE;
+  --danger: var(--red-500);
+  --danger-hover: var(--red-600);
+  --danger-soft: var(--red-50);
+  --danger-text: var(--red-600);
+  --danger-border: #F0C9C4;
+  --info: var(--blue-500);
+  --info-soft: var(--blue-50);
+  --info-text: var(--blue-600);
+  --info-border: #C7D5F5;
+
+  /* ---- Status siklus proyek & escrow ----
+     Satu warna per tahap, semua di dalam keluarga pasir/terakota/hijau/kuning/merah.
+     TIDAK ada biru di sistem status: chip biru di atas netral hangat terasa
+     seperti komponen dari sistem lain. "Sedang dikerjakan" memakai chip garis
+     netral, dibedakan lewat bentuk, bukan warna baru. */
+  --status-draft-bg: #F1E7D9;
+  --status-draft-fg: #6A5D53;
+  --status-draft-bd: #E3D6C4;
+  --status-aktif-bg: #E4F1EA;
+  --status-aktif-fg: #0F5B40;
+  --status-aktif-bd: #C6DFD2;
+  --status-menunggu-bg: #FBEEDA;
+  --status-menunggu-fg: #7C4A06;
+  --status-menunggu-bd: #EEDCB6;
+  --status-escrow-bg: #FBEDE2;
+  --status-escrow-fg: #9C4519;
+  --status-escrow-bd: #F0D6C0;
+  --status-dikerjakan-bg: #FFFFFF;
+  --status-dikerjakan-fg: #43392F;
+  --status-dikerjakan-bd: #DCD0C0;
+  --status-review-bg: #FBEEDA;
+  --status-review-fg: #7C4A06;
+  --status-review-bd: #EEDCB6;
+  --status-selesai-bg: #16704F;
+  --status-selesai-fg: #FFFFFF;
+  --status-selesai-bd: transparent;
+  --status-sengketa-bg: #FBE9E7;
+  --status-sengketa-fg: #911C12;
+  --status-sengketa-bd: #F0C9C4;
+  --status-ditolak-bg: #F1E7D9;
+  --status-ditolak-fg: #8A5A4C;
+  --status-ditolak-bd: #E3D6C4;
+
+  /* Uang: nominal masuk vs keluar vs tertahan */
+  --money-in: var(--green-600);
+  --money-out: var(--sand-700);
+  --money-held: var(--clay-700);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+/* ============================================================
+   MODE GELAP — mengikuti sistem (prefers-color-scheme),
+   bisa dipaksa dengan [data-theme="dark"] / [data-theme="light"].
+   Bukan sekadar inversi: pasir jadi kayu gelap, terakota dinaikkan
+   terangnya agar tetap lolos 4.5:1 dengan teks gelap.
+   ============================================================ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-page: #14100D;
+    --bg-surface: #1C1613;
+    --bg-surface-raised: #241C17;
+    --bg-subtle: #241C17;
+    --bg-sunken: #100C0A;
+    --bg-inverse: var(--sand-25);
+    --bg-hover: rgba(255, 255, 255, 0.05);
+    --bg-active: rgba(255, 255, 255, 0.09);
+    --bg-selected: #33231A;
+    --bg-overlay: rgba(10, 7, 5, 0.66);
+
+    --text-strong: #F5EDE4;
+    --text-base: #EDE4DB;
+    --text-muted: #AC9A8A;
+    --text-subtle: #948477;
+    --text-inverse: var(--sand-950);
+    --text-on-primary: #26130A;
+    --text-on-danger: #2A0D0A;
+    --text-on-success: #05170F;
+    --text-on-warning: #241703;
+    --text-link: #F0A272;
+    --text-link-hover: #F6B98F;
+
+    --border-subtle: #2E251E;
+    --border-default: #3D3128;
+    --border-strong: #55463A;
+    --border-focus: #E0763A;
+    --border-inverse: rgba(0, 0, 0, 0.2);
+
+    --primary: #E0763A;
+    --primary-hover: #EA8449;
+    --primary-active: #C7652C;
+    --primary-soft: #33231A;
+    --primary-soft-hover: #3F2B1F;
+    --primary-border: #4A3323;
+    --primary-text: #F0A272;
+    --focus-ring: rgba(224, 118, 58, 0.4);
+
+    --success: #35A97C;
+    --success-soft: #10281E;
+    --success-text: #6FD2A8;
+    --success-border: #1D4634;
+    --warning: #D18F17;
+    --warning-soft: #2A2011;
+    --warning-text: #E3B457;
+    --warning-border: #453419;
+    --danger: #E4594C; /* diterangkan dari #D8483C (4,2:1) -> 5,0:1 dengan --text-on-danger */
+    --danger-hover: #EE6C5F;
+    --danger-soft: #2C1614;
+    --danger-text: #F08A80;
+    --danger-border: #4A211D;
+    --info: #4C7FEB;
+    --info-soft: #141F35;
+    --info-text: #8FB1F4;
+    --info-border: #223252;
+
+    --status-draft-bg: #241C17;
+    --status-draft-fg: #AC9A8A;
+    --status-draft-bd: #33291F;
+    --status-aktif-bg: #10281E;
+    --status-aktif-fg: #6FD2A8;
+    --status-aktif-bd: #1D4634;
+    --status-menunggu-bg: #2A2011;
+    --status-menunggu-fg: #E3B457;
+    --status-menunggu-bd: #3E2F16;
+    --status-escrow-bg: #33231A;
+    --status-escrow-fg: #F0A272;
+    --status-escrow-bd: #4A3323;
+    --status-dikerjakan-bg: transparent;
+    --status-dikerjakan-fg: #D9CBBE;
+    --status-dikerjakan-bd: #4A3E33;
+    --status-review-bg: #2A2011;
+    --status-review-fg: #E3B457;
+    --status-review-bd: #3E2F16;
+    --status-selesai-bg: #35A97C;
+    --status-selesai-fg: #05170F;
+    --status-selesai-bd: transparent;
+    --status-sengketa-bg: #2C1614;
+    --status-sengketa-fg: #F08A80;
+    --status-sengketa-bd: #4A211D;
+    --status-ditolak-bg: #241C17;
+    --status-ditolak-fg: #C09287;
+    --status-ditolak-bd: #3A2A24;
+
+    --money-in: #6FD2A8;
+    --money-out: #AC9A8A;
+    --money-held: #F0A272;
+  }
+}
+
+/* Paksa gelap tanpa menunggu preferensi sistem */
+:root[data-theme="dark"] {
+  --bg-page: #14100D;
+  --bg-surface: #1C1613;
+  --bg-surface-raised: #241C17;
+  --bg-subtle: #241C17;
+  --bg-sunken: #100C0A;
+  --bg-inverse: var(--sand-25);
+  --bg-hover: rgba(255, 255, 255, 0.05);
+  --bg-active: rgba(255, 255, 255, 0.09);
+  --bg-selected: #33231A;
+  --bg-overlay: rgba(10, 7, 5, 0.66);
+  --text-strong: #F5EDE4;
+  --text-base: #EDE4DB;
+  --text-muted: #AC9A8A;
+  --text-subtle: #948477;
+  --text-inverse: var(--sand-950);
+  --text-on-primary: #26130A;
+  --text-on-danger: #2A0D0A;
+  --text-on-success: #05170F;
+  --text-on-warning: #241703;
+  --text-link: #F0A272;
+  --text-link-hover: #F6B98F;
+  --border-subtle: #2E251E;
+  --border-default: #3D3128;
+  --border-strong: #55463A;
+  --border-focus: #E0763A;
+  --border-inverse: rgba(0, 0, 0, 0.2);
+  --primary: #E0763A;
+  --primary-hover: #EA8449;
+  --primary-active: #C7652C;
+  --primary-soft: #33231A;
+  --primary-soft-hover: #3F2B1F;
+  --primary-border: #4A3323;
+  --primary-text: #F0A272;
+  --focus-ring: rgba(224, 118, 58, 0.4);
+  --success: #35A97C;
+  --success-soft: #10281E;
+  --success-text: #6FD2A8;
+  --success-border: #1D4634;
+  --warning: #D18F17;
+  --warning-soft: #2A2011;
+  --warning-text: #E3B457;
+  --warning-border: #453419;
+  --danger: #E4594C; /* diterangkan dari #D8483C (4,2:1) -> 5,0:1 dengan --text-on-danger */
+  --danger-hover: #EE6C5F;
+  --danger-soft: #2C1614;
+  --danger-text: #F08A80;
+  --danger-border: #4A211D;
+  --info: #4C7FEB;
+  --info-soft: #141F35;
+  --info-text: #8FB1F4;
+  --info-border: #223252;
+  --status-draft-bg: #241C17;
+  --status-draft-fg: #AC9A8A;
+  --status-draft-bd: #33291F;
+  --status-aktif-bg: #10281E;
+  --status-aktif-fg: #6FD2A8;
+  --status-aktif-bd: #1D4634;
+  --status-menunggu-bg: #2A2011;
+  --status-menunggu-fg: #E3B457;
+  --status-menunggu-bd: #3E2F16;
+  --status-escrow-bg: #33231A;
+  --status-escrow-fg: #F0A272;
+  --status-escrow-bd: #4A3323;
+  --status-dikerjakan-bg: transparent;
+  --status-dikerjakan-fg: #D9CBBE;
+  --status-dikerjakan-bd: #4A3E33;
+  --status-review-bg: #2A2011;
+  --status-review-fg: #E3B457;
+  --status-review-bd: #3E2F16;
+  --status-selesai-bg: #35A97C;
+  --status-selesai-fg: #05170F;
+  --status-selesai-bd: transparent;
+  --status-sengketa-bg: #2C1614;
+  --status-sengketa-fg: #F08A80;
+  --status-sengketa-bd: #4A211D;
+  --status-ditolak-bg: #241C17;
+  --status-ditolak-fg: #C09287;
+  --status-ditolak-bd: #3A2A24;
+  --money-in: #6FD2A8;
+  --money-out: #AC9A8A;
+  --money-held: #F0A272;
+}
+
+/* Paksa terang: dipakai saat sistem gelap tapi pengguna memilih mode terang.
+   Nilai identik dengan blok :root di atas; hanya specificity-nya lebih tinggi
+   agar menang atas @media (prefers-color-scheme: dark). */
+:root[data-theme="light"] {
+  --bg-page: var(--sand-25);
+  --bg-surface: #FFFFFF;
+  --bg-surface-raised: #FFFFFF;
+  --bg-subtle: var(--sand-50);
+  --bg-sunken: var(--sand-100);
+  --bg-inverse: var(--sand-950);
+  --bg-hover: rgba(35, 29, 24, 0.04);
+  --bg-active: rgba(35, 29, 24, 0.08);
+  --bg-selected: var(--clay-50);
+  --bg-overlay: rgba(35, 29, 24, 0.48);
+
+  /* Teks */
+  --text-strong: var(--sand-950);
+  --text-base: #33291F;
+  --text-muted: var(--sand-700);
+  --text-subtle: var(--sand-600);
+  --text-inverse: var(--sand-25);
+  --text-on-primary: #FFFFFF;
+  --text-on-danger: #FFFFFF;
+  --text-on-success: #FFFFFF;
+  --text-on-warning: #FFFFFF;
+  --text-link: var(--clay-700);
+  --text-link-hover: var(--clay-800);
+
+  /* Garis */
+  --border-subtle: var(--sand-200);
+  --border-default: var(--sand-300);
+  --border-strong: var(--sand-400);
+  --border-focus: var(--clay-600);
+  --border-inverse: rgba(255, 255, 255, 0.18);
+
+  /* Aksi utama */
+  --primary: var(--clay-600);
+  --primary-hover: var(--clay-700);
+  --primary-active: var(--clay-800);
+  --primary-soft: var(--clay-50);
+  --primary-soft-hover: var(--clay-100);
+  --primary-border: var(--clay-200);
+  --primary-text: var(--clay-700);
+  --focus-ring: rgba(180, 83, 31, 0.32);
+
+  /* Semantik feedback */
+  --success: var(--green-500);
+  --success-soft: var(--green-50);
+  --success-text: var(--green-600);
+  --success-border: #BFE0CD;
+  --warning: var(--amber-500);
+  --warning-soft: var(--amber-50);
+  --warning-text: var(--amber-600);
+  --warning-border: #EED9AE;
+  --danger: var(--red-500);
+  --danger-hover: var(--red-600);
+  --danger-soft: var(--red-50);
+  --danger-text: var(--red-600);
+  --danger-border: #F0C9C4;
+  --info: var(--blue-500);
+  --info-soft: var(--blue-50);
+  --info-text: var(--blue-600);
+  --info-border: #C7D5F5;
+
+  /* ---- Status siklus proyek & escrow ----
+     Satu warna per tahap, semua di dalam keluarga pasir/terakota/hijau/kuning/merah.
+     TIDAK ada biru di sistem status: chip biru di atas netral hangat terasa
+     seperti komponen dari sistem lain. "Sedang dikerjakan" memakai chip garis
+     netral, dibedakan lewat bentuk, bukan warna baru. */
+  --status-draft-bg: #F1E7D9;
+  --status-draft-fg: #6A5D53;
+  --status-draft-bd: #E3D6C4;
+  --status-aktif-bg: #E4F1EA;
+  --status-aktif-fg: #0F5B40;
+  --status-aktif-bd: #C6DFD2;
+  --status-menunggu-bg: #FBEEDA;
+  --status-menunggu-fg: #7C4A06;
+  --status-menunggu-bd: #EEDCB6;
+  --status-escrow-bg: #FBEDE2;
+  --status-escrow-fg: #9C4519;
+  --status-escrow-bd: #F0D6C0;
+  --status-dikerjakan-bg: #FFFFFF;
+  --status-dikerjakan-fg: #43392F;
+  --status-dikerjakan-bd: #DCD0C0;
+  --status-review-bg: #FBEEDA;
+  --status-review-fg: #7C4A06;
+  --status-review-bd: #EEDCB6;
+  --status-selesai-bg: #16704F;
+  --status-selesai-fg: #FFFFFF;
+  --status-selesai-bd: transparent;
+  --status-sengketa-bg: #FBE9E7;
+  --status-sengketa-fg: #911C12;
+  --status-sengketa-bd: #F0C9C4;
+  --status-ditolak-bg: #F1E7D9;
+  --status-ditolak-fg: #8A5A4C;
+  --status-ditolak-bd: #E3D6C4;
+
+  /* Uang: nominal masuk vs keluar vs tertahan */
+  --money-in: var(--green-600);
+  --money-out: var(--sand-700);
+  --money-held: var(--clay-700);
+}
+
+/* ============================================================
+   PERMUKAAN BRAND TETAP — TIDAK ikut mode terang/gelap.
+   Ini bukan permukaan aplikasi, tapi set-piece brand: panel
+   pendaftaran, blok "Untuk bisnis", footer, dan pita CTA.
+   Kenapa dipisah dari --bg-inverse: "inverse" berarti "kebalikan
+   tema saat ini", jadi di mode gelap ia menjadi TERANG. Anak-anak
+   di dalamnya yang memaku putih lalu hilang. Set-piece brand harus
+   punya warnanya sendiri yang tidak pernah berubah, lengkap dengan
+   pasangan teksnya.
+   Semua rasio diukur, bukan dikira-kira.
+   ============================================================ */
+:root {
+  /* Permukaan tinta — selalu gelap */
+  --ink-surface: #231D18;
+  --ink-surface-raised: #2E2620;
+  --ink-fill: rgba(255, 255, 255, 0.06);
+  --ink-border: rgba(255, 255, 255, 0.14);
+  --ink-border-strong: rgba(255, 255, 255, 0.24);
+  --ink-text: #F1E7DC;          /* 13,7:1 */
+  --ink-text-muted: #C3B4A2;    /*  8,2:1 */
+  --ink-text-subtle: #9C8B7E;   /*  5,1:1 */
+  --ink-accent: #F0A272;        /*  8,0:1 — terakota terang */
+  --ink-success: #7FD3AC;       /*  9,4:1 */
+
+  /* Permukaan terakota — selalu #B4531F, tidak mengikuti --primary
+     (di mode gelap --primary menjadi #E0763A, dan teks putih di
+     atasnya hanya 3,1:1 — gagal AA). */
+  --clay-surface: #B4531F;
+  --clay-surface-hover: #9A4519;
+  --clay-surface-border: rgba(255, 255, 255, 0.22);
+  --clay-surface-text: #FFFFFF; /* 5,0:1 — SATU-SATUNYA warna teks yang lolos di sini */
+  --clay-surface-fill: rgba(255, 255, 255, 0.14);
+}
+
+/* ---- Status tambahan dari PAGES_AND_FLOWS.md ----
+   Empat kosakata status: lowongan, lamaran, verifikasi, pembayaran.
+   Semua memetakan ke keluarga warna yang sudah ada; hanya "disuspend"
+   dan "seleksi" butuh nilai sendiri karena keduanya perlu bobot berbeda
+   dari status yang mirip (ditolak vs disuspend, aktif vs seleksi). */
+:root {
+  --status-seleksi-bg: #FBEDE2;
+  --status-seleksi-fg: #8A3D14;
+  --status-seleksi-bd: #EBCBB2;
+  --status-suspend-bg: #B42318;
+  --status-suspend-fg: #FFFFFF;
+  --status-suspend-bd: transparent;
+  --status-dilihat-bg: #F5F0E8;
+  --status-dilihat-fg: #6A5D53;
+  --status-dilihat-bd: #E3D6C4;
+}
+:root[data-theme="dark"] {
+  --status-seleksi-bg: #33231A;
+  --status-seleksi-fg: #F0A272;
+  --status-seleksi-bd: #4A3323;
+  --status-suspend-bg: #E4594C;
+  --status-suspend-fg: #2A0D0A;
+  --status-suspend-bd: transparent;
+  --status-dilihat-bg: #221B16;
+  --status-dilihat-fg: #AC9A8A;
+  --status-dilihat-bd: #33291F;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --status-seleksi-bg: #33231A;
+    --status-seleksi-fg: #F0A272;
+    --status-seleksi-bd: #4A3323;
+    --status-suspend-bg: #E4594C;
+    --status-suspend-fg: #2A0D0A;
+    --status-suspend-bd: transparent;
+    --status-dilihat-bg: #221B16;
+    --status-dilihat-fg: #AC9A8A;
+    --status-dilihat-bd: #33291F;
+  }
+}

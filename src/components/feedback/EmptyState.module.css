@@ -1,0 +1,71 @@
+/* Empty state gaya V2: ikon di atas lingkaran brand yang lembut, judul tebal,
+   deskripsi pendek, dan satu aksi. */
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--gap-stack);
+  padding: 36px 20px;
+  border: var(--border-width) dashed var(--border-default);
+  border-radius: var(--radius-lg);
+  background: var(--bg-surface);
+}
+
+.lg {
+  padding: 56px 24px;
+}
+
+.icon {
+  width: 70px;
+  height: 70px;
+  display: grid;
+  place-items: center;
+  background: var(--brand-soft);
+  border-radius: var(--radius-full);
+  color: var(--brand);
+  animation: sl-pop 500ms var(--ease-spring) backwards;
+}
+
+.lg .icon {
+  width: 88px;
+  height: 88px;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 400px;
+}
+
+.title {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-lg);
+  font-weight: var(--weight-black);
+  color: var(--text-strong);
+}
+
+.lg .title {
+  font-size: var(--text-h2);
+}
+
+.description {
+  font-size: var(--text-body-sm);
+  color: var(--text-muted);
+  line-height: var(--leading-relaxed);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--gap-inline);
+  margin-top: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icon {
+    animation: none;
+  }
+}

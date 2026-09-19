@@ -1,0 +1,13 @@
+/* Penanda data contoh sengaja tidak halus. Isi yang terlihat nyata padahal
+   contoh adalah cara tercepat menyesatkan orang yang membuka halaman ini. */
+.notice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px var(--pad-page-x);
+  background: var(--warning-soft);
+  border-bottom: var(--border-width) solid var(--warning-border);
+  color: var(--warning-text);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+}

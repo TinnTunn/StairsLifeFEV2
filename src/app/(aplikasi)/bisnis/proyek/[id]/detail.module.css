@@ -1,0 +1,60 @@
+.kepala {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+}
+
+.judul {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  font-weight: var(--weight-black);
+  line-height: 1.15;
+  letter-spacing: var(--tracking-display);
+  color: var(--text-strong);
+  overflow-wrap: anywhere;
+}
+
+.meta {
+  margin: 0;
+  color: var(--text-base);
+  font-size: var(--text-body-sm);
+}
+
+/* Panel samping milik pemilik usaha: bukan tombol lamar, tapi jalan ke daftar
+   pelamar di bawah halaman yang sama. */
+.kePelamar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 52px;
+  padding: 0 var(--space-5);
+  border-radius: var(--radius-md);
+  background: var(--primary);
+  color: var(--text-on-primary);
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  text-decoration: none;
+}
+
+.kePelamar:hover {
+  background: var(--primary-hover);
+}
+
+.tautanKecil {
+  display: block;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: var(--text-body-sm);
+}
+
+.judulSeksi {
+  margin: var(--space-7) 0 var(--space-4);
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-bold);
+  scroll-margin-top: var(--height-topbar);
+}

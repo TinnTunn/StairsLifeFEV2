@@ -1,0 +1,108 @@
+/* Penyesuaian tingkat aplikasi di atas token design system.
+   Ditaruh terpisah supaya pembaruan design system bisa menimpa tokens/ tanpa
+   menghapus apa pun di sini. */
+
+/* Design system mendefinisikan skala padding halaman per breakpoint
+   (--pad-page-x, -md, -dt, -lg) tapi tidak pernah menyambungkannya ke media
+   query, jadi seluruh sistem memakai nilai 360px di semua lebar. */
+@media (min-width: 768px) {
+  :root {
+    --pad-page-x: var(--pad-page-x-md);
+    --pad-page-y: var(--pad-page-y-md);
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --pad-page-x: var(--pad-page-x-dt);
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --pad-page-x: var(--pad-page-x-lg);
+    --pad-page-y: var(--pad-page-y-lg);
+  }
+}
+
+/* Cincin fokus dijadikan solid, bukan terakota beralpha.
+   Terukur: #b4531f pada 32 persen membaur ke rgb(229,195,174) dan hanya
+   1,56:1 terhadap kertas, sedangkan #e0763a pada 40 persen jadi 1,96:1 di
+   mode gelap. Indikator fokus butuh 3:1 (WCAG 1.4.11), jadi keduanya gagal.
+   Versi solid mengukur 4,73:1 di kertas dan 6,15:1 di latar gelap.
+   Ini alasan yang sama dengan larangan design system sendiri soal meredam
+   teks dengan alpha di atas latar berwarna, hanya belum diterapkan ke fokus. */
+:root {
+  --focus-ring: var(--primary);
+}
+
+/* Skala huruf, lebar kontainer, dan tinggi topbar sekarang diatur di
+   tema.css mengikuti FE V2. Hanya pelebaran di layar sangat besar yang
+   tetap di sini. */
+@media (min-width: 1920px) {
+  :root {
+    --width-container: 1400px;
+  }
+}
+
+/* Tautan lewati ke konten: tersembunyi sampai difokus keyboard. */
+.sl-lewati {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 100;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--brand);
+  color: var(--text-on-primary);
+  font-weight: var(--weight-bold);
+  text-decoration: none;
+  transform: translateY(-160%);
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.sl-lewati:focus-visible {
+  transform: translateY(0);
+}
+
+#konten {
+  scroll-margin-top: var(--height-topbar);
+}
+
+#konten:focus {
+  outline: none;
+}
+
+/* Penanda pengisian otomatis.
+
+   Peramban tidak memancarkan event apa pun saat mengisi formulir sendiri, jadi
+   kolom terkendali React bisa terlihat terisi sementara state pemiliknya masih
+   kosong. Animasi kosong ini dipakai sebagai sinyal: begitu Chrome menandai
+   kolom sebagai terisi otomatis, animationstart menyala dan komponen Input
+   menyamakan nilainya. Namanya global, bukan di CSS Module, supaya tidak
+   diacak dan tetap bisa dikenali dari JavaScript. */
+@keyframes sl-autofill {
+  from { opacity: 1; }
+  to { opacity: 1; }
+}
+
+/* Chrome memaksakan warna isian otomatisnya sendiri lewat aturan internal yang
+   menang atas properti color biasa. Warnanya diambil dari color-scheme, jadi
+   tanpa dikunci di sini kolom yang baru terisi otomatis bisa berteks putih di
+   atas kertas putih. Latarnya tidak bisa dimatikan langsung, tapi bisa ditimpa
+   bayangan dalam setebal kolomnya. */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  animation-name: sl-autofill;
+  animation-duration: 1ms;
+  -webkit-text-fill-color: var(--text-base);
+  caret-color: var(--text-base);
+  box-shadow: inset 0 0 0 100px var(--bg-surface);
+  /* Penundaan yang sangat panjang menahan latar bawaannya muncul kembali
+     setelah transisi peramban selesai. */
+  transition: background-color 600000s 0s;
+}

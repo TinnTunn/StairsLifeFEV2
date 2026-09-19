@@ -1,0 +1,386 @@
+/* Kontrak dan escrow gaya V2. Panel aurora menjawab pertanyaan paling
+   menentukan di produk ini, siapa memegang uangnya sekarang, dan dipasang di
+   atas sebelum apa pun yang lain. */
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-h1);
+  font-weight: var(--weight-black);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--text-strong);
+  text-wrap: balance;
+}
+
+.meta {
+  margin: 0;
+  font-size: var(--text-body-sm);
+  color: var(--text-muted);
+}
+
+.holder {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: 26px 28px;
+  background: var(--grad-aurora);
+  color: var(--on-dark);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-hero-card);
+}
+
+.holder::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 380px;
+  height: 380px;
+  right: -120px;
+  top: -170px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--aurora-1), transparent 66%);
+  animation: sl-melayang 16s ease-in-out infinite;
+}
+
+.holder::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: var(--noise);
+  mix-blend-mode: overlay;
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.holderKepala {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.holderIkon {
+  width: 48px;
+  height: 48px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: var(--on-dark-fill-strong);
+  border: var(--border-width) solid var(--on-dark-line-strong);
+  color: var(--spark);
+}
+
+.holderLabel {
+  display: block;
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  font-weight: var(--weight-bold);
+  color: var(--on-dark-subtle);
+}
+
+.holderValue {
+  display: block;
+  margin-top: 2px;
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  font-weight: var(--weight-black);
+  letter-spacing: -0.02em;
+  color: var(--on-dark);
+  line-height: 1.2;
+}
+
+.holderNote {
+  margin: 0;
+  font-size: var(--text-body-sm);
+  color: var(--on-dark-muted);
+  line-height: var(--leading-relaxed);
+  max-width: 64ch;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: 22px;
+  background: var(--bg-surface);
+  border: var(--border-width) solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  animation: sl-naik 480ms var(--ease-out) backwards;
+}
+
+/* Kartu yang meminta keputusan diberi garis brand supaya menonjol dari kartu informasi. */
+.cardAksi {
+  border-color: var(--brand-soft-border);
+  box-shadow: 0 0 0 1px var(--brand-soft-border), var(--shadow-card);
+}
+
+.cardTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-black);
+  letter-spacing: -0.02em;
+  color: var(--text-strong);
+}
+
+.cardIkon {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: var(--brand-soft);
+  color: var(--brand);
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.rowTotal {
+  margin-top: var(--space-1);
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  background: var(--success-soft);
+}
+
+.rowLabel {
+  font-size: var(--text-body-sm);
+  color: var(--text-muted);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.warn {
+  margin: 0;
+  font-size: var(--text-body-sm);
+  color: var(--text-muted);
+  line-height: var(--leading-relaxed);
+  max-width: 66ch;
+}
+
+/* Penanda berkas ke berapa yang sedang diunggah. Unggahan besar bisa memakan
+   waktu menit, dan tanpa ini layar terlihat diam. */
+.progres {
+  margin: 0;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  color: var(--text-base);
+}
+
+.rincian {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  background: var(--brand-soft);
+  border: var(--border-width) solid var(--brand-soft-border);
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-relaxed);
+  color: var(--text-base);
+}
+
+/* Permintaan perbaikan memakai permukaan peringatan, bukan teks redup: ini
+   hal yang harus dikerjakan mahasiswa berikutnya. */
+.revisi {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: 12px 14px;
+  background: var(--warning-soft);
+  border: var(--border-width) solid var(--warning-border);
+  border-radius: var(--radius-md);
+  color: var(--warning-text);
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-relaxed);
+}
+
+.revisiTitle {
+  font-weight: var(--weight-bold);
+}
+
+.subTitle {
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.berkas {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  background: var(--bg-sunken);
+}
+
+.berkasIkon {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: var(--bg-surface);
+  color: var(--brand);
+}
+
+.berkasNama {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--text-strong);
+}
+
+.ulasanGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  gap: var(--space-5);
+}
+
+.ulasan {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  background: var(--bg-sunken);
+}
+
+.kutipan {
+  margin: 0;
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-relaxed);
+  color: var(--text-base);
+}
+
+/* Ikon Lucide dirender sebagai blok, jadi tanpa flex ia turun ke baris sendiri. */
+.riwayat {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+@media (max-width: 640px) {
+  .holder {
+    padding: 22px 20px;
+  }
+
+  .card {
+    padding: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .holder::before,
+  .card {
+    animation: none;
+  }
+}
+
+/* ---------- Sengketa dan pembaruan langsung ---------- */
+.masalah {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  box-shadow: none;
+  background: var(--bg-sunken);
+}
+
+.masalahTeks {
+  flex: 1 1 320px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.masalah .cardTitle {
+  font-size: var(--text-body-lg);
+}
+
+.banner {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-lg);
+  border: var(--border-width) solid var(--status-sengketa-bd);
+  background: var(--status-sengketa-bg);
+  color: var(--status-sengketa-fg);
+}
+
+.bannerInfo {
+  border-color: var(--info-border);
+  background: var(--info-soft);
+  color: var(--info-text);
+}
+
+.bannerIkon {
+  flex: none;
+  margin-top: 2px;
+}
+
+.bannerTeks {
+  flex: 1 1 280px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-relaxed);
+}
+
+.bannerTeks b {
+  font-size: var(--text-body);
+}
+
+.obrolanKartu {
+  gap: var(--space-4);
+}

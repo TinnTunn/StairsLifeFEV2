@@ -1,0 +1,261 @@
+.list {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.vertical {
+  flex-direction: column;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.vertical .step {
+  flex-direction: row;
+  gap: 12px;
+  flex: none;
+}
+
+.rail {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: none;
+}
+
+.vertical .rail {
+  flex-direction: column;
+  width: 24px;
+}
+
+.dot {
+  width: 22px;
+  height: 22px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--border-strong);
+  background: var(--bg-surface);
+  color: var(--text-subtle);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--text-overline);
+  font-weight: var(--weight-semibold);
+  /* 520ms, bukan 140ms: perpindahan status yang menyangkut uang bergerak
+     lebih lambat supaya terbaca (DESIGN.md, bagian Gerak). */
+  transition:
+    background-color var(--duration-deliberate) var(--ease-out),
+    border-color var(--duration-deliberate) var(--ease-out),
+    color var(--duration-deliberate) var(--ease-out),
+    box-shadow var(--duration-deliberate) var(--ease-out);
+}
+
+.done .dot {
+  background: var(--success);
+  border-color: var(--success);
+  color: var(--text-on-success);
+}
+
+.active .dot {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--text-on-primary);
+  /* Cincin lembut ini menandai satu tahap yang sedang berjalan, bukan efek glow
+     yang dipakai di mana-mana. */
+  box-shadow: 0 0 0 4px var(--primary-soft);
+}
+
+.alert .dot {
+  background: var(--danger);
+  border-color: var(--danger);
+  color: var(--text-on-danger);
+}
+
+.pip {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-full);
+  background: currentColor;
+}
+
+.bar {
+  position: relative;
+  height: 2px;
+  flex: 1;
+  margin-inline: 8px;
+  overflow: hidden;
+  background: var(--border-default);
+  color: var(--success);
+}
+
+/* Garis terisi dari tahap yang selesai menuju tahap berikutnya, bukan
+   berganti warna sekaligus: arah isinya adalah arah dana bergerak. */
+.bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--duration-deliberate) var(--ease-out);
+}
+
+.done .bar::after {
+  transform: none;
+}
+
+.vertical .bar::after {
+  transform: scaleY(0);
+  transform-origin: center top;
+}
+
+.vertical .done .bar::after {
+  transform: none;
+}
+
+.vertical .bar {
+  width: 2px;
+  height: auto;
+  min-height: 28px;
+  margin-inline: 0;
+  margin-block: 4px;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.vertical .step:not(:last-child) .body {
+  padding-bottom: 20px;
+}
+
+.label {
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  color: var(--text-subtle);
+  line-height: 1.35;
+}
+
+.done .label {
+  color: var(--text-muted);
+}
+
+.active .label {
+  color: var(--text-strong);
+  font-weight: var(--weight-semibold);
+}
+
+.alert .label {
+  color: var(--danger-text);
+}
+
+.meta {
+  font-variant-numeric: tabular-nums;
+  font-size: var(--text-caption);
+  color: var(--text-subtle);
+}
+
+.description {
+  margin-top: 2px;
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+  line-height: var(--leading-normal);
+}
+
+/* Permukaan tinta tetap punya pasangan warnanya sendiri. Token tema tidak bisa
+   dipakai di sini: di mode terang teksnya jadi gelap di atas latar gelap. */
+.ink .dot {
+  border-color: var(--ink-border-strong);
+  background: transparent;
+  color: var(--ink-text-subtle);
+}
+
+.ink .bar {
+  background: var(--ink-border);
+  color: var(--ink-success);
+}
+
+.ink .label {
+  color: var(--ink-text-subtle);
+}
+
+.ink .meta {
+  color: var(--ink-text-subtle);
+}
+
+.ink .description {
+  color: var(--ink-text-muted);
+}
+
+.ink .done .dot {
+  background: var(--ink-success);
+  border-color: var(--ink-success);
+  color: var(--ink-surface);
+}
+
+.ink .done .label {
+  color: var(--ink-text-muted);
+}
+
+.ink .active .dot {
+  background: var(--ink-accent);
+  border-color: var(--ink-accent);
+  color: var(--ink-surface);
+  box-shadow: none;
+}
+
+.ink .active .label {
+  color: var(--ink-text);
+}
+
+/* Stepper enam tahap tidak muat berjajar di 360px. Ia berbalik jadi vertikal,
+   bukan menyusut sampai labelnya terpotong. */
+@media (max-width: 767px) {
+  .responsive {
+    flex-direction: column;
+  }
+
+  .responsive .step {
+    flex-direction: row;
+    gap: 12px;
+    flex: none;
+  }
+
+  .responsive .rail {
+    flex-direction: column;
+    width: 24px;
+  }
+
+  .responsive .bar {
+    width: 2px;
+    height: auto;
+    min-height: 24px;
+    margin-inline: 0;
+    margin-block: 4px;
+  }
+
+  .responsive .bar::after {
+    transform: scaleY(0);
+    transform-origin: center top;
+  }
+
+  .responsive .done .bar::after {
+    transform: none;
+  }
+
+  .responsive .step:not(:last-child) .body {
+    padding-bottom: 16px;
+  }
+}

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="perisai-isi" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFD84D"/>
+      <stop offset="1" stop-color="#F5B301"/>
+    </linearGradient>
+    <pattern id="perisai-titik" width="3.2" height="3.2" patternUnits="userSpaceOnUse">
+      <circle cx="1.6" cy="1.6" r="0.75" fill="#E09E00" opacity="0.55"/>
+    </pattern>
+  </defs>
+  <path d="M24 3.5 41 9.8v12.1c0 11.3-7.1 19.5-17 22.6C14.1 41.4 7 33.2 7 21.9V9.8z" fill="url(#perisai-isi)" stroke="#E3A100" stroke-width="1.6" stroke-linejoin="round"/>
+  <path d="M24 9.2 35.6 13.6v8.5c0 8-4.8 14-11.6 16.6-6.8-2.6-11.6-8.6-11.6-16.6v-8.5z" fill="url(#perisai-titik)"/>
+  <path d="M24 9.2 35.6 13.6v8.5c0 8-4.8 14-11.6 16.6-6.8-2.6-11.6-8.6-11.6-16.6v-8.5z" fill="none" stroke="#FFE68A" stroke-width="1" stroke-linejoin="round" opacity="0.9"/>
+</svg>

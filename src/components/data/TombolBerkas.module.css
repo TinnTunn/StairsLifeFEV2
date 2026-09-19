@@ -1,0 +1,10 @@
+.berkas {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.galat {
+  font-size: var(--text-caption);
+  color: var(--danger-text);
+}

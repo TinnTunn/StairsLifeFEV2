@@ -1,0 +1,77 @@
+/* Layar proses gaya V2 (masuk, daftar, keluar): aurora penuh layar dengan logo
+   dan cincin berputar. */
+.layar {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: grid;
+  place-items: center;
+  padding: var(--space-8);
+  background: var(--grad-aurora);
+  color: var(--on-dark);
+  animation: sl-muncul 240ms var(--ease-out);
+}
+
+.isi {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  animation: sl-pop 420ms var(--ease-spring) 60ms backwards;
+}
+
+.logo {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 8px;
+  border-radius: 50%;
+  background: var(--on-dark-fill);
+}
+
+.cincin {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid var(--on-dark-line);
+  border-top-color: var(--spark);
+  animation: proses-putar 900ms linear infinite;
+}
+
+.judul {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-h1);
+  font-weight: var(--weight-black);
+  letter-spacing: -0.03em;
+  color: var(--on-dark);
+}
+
+.teks {
+  margin: 0;
+  max-width: 36ch;
+  font-size: var(--text-body-sm);
+  line-height: 1.55;
+  color: var(--on-dark-muted);
+}
+
+@keyframes proses-putar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .layar,
+  .isi {
+    animation: none;
+  }
+
+  /* Tetap menandakan proses berjalan, tapi jauh lebih pelan. */
+  .cincin {
+    animation-duration: 3s;
+  }
+}

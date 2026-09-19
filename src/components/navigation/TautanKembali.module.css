@@ -1,0 +1,21 @@
+/* Tautan kembali: tenang, bukan tombol aksi.
+
+   Yang perlu menonjol di halaman turunan adalah isinya, bukan jalan pulangnya.
+   Tingginya mengikuti sasaran sentuh minimum supaya tetap mudah ditekan di
+   layar sempit meski tampilannya ringan. */
+.kembali {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap-min);
+  margin-bottom: var(--space-4);
+  color: var(--text-muted);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.kembali:hover {
+  color: var(--text-strong);
+}

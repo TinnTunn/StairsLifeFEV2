@@ -1,0 +1,72 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  padding: 0;
+  border-radius: var(--radius-sm);
+  border: var(--border-width) solid transparent;
+  background: transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: var(--transition-color);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* md 44px adalah default sekaligus ambang sentuh WCAG, jadi target di bawah
+   44px tidak bisa terjadi karena lupa. sm 36px sengaja dibatasi ke toolbar
+   desktop dan baris tabel. */
+.sm {
+  width: var(--control-sm);
+  height: var(--control-sm);
+}
+
+.md {
+  width: var(--control-md);
+  height: var(--control-md);
+}
+
+.lg {
+  width: var(--control-lg);
+  height: var(--control-lg);
+}
+
+.ghost {
+  color: var(--text-muted);
+}
+
+.ghost:not(:disabled):hover {
+  background: var(--bg-hover);
+}
+
+.outline {
+  background: var(--bg-surface);
+  color: var(--text-strong);
+  border-color: var(--border-default);
+}
+
+.outline:not(:disabled):hover {
+  background: var(--bg-subtle);
+  border-color: var(--border-strong);
+}
+
+.solid {
+  background: var(--primary);
+  color: var(--text-on-primary);
+}
+
+.solid:not(:disabled):hover {
+  background: var(--primary-hover);
+}
+
+.danger {
+  color: var(--danger-text);
+}
+
+.danger:not(:disabled):hover {
+  background: var(--danger-soft);
+}

@@ -1,0 +1,93 @@
+/* Label keadaan: kotak bersudut lembut, huruf kecil berjarak, tanpa titik
+   indikator. Warnanya cukup dibawa latar dan teks; titik berwarna membuatnya
+   terbaca sebagai lampu yang menyala sekarang. */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px var(--space-2);
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-overline);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  line-height: 1.35;
+  white-space: nowrap;
+}
+
+.sm {
+  padding: 2px var(--space-2);
+  font-size: var(--text-overline);
+}
+
+.draft {
+  background: var(--status-draft-bg);
+  color: var(--status-draft-fg);
+  border-color: var(--status-draft-bd);
+}
+
+.aktif {
+  background: var(--status-aktif-bg);
+  color: var(--status-aktif-fg);
+  border-color: var(--status-aktif-bd);
+}
+
+.menunggu {
+  background: var(--status-menunggu-bg);
+  color: var(--status-menunggu-fg);
+  border-color: var(--status-menunggu-bd);
+}
+
+.escrow {
+  background: var(--status-escrow-bg);
+  color: var(--status-escrow-fg);
+  border-color: var(--status-escrow-bd);
+}
+
+.dikerjakan {
+  background: var(--status-dikerjakan-bg);
+  color: var(--status-dikerjakan-fg);
+  border-color: var(--status-dikerjakan-bd);
+}
+
+.review {
+  background: var(--status-review-bg);
+  color: var(--status-review-fg);
+  border-color: var(--status-review-bd);
+}
+
+.selesai {
+  background: var(--status-selesai-bg);
+  color: var(--status-selesai-fg);
+  border-color: var(--status-selesai-bd);
+}
+
+.sengketa {
+  background: var(--status-sengketa-bg);
+  color: var(--status-sengketa-fg);
+  border-color: var(--status-sengketa-bd);
+}
+
+.ditolak {
+  background: var(--status-ditolak-bg);
+  color: var(--status-ditolak-fg);
+  border-color: var(--status-ditolak-bd);
+}
+
+.dilihat {
+  background: var(--status-dilihat-bg);
+  color: var(--status-dilihat-fg);
+  border-color: var(--status-dilihat-bd);
+}
+
+.seleksi {
+  background: var(--status-seleksi-bg);
+  color: var(--status-seleksi-fg);
+  border-color: var(--status-seleksi-bd);
+}
+
+.suspend {
+  background: var(--status-suspend-bg);
+  color: var(--status-suspend-fg);
+  border-color: var(--status-suspend-bd);
+}

@@ -1,0 +1,184 @@
+/* Grafik batang satu seri: batang maksimal 24px, ujung data membulat 4px dan
+   rata di garis dasar, jarak 2px antar batang, garis bantu tipis dan redup. */
+.grafik {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bidang {
+  display: flex;
+  gap: 10px;
+}
+
+.sumbuY {
+  flex: none;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-size: var(--text-caption);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+  line-height: 1;
+}
+
+.plot {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  height: 160px;
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  border-bottom: 1px solid var(--border-default);
+  border-radius: 2px;
+  outline: none;
+}
+
+.plot:focus-visible {
+  box-shadow: 0 0 0 var(--focus-ring-width) var(--focus-ring);
+}
+
+.garisAtas,
+.garisTengah {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--border-subtle);
+  pointer-events: none;
+}
+
+.garisAtas {
+  top: 0;
+}
+
+.garisTengah {
+  top: 50%;
+}
+
+/* Area sentuh satu kolom penuh, lebih besar dari batangnya. */
+.slot {
+  position: relative;
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  cursor: default;
+}
+
+.batang {
+  width: 100%;
+  max-width: 24px;
+  border-radius: 4px 4px 0 0;
+  background: var(--chart-1);
+  transition: filter var(--duration-fast) var(--ease-out);
+}
+
+.batang[data-nol] {
+  height: 0;
+}
+
+.slot[data-aktif] .batang {
+  filter: brightness(1.15);
+}
+
+.slot[data-aktif]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 4px;
+  background: var(--bg-sunken);
+  z-index: -1;
+}
+
+.tooltip {
+  position: absolute;
+  top: 6px;
+  left: var(--posisi);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 10px;
+  border: var(--border-width) solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  box-shadow: var(--shadow-md);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.tooltip[data-sisi="kanan"] {
+  transform: translateX(10px);
+}
+
+.tooltip[data-sisi="kiri"] {
+  transform: translateX(calc(-100% - 10px));
+}
+
+.tooltipNilai {
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-black);
+  color: var(--text-strong);
+  font-variant-numeric: proportional-nums;
+}
+
+.tooltipTanggal {
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+}
+
+.sumbuX {
+  display: flex;
+  justify-content: space-between;
+  padding-left: calc(2.5rem + 10px);
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+}
+
+.tabel summary {
+  display: inline-flex;
+  min-height: var(--tap-min);
+  align-items: center;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-bold);
+  color: var(--brand);
+  cursor: pointer;
+}
+
+.tabelGulir {
+  max-height: 220px;
+  overflow: auto;
+  border: var(--border-width) solid var(--border-subtle);
+  border-radius: var(--radius-md);
+}
+
+.tabel table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-caption);
+}
+
+.tabel th,
+.tabel td {
+  padding: 6px 10px;
+  text-align: left;
+  border-bottom: var(--border-width) solid var(--border-subtle);
+}
+
+.tabel td:last-child,
+.tabel th:last-child {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .batang {
+    transition: none;
+  }
+}

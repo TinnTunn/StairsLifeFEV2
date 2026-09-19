@@ -1,0 +1,179 @@
+/* Dompet gaya V2: saldo utama di kartu aurora, dua saldo pendamping di kartu
+   terang, mutasi dalam daftar baris bersama. */
+.balances {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+@media (max-width: 1100px) {
+  .balances {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .balanceUtama {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 560px) {
+  .balances {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.balance {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: 20px;
+  background: var(--bg-surface);
+  border: var(--border-width) solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  animation: sl-pop 500ms var(--ease-out) backwards;
+}
+
+.balance:nth-child(2) {
+  animation-delay: 70ms;
+}
+
+.balance:nth-child(3) {
+  animation-delay: 140ms;
+}
+
+.balanceUtama {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--grad-aurora);
+  border-color: transparent;
+  color: var(--on-dark);
+  box-shadow: var(--shadow-hero-card);
+}
+
+.balanceUtama::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 260px;
+  height: 260px;
+  right: -80px;
+  top: -110px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--aurora-1), transparent 66%);
+}
+
+/* Tombol tutup saldo menempel di ujung labelnya, bukan di samping angkanya:
+   angka saldo berubah lebar saat ditutup, dan tombol yang ikut bergeser
+   membuat orang kehilangan sasaran yang barusan ditekannya. */
+.tombolSaldo {
+  color: inherit;
+}
+
+.balanceLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.balanceUtama .balanceLabel {
+  color: var(--on-dark-muted);
+}
+
+/* Angka saldo utama memakai warna teks di atas aurora, bukan warna uang masuk
+   yang dirancang untuk permukaan terang. */
+.balanceAngka span {
+  color: var(--on-dark);
+  font-family: var(--font-display);
+  font-size: var(--text-bento-num);
+  font-weight: var(--weight-black);
+  letter-spacing: -0.03em;
+  /* Angka proporsional: digit tabular di huruf display membuat titik ribuan tampak renggang. */
+  font-variant-numeric: proportional-nums;
+}
+
+.balanceNote {
+  margin: 0;
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+  line-height: var(--leading-relaxed);
+}
+
+.balanceUtama .balanceNote {
+  color: var(--on-dark-muted);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding: 24px;
+  background: var(--bg-surface);
+  border: var(--border-width) solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.arah {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--success-soft);
+  color: var(--success-text);
+}
+
+.arah[data-arah="out"] {
+  background: var(--brand-soft);
+  color: var(--brand);
+}
+
+.arah[data-arah="held"] {
+  background: var(--warning-soft);
+  color: var(--warning-text);
+}
+
+.rincian {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  background: var(--brand-soft);
+  border: var(--border-width) solid var(--brand-soft-border);
+  font-size: var(--text-body-sm);
+  color: var(--text-base);
+}
+
+@media (max-width: 640px) {
+  .form {
+    padding: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .balance {
+    animation: none;
+  }
+}
