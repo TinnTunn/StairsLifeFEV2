@@ -40,8 +40,10 @@ export function RekamJejak({ profil, portofolio }: RekamJejakProps) {
      portofolio sudah membawa ulasannya sendiri, jadi tanpa saringan ini ulasan
      yang sama tampil dua kali di halaman yang sama. Dicocokkan lewat waktu
      dibuatnya, satu-satunya penanda yang ada di kedua sisi. */
-  const sudahTampil = new Set(item.map((k) => k.review?.created_at).filter(Boolean));
-  const ulasan = (profil.reviews ?? []).filter((r) => !sudahTampil.has(r.created_at));
+  const tanda = (u: { created_at: string; rating: number; comment: string | null }) =>
+    `${Date.parse(u.created_at)}|${u.rating}|${u.comment ?? ""}`;
+  const sudahTampil = new Set(item.filter((k) => k.review).map((k) => tanda(k.review!)));
+  const ulasan = (profil.reviews ?? []).filter((r) => !sudahTampil.has(tanda(r)));
 
   return (
     <>

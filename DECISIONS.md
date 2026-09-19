@@ -215,6 +215,10 @@ riwayat.
 | Jenis mutasi dompet yang tidak dikenal tidak lagi menjatuhkan halaman | Ditemukan saat menguji: satu baris mutasi berjenis asing membuat seluruh halaman dompet mati. Backend bisa menambah jenis kapan saja, dan itu tidak boleh membuat orang kehilangan akses ke saldonya |
 | Tombol tutup saldo juga ada di beranda, menempati petak ikon kartunya | Angka saldo yang pertama terlihat saat aplikasi dibuka ada di beranda, jadi di sanalah orang ingin menutupnya. Ditaruh di petak ikon, bukan di sebelahnya, supaya kartu itu tetap sebangun dengan tiga kartu statistik lain |
 | Tiga label identitas di profil disamakan dengan lencana status | Sebelumnya bentuknya pil, kotak, lalu pil lagi, dengan dua ukuran huruf dan dua gaya huruf. Sekarang ketiganya sebangun dan hanya warnanya yang membedakan |
+| Rekam jejak dibaca dari endpoint publik yang sama, bukan endpoint sendiri | Yang dilihat pemiliknya jadi persis yang dilihat calon pemberi kerja, termasuk apa yang sengaja tidak ditampilkan. Kalau keduanya memakai sumber berbeda, cepat atau lambat keduanya bercerita berbeda tentang orang yang sama |
+| Portofolio dan ulasan di profil sendiri hanya bisa dibaca | Isinya tumbuh sendiri dari kontrak yang selesai dan ulasan yang diterima. Begitu bisa disunting, ia berhenti jadi bukti dan berubah jadi klaim |
+| Ulasan ditampilkan juga kepada pemiliknya | Tiga alasan: itu yang dibaca orang lain tentang dia, ulasan menentukan kenaikan tingkat, dan orang tidak bisa memperbaiki atau menyanggah yang tidak pernah dilihatnya |
+| Ulasan yang sudah tampil di kartu portofolio tidak diulang di "Ulasan lain" | Backend mengirim seluruh ulasan di satu daftar sementara tiap kartu portofolio sudah membawa ulasannya sendiri. Dicocokkan lewat waktu, nilai, dan isinya, bukan hanya waktu, supaya beda format tanggal tidak membuat duplikatnya lolos |
 
 ## Warna
 
