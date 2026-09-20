@@ -30,8 +30,10 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# Berkas env dan seluruh turunannya, termasuk salinan cadangan.
+# Hanya berkas contoh tanpa nilai yang boleh ikut.
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -46,5 +48,6 @@ next-env.d.ts
 /blob-report/
 /playwright/.cache/
 
-#claude
-.claude
+# Konfigurasi alat bantu lokal. .claude/launch.json menunjuk port dan
+# perintah di mesin masing masing, jadi bukan milik repositori.
+.claude/
