@@ -1,3 +1,5 @@
+// Formulir unggah kartu mahasiswa untuk verifikasi.
+
 "use client";
 
 import { useState, type FormEvent } from "react";
@@ -14,8 +16,6 @@ import type { UploadResult, Verification } from "@/lib/types";
 import app from "../dashboard.module.css";
 import styles from "./verifikasi.module.css";
 
-/* Backend menolak berkas di atas 10 MB untuk ktm dan selfie. Dicek di sini
-   supaya pengguna tidak menunggu unggahan besar selesai hanya untuk ditolak. */
 const BATAS_BYTE = 10 * 1024 * 1024;
 
 interface Props {
@@ -50,8 +50,6 @@ export function FormVerifikasi({ universitasAwal, judul, onTerkirim }: Props) {
         galat.setGalatUmum([f.modeContoh]);
         return;
       }
-      /* Bucket verifikasi privat: yang kembali adalah path storage, bukan URL
-         publik. Path itu yang disimpan, admin membukanya lewat signed URL. */
       const kartu = await apiUpload<UploadResult>(ktm as File, "ktm");
       const wajah = await apiUpload<UploadResult>(selfie as File, "selfie");
       const hasil = await users.submitVerification({

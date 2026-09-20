@@ -1,3 +1,5 @@
+// Pintu masuk seluruh modul klien API.
+
 export { ApiError, API_BASE, USE_MOCK, apiFetch, apiUpload } from "./client";
 export { clearSession, readSession, writeSession, type Session } from "./session";
 export { auth, type RegisterPayload } from "./auth";

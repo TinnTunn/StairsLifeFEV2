@@ -1,3 +1,5 @@
+/* Gaya komponen obrolan. */
+
 .obrolan {
   display: flex;
   flex-direction: column;
@@ -8,9 +10,6 @@
   overflow: hidden;
 }
 
-/* Kepala percakapan menempel di kotaknya, bukan di topbar halaman: nama lawan
-   bicara adalah milik percakapan ini, sedangkan topbar menyebut bagian
-   aplikasinya. Dipisah jauh dari isinya, keduanya terasa tidak berhubungan. */
 .kepala {
   display: flex;
   align-items: center;
@@ -146,9 +145,6 @@
   color: var(--text-subtle);
 }
 
-/* Satu centang: sampai di server. Dua centang: sudah dibuka lawan bicara.
-   Warnanya ikut berubah saat dibaca, supaya bedanya terlihat tanpa menghitung
-   jumlah centang. */
 .centang {
   display: inline-flex;
   color: var(--text-subtle);

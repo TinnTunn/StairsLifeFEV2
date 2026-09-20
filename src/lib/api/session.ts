@@ -1,9 +1,6 @@
-import type { AuthUser } from "../types";
+// Baca, tulis, dan hapus sesi di penyimpanan peramban.
 
-/* Sesi hidup di localStorage, bukan cookie, karena backend memakai Bearer token
-   murni dan tidak pernah menyetel cookie. Konsekuensinya sudah disengaja:
-   halaman yang butuh token dirender di klien, dan halaman publik (yang memang
-   tanpa guard di backend) dirender di server tanpa token sama sekali. */
+import type { AuthUser } from "../types";
 
 const KEY = "stairslife-session";
 
@@ -13,11 +10,6 @@ export interface Session {
   user: AuthUser;
 }
 
-/* Snapshot di-cache berdasarkan string mentahnya.
-   readSession dipakai sebagai getSnapshot useSyncExternalStore, yang
-   membandingkan hasil berurutan dengan Object.is. Tanpa cache ini setiap
-   panggilan mengembalikan objek hasil JSON.parse yang baru, snapshot dianggap
-   selalu berubah, dan React masuk ke render loop tak berujung. */
 let rawTerakhir: string | null = null;
 let sesiTerakhir: Session | null = null;
 
@@ -56,9 +48,6 @@ export function clearSession(): void {
   }
 }
 
-/* Penanda proses keluar yang sedang berjalan. Penjaga rute memeriksanya supaya
-   tidak melempar ke /masuk?lanjut=... saat sesi dihapus dengan sengaja; tujuan
-   setelah keluar adalah beranda. */
 let prosesKeluar = false;
 
 export function tandaiKeluar(aktif: boolean): void {
@@ -69,9 +58,6 @@ export function sedangKeluar(): boolean {
   return prosesKeluar;
 }
 
-/* Penanda proses masuk atau daftar. Formulir yang menulis sesi juga yang
-   mengarahkan (termasuk ke ?lanjut=), jadi pengalih "sudah masuk" di halaman
-   auth menunggu, bukan balapan ke beranda peran. */
 let prosesMasuk = false;
 
 export function tandaiMasuk(aktif: boolean): void {
@@ -82,9 +68,6 @@ export function sedangMasuk(): boolean {
   return prosesMasuk;
 }
 
-/* Sesi yang ditolak server ditandai supaya halaman masuk bisa menjelaskan
-   kenapa pengguna tiba-tiba ada di sana. Disimpan di sessionStorage, bukan
-   memori modul, karena pengalihan ke halaman masuk bisa memuat ulang halaman. */
 const KUNCI_BERAKHIR = "stairslife-sesi-berakhir";
 
 export function tandaiSesiBerakhir(): void {
@@ -95,7 +78,6 @@ export function tandaiSesiBerakhir(): void {
   }
 }
 
-/** Sekali baca: penandanya langsung dihapus supaya pesan tidak muncul lagi. */
 export function ambilSesiBerakhir(): boolean {
   try {
     const ada = window.sessionStorage.getItem(KUNCI_BERAKHIR) === "1";

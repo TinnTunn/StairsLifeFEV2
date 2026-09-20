@@ -1,3 +1,5 @@
+/* Gaya avatar. */
+
 .wrap {
   position: relative;
   display: inline-flex;
@@ -30,8 +32,6 @@
   object-fit: cover;
 }
 
-/* Centang terverifikasi memakai --text-on-success, bukan putih: di mode gelap
-   --success menerang dan putih di atasnya gagal AA. */
 .check {
   position: absolute;
   right: -2px;
@@ -51,25 +51,4 @@
   background: var(--success);
   border-radius: var(--radius-full);
   border: 2px solid var(--bg-surface);
-}
-
-.group {
-  display: inline-flex;
-  align-items: center;
-}
-
-.stacked {
-  border-radius: var(--radius-full);
-  box-shadow: 0 0 0 2px var(--bg-surface);
-}
-
-.more {
-  display: grid;
-  place-items: center;
-  border-radius: var(--radius-full);
-  background: var(--bg-sunken);
-  color: var(--text-muted);
-  font-weight: var(--weight-semibold);
-  font-variant-numeric: tabular-nums;
-  box-shadow: 0 0 0 2px var(--bg-surface);
 }

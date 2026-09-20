@@ -1,3 +1,5 @@
+// Potongan bersama panel admin: kartu, paginasi, dan pembungkus aksi.
+
 "use client";
 
 import { useState, type ReactNode } from "react";
@@ -7,7 +9,6 @@ import { useBahasa } from "@/i18n/BahasaProvider";
 import { ApiError, USE_MOCK } from "@/lib/api/client";
 import styles from "./admin.module.css";
 
-/** Pesan galat dari aksi admin: pesan backend apa adanya, atau galat jaringan. */
 export function useAksi() {
   const { t } = useBahasa();
   const [loading, setLoading] = useState(false);
@@ -41,8 +42,6 @@ export function useAksi() {
   return { loading, error, setError, jalankan, galat };
 }
 
-/* Tombol buka berkas dipindah ke komponen bersama karena halaman sengketa
-   pengguna juga membutuhkannya. */
 export { TombolBerkas } from "@/components/data/TombolBerkas";
 
 export function Paginasi({
@@ -81,7 +80,6 @@ export function Paginasi({
   );
 }
 
-/** Kartu berjudul dengan ikon, dipakai berulang di halaman admin. */
 export function KartuAdmin({
   judul,
   sub,

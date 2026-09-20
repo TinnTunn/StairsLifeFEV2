@@ -1,3 +1,5 @@
+// Halaman formulir mengubah data profil.
+
 "use client";
 
 import { useRouter } from "next/navigation";
@@ -96,7 +98,6 @@ function Formulir({ awal, session }: { awal: User; session: Session }) {
   const [error, setError] = useState<string | null>(null);
   const [galatKolom, setGalatKolom] = useState<{ full_name?: string; semester?: string; portfolio_url?: string }>({});
 
-  /* URL objek pratinjau dilepas saat foto diganti, dibatalkan, atau halaman ditinggal. */
   const urlTerakhir = useRef<string | null>(null);
   useEffect(() => () => {
     if (urlTerakhir.current) URL.revokeObjectURL(urlTerakhir.current);
@@ -121,7 +122,6 @@ function Formulir({ awal, session }: { awal: User; session: Session }) {
     gantiPratinjau(file);
   }
 
-  /** Hanya kolom yang benar-benar berubah yang dikirim; backend mengabaikan string kosong kecuali bio. */
   function perubahan(): UpdateProfilePayload {
     const p: UpdateProfilePayload = {};
     const beda = (a: string, b: string | null | undefined) => a.trim() !== (b ?? "").trim();
@@ -170,7 +170,6 @@ function Formulir({ awal, session }: { awal: User; session: Session }) {
       }
       setStatus("simpan");
       const baru = await users.updateMe(payload);
-      /* Nama dan foto di sidebar dibaca dari sesi, jadi sesi ikut diperbarui. */
       const kini = readSession() ?? session;
       writeSession({
         ...kini,

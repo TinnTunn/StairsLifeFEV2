@@ -1,4 +1,5 @@
-/* Formulir verifikasi gaya V2: kartu dengan ikon kepala dan dua dropzone berdampingan. */
+/* Gaya halaman verifikasi mahasiswa. */
+
 .form {
   display: flex;
   flex-direction: column;

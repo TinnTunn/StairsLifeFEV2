@@ -1,3 +1,5 @@
+/* Gaya dialog modal. */
+
 .overlay {
   position: fixed;
   inset: 0;
@@ -6,8 +8,6 @@
   align-items: flex-end;
   justify-content: center;
   background: var(--bg-overlay);
-  /* Satu-satunya blur di sistem. Ia memisahkan lapisan keputusan dari konten
-     di belakangnya, bukan menghias. */
   backdrop-filter: blur(4px);
   animation: sl-fade var(--duration-base) var(--ease-out);
 }
@@ -38,8 +38,6 @@
   }
 }
 
-/* Di bawah 768px modal adalah bottom sheet: jempol berada di bawah layar,
-   jadi keputusan diletakkan dekat jempol. */
 @media (min-width: 768px) {
   .overlay {
     align-items: center;

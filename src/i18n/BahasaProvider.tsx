@@ -1,3 +1,5 @@
+// Penyedia bahasa aktif dan kamusnya ke seluruh komponen klien.
+
 "use client";
 
 import { useRouter } from "next/navigation";
@@ -14,15 +16,6 @@ interface NilaiBahasa {
 
 const Konteks = createContext<NilaiBahasa | null>(null);
 
-/**
- * Menyimpan bahasa aktif untuk Client Component. Nilai awalnya datang dari
- * cookie yang dibaca root layout di server, jadi render pertama di klien sudah
- * memakai bahasa yang benar dan tidak berkedip.
- *
- * Mengganti bahasa menulis cookie lalu memanggil router.refresh(), supaya
- * Server Component (beranda, daftar proyek, detail proyek) ikut dirender ulang
- * dengan bahasa baru tanpa memuat ulang halaman.
- */
 export function BahasaProvider({ awal, children }: { awal: Bahasa; children: ReactNode }) {
   const router = useRouter();
   const [bahasa, setBahasa] = useState<Bahasa>(awal);

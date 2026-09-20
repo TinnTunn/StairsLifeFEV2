@@ -1,3 +1,5 @@
+// Beranda pemilik bisnis: ringkasan proyek dan pelamar.
+
 "use client";
 
 import Link from "next/link";
@@ -22,7 +24,6 @@ export default function BerandaBisnis() {
   const { t } = useBahasa();
   const b = t.aplikasi.bisnis.beranda;
   return (
-    /* Tanpa tombol di topbar: kartu sapaan sudah membawa ajakan pasang proyek. */
     <BisnisShell title={b.judul} subtitle={b.sub}>
       {(session) => <Isi session={session} />}
     </BisnisShell>

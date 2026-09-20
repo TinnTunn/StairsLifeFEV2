@@ -1,3 +1,5 @@
+// Tombol terima dan tolak satu pelamar.
+
 "use client";
 
 import { useRouter } from "next/navigation";
@@ -28,7 +30,6 @@ export function ApplicantActions({
   onBerubah,
 }: {
   application: Application;
-  /** Dipakai memberi tahu berapa lamaran lain yang otomatis ditolak. */
   jumlahPelamarLain: number;
   onBerubah: () => void;
 }) {
@@ -79,9 +80,6 @@ export function ApplicantActions({
     jalankan(async () => {
       await applications.setStatus(application.id, "approved");
       setTerimaBuka(false);
-      /* Menerima lamaran belum membuat kontrak. Nilai dan tenggat masih harus
-         disepakati, jadi langkah berikutnya langsung ditawarkan di sini
-         daripada membiarkan pengguna mencarinya sendiri. */
       setKontrakBuka(true);
       onBerubah();
     });
@@ -134,9 +132,6 @@ export function ApplicantActions({
           </>
         )}
 
-        {/* Bertanya sebelum memutuskan. Tersedia di keadaan apa pun, termasuk
-            setelah lamaran diputus, karena percakapan soal revisi dan jadwal
-            tetap berlanjut. */}
         {application.student_id ? (
           <Button
             variant="ghost"
@@ -150,9 +145,6 @@ export function ApplicantActions({
 
       {!terimaBuka && !tolakBuka && !kontrakBuka ? pesanGalat : null}
 
-      {/* dismissible false: menerima satu pelamar menolak pelamar lain dan
-          tidak bisa diurungkan, jadi pilihannya harus lewat tombol, bukan
-          Escape atau klik di luar modal. */}
       <Modal
         open={terimaBuka}
         onClose={() => setTerimaBuka(false)}
@@ -174,8 +166,6 @@ export function ApplicantActions({
         {pesanGalat}
       </Modal>
 
-      {/* dismissible false, alasannya sama dengan modal terima: menolak tidak
-          bisa diurungkan dan pelamarnya langsung dikabari. */}
       <Modal
         open={tolakBuka}
         onClose={() => setTolakBuka(false)}

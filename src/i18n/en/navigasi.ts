@@ -1,3 +1,5 @@
+// Kamus Inggris: label navigasi.
+
 import type { navigasi as Id } from "../id/navigasi";
 
 export const navigasi: typeof Id = {

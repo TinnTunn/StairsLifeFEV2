@@ -1,8 +1,9 @@
+// Tautan lewati ke konten utama untuk pengguna papan ketik.
+
 "use client";
 
 import { useBahasa } from "@/i18n/BahasaProvider";
 
-/** Tautan pertama di setiap halaman untuk pengguna keyboard: melompati header ke isi. */
 export function LewatiKonten() {
   const { t } = useBahasa();
   return (

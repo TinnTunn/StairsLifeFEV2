@@ -1,3 +1,5 @@
+// Tombol pengalih tema terang dan gelap.
+
 "use client";
 
 import { useSyncExternalStore } from "react";
@@ -16,9 +18,6 @@ function subscribe(onChange: () => void) {
   return () => window.removeEventListener("stairslife-theme-change", onChange);
 }
 
-/* Tema dibaca lewat useSyncExternalStore: localStorage adalah state di luar
-   React, dan snapshot server dikunci "system" supaya markup server dan klien
-   cocok. Warnanya sudah benar sejak paint pertama berkat skrip inline. */
 export function ThemeToggle({ onDark = false }: { onDark?: boolean }) {
   const theme = useSyncExternalStore(subscribe, readStoredTheme, () => "system" as Theme);
   const { t } = useBahasa();

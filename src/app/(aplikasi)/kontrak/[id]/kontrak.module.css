@@ -1,6 +1,5 @@
-/* Kontrak dan escrow gaya V2. Panel aurora menjawab pertanyaan paling
-   menentukan di produk ini, siapa memegang uangnya sekarang, dan dipasang di
-   atas sebelum apa pun yang lain. */
+/* Gaya halaman detail kontrak. */
+
 .head {
   display: flex;
   flex-direction: column;
@@ -128,7 +127,6 @@
   animation: sl-naik 480ms var(--ease-out) backwards;
 }
 
-/* Kartu yang meminta keputusan diberi garis brand supaya menonjol dari kartu informasi. */
 .cardAksi {
   border-color: var(--brand-soft-border);
   box-shadow: 0 0 0 1px var(--brand-soft-border), var(--shadow-card);
@@ -200,8 +198,6 @@
   max-width: 66ch;
 }
 
-/* Penanda berkas ke berapa yang sedang diunggah. Unggahan besar bisa memakan
-   waktu menit, dan tanpa ini layar terlihat diam. */
 .progres {
   margin: 0;
   font-size: var(--text-body-sm);
@@ -220,8 +216,6 @@
   color: var(--text-base);
 }
 
-/* Permintaan perbaikan memakai permukaan peringatan, bukan teks redup: ini
-   hal yang harus dikerjakan mahasiswa berikutnya. */
 .revisi {
   display: flex;
   flex-direction: column;
@@ -299,7 +293,6 @@
   color: var(--text-base);
 }
 
-/* Ikon Lucide dirender sebagai blok, jadi tanpa flex ia turun ke baris sendiri. */
 .riwayat {
   display: inline-flex;
   align-items: center;
@@ -323,7 +316,6 @@
   }
 }
 
-/* ---------- Sengketa dan pembaruan langsung ---------- */
 .masalah {
   flex-direction: row;
   flex-wrap: wrap;

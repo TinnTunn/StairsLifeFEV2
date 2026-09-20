@@ -1,3 +1,5 @@
+// Kamus Inggris: halaman masuk, daftar, dan kata sandi.
+
 import type { auth as Id } from "../id/auth";
 
 export const auth: typeof Id = {

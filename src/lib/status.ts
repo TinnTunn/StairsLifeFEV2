@@ -1,7 +1,4 @@
-/* Jembatan enum backend ke kunci StatusBadge.
-   Backend memakai istilah Inggris, antarmuka memakai Indonesia. Pemetaannya
-   dikumpulkan di sini supaya perubahan enum di backend berhenti di satu berkas,
-   bukan menyebar ke setiap layar yang menampilkan status. */
+// Peta status backend ke kunci lencana status.
 
 import type {
   ApplicationStatus,
@@ -25,8 +22,6 @@ export const CONTRACT_STATUS: Record<ContractStatus, string> = {
   pending_review: "menunggu_review",
   completed: "selesai",
   disputed: "sengketa",
-  /* cancelled tidak ada di schema.prisma tapi ditulis admin.service saat
-     sengketa dimenangkan bisnis. Nilainya ditambahkan lewat migrasi SQL. */
   cancelled: "dibatalkan",
 };
 
@@ -64,13 +59,9 @@ export const WITHDRAWAL_STATUS: Record<WithdrawalStatus, string> = {
 
 export const DISPUTE_STATUS: Record<DisputeStatus, string> = {
   open: "sengketa",
-  /* Backend menulis under_review lewat DTO admin, tapi DisputesService masih
-     memeriksa in_review saat menerima bukti. Keduanya dipetakan supaya
-     antarmuka tidak ikut pecah selama backend belum diseragamkan. */
   under_review: "menunggu_review",
   in_review: "menunggu_review",
   mediation: "menunggu_review",
   resolved: "selesai",
   rejected: "ditolak",
 };
-

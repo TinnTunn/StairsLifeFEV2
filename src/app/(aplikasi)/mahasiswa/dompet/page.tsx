@@ -1,3 +1,5 @@
+// Halaman dompet mahasiswa: saldo dan mutasi.
+
 "use client";
 
 import { Button } from "@/components/actions/Button";
@@ -17,8 +19,6 @@ import app from "../dashboard.module.css";
 import styles from "./dompet.module.css";
 import { SaldoRahasia, TombolSaldo } from "@/components/data/SaldoRahasia";
 
-/* Baris yang tidak menggerakkan uang ditandai "tidak bergerak", bukan Rp 0:
-   nol rupiah membaca seperti transaksi gagal. */
 const ARAH: Record<WalletTransactionType, { tone: "in" | "out" | "held"; gerak: boolean }> = {
   earn_release: { tone: "in", gerak: true },
   earn_split: { tone: "in", gerak: true },
@@ -63,15 +63,10 @@ function Isi() {
       {hasil.data?.sample ? <SampleDataNotice /> : null}
 
       <div className={styles.balances}>
-        {/* Saldo utama di kartu aurora: satu-satunya angka yang bisa langsung dipakai. */}
         <div className={`${styles.balance} ${styles.balanceUtama}`}>
           <span className={styles.balanceLabel}>
             <Icon name="Wallet" size={16} />
             {d.bisaDitarik}
-            {/* Dompet sering dibuka di tempat yang tidak privat. Satu tombol
-                menutup ketiga angka saldo sekaligus, bukan hanya yang ini,
-                karena menutup satu sementara dua lainnya terbuka tidak
-                menyembunyikan apa pun. */}
             <TombolSaldo className={styles.tombolSaldo} />
           </span>
           <SaldoRahasia value={w.amount} size="lg" className={styles.balanceAngka} />
@@ -111,11 +106,6 @@ function Isi() {
         ) : (
           <ul className={app.rows}>
             {w.recent_transactions.map((tx) => {
-              /* Jenis mutasi yang belum dikenal frontend diperlakukan sebagai
-                 dana masuk yang tidak bertanda, bukan dibiarkan menjatuhkan
-                 seluruh halaman dompet. Backend bisa menambah jenis baru kapan
-                 saja, dan satu baris mutasi asing tidak boleh membuat orang
-                 kehilangan akses ke saldonya. */
               const arah = ARAH[tx.type] ?? { tone: "in" as const, gerak: false };
               return (
                 <li key={tx.id} className={app.row}>
@@ -129,18 +119,12 @@ function Isi() {
                       {formatTanggalJam(tx.created_at, bahasa)}
                     </span>
                   </div>
-                  {/* Dana yang dikunci tetap ditampilkan nominalnya, tapi tanpa
-                      tanda: saldo total tidak berubah, hanya berpindah ke
-                      kolom yang sedang diproses. */}
                   <Money value={tx.amount} tone={arah.tone} sign={arah.gerak} size="sm" />
                 </li>
               );
             })}
           </ul>
         )}
-        {/* Backend hanya mengirim 20 mutasi terakhir tanpa paginasi. Catatan
-            baru ditampilkan saat batas itu tercapai, karena hanya saat itulah
-            ada mutasi lama yang tidak terlihat. */}
         {w.recent_transactions.length >= 20 ? <p className={app.catatan}>{d.mutasi20}</p> : null}
         </BatasSeksi>
       </section>

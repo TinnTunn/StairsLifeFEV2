@@ -1,3 +1,5 @@
+// Judul tab untuk rute keamanan akun.
+
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { ambilKamus } from "@/i18n/server";

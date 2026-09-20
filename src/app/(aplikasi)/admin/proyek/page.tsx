@@ -1,3 +1,5 @@
+// Halaman admin untuk memantau dan menutup proyek.
+
 "use client";
 
 import { useMemo, useState } from "react";

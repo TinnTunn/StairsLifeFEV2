@@ -1,6 +1,5 @@
-/* Pintu masuk panel: satu kartu tenang di tengah, tanpa panel cerita produk.
-   Latarnya permukaan datar, bukan mesh cream seperti halaman pemasaran, supaya
-   terasa sebagai perkakas internal sejak layar pertama. */
+/* Gaya halaman masuk admin. */
+
 .halaman {
   flex: 1;
   min-height: 100%;
@@ -35,7 +34,6 @@
   color: var(--text-strong);
 }
 
-/* Lencana peran: penanda bahwa pintu ini bukan untuk pengguna biasa. */
 .label {
   display: inline-flex;
   align-items: center;
@@ -88,8 +86,6 @@
   line-height: var(--leading-relaxed);
 }
 
-/* Jejak audit disebut di pintu masuk, bukan setelah orang berada di dalam:
-   pengurus perlu tahu bahwa tindakannya tercatat sebelum mulai bekerja. */
 .catatan {
   display: flex;
   align-items: flex-start;

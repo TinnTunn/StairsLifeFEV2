@@ -1,4 +1,5 @@
-/* Isi kartu auth gaya V2. Padding ada di kartu AuthShell, bukan di sini. */
+/* Gaya halaman autentikasi. */
+
 .page {
   width: 100%;
   display: flex;
@@ -91,26 +92,6 @@
   margin-top: calc(var(--space-4) * -1);
 }
 
-.lihatSandi {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  min-height: var(--tap-min);
-  padding: 0 4px 0 0;
-  border: 0;
-  background: none;
-  font-family: var(--font-sans);
-  font-size: var(--text-body-sm);
-  font-weight: var(--weight-semibold);
-  color: var(--text-muted);
-  cursor: pointer;
-}
-
-.lihatSandi:hover {
-  color: var(--text-strong);
-}
-
-/* Kabar netral, bukan galat: sesi yang berakhir bukan kesalahan pengguna. */
 .info {
   display: flex;
   align-items: center;
@@ -184,9 +165,9 @@
   text-decoration: none;
   color: inherit;
   transition:
-    transform var(--duration-base) var(--ease-out),
-    box-shadow var(--duration-base) var(--ease-out),
-    border-color var(--duration-fast) var(--ease-out);
+  transform var(--duration-base) var(--ease-out),
+  box-shadow var(--duration-base) var(--ease-out),
+  border-color var(--duration-fast) var(--ease-out);
 }
 
 .roleCard:hover,

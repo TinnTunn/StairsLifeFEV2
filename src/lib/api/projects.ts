@@ -1,12 +1,8 @@
+// Klien API proyek.
+
 import type { Project, ProjectTier } from "../types";
 import { apiFetch } from "./client";
 
-/**
- * Backend hanya menerima tiga filter ini dan tidak punya paginasi.
- * Filter lokasi, tipe kerja, rentang gaji, dan jadwal yang ada di spesifikasi
- * layar belum punya dukungan backend, jadi sengaja tidak diikutkan: filter yang
- * dikirim tapi diabaikan akan terlihat bekerja lalu gagal saat disambungkan.
- */
 export interface ProjectFilter {
   [key: string]: string | undefined;
   search?: string;
@@ -19,7 +15,6 @@ export interface CreateProjectPayload {
   description: string;
   budget_min: number;
   budget_max: number;
-  /** ISO 8601. */
   deadline: string;
   category: string;
   tier: ProjectTier;
@@ -28,11 +23,9 @@ export interface CreateProjectPayload {
 }
 
 export const projects = {
-  /** Publik, tanpa guard, jadi bisa dipanggil dari Server Component tanpa token. */
   list: (filter: ProjectFilter = {}, next?: { revalidate?: number }) =>
     apiFetch<Project[]>("/projects", { query: filter, anonymous: true, next }),
 
-  /** Publik. id berupa UUID: backend tidak punya kolom slug. */
   detail: (id: string, next?: { revalidate?: number }) =>
     apiFetch<Project>(`/projects/${id}`, { anonymous: true, next }),
 

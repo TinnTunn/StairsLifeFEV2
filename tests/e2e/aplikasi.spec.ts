@@ -1,3 +1,5 @@
+// Uji E2E halaman di dalam aplikasi untuk ketiga peran.
+
 import { expect, test } from "@playwright/test";
 import { galat, mockApi, ok, pasangSesi, pengguna } from "./api-tiruan";
 
@@ -245,9 +247,6 @@ test.describe("shell aplikasi", () => {
   }
 
   test("unggah berkas mengulang sendiri setelah token diperbarui", async ({ page }) => {
-    /* Token akses hanya berlaku satu jam dan unggahan terjadi di ujung formulir
-       panjang, jadi 401 di sini harus berakhir dengan unggahan yang berhasil,
-       bukan pengguna yang kehilangan pekerjaannya. */
     let unggahan = 0;
     let dikirim: unknown = null;
     await pasangSesi(page, "mahasiswa");
@@ -280,8 +279,6 @@ test.describe("shell aplikasi", () => {
   });
 
   test("bukti sengketa di atas 10 MB ditolak sebelum diunggah", async ({ page }) => {
-    /* Batasnya diperiksa di klien: tanpa itu pengguna menunggu unggahan besar
-       selesai hanya untuk ditolak server di ujung. */
     let unggahan = 0;
     await pasangSesi(page, "mahasiswa");
     await mockApi(page, {
@@ -380,7 +377,6 @@ test.describe("shell aplikasi", () => {
     await expect(page.getByRole("heading", { name: "Rizky Pratama" })).toBeVisible();
     await expect(page.getByText("Desain logo kedai kopi")).toBeVisible();
     await expect(page.getByText("Hasilnya rapi dan tepat waktu.")).toBeVisible();
-    /* Penghasilan orang lain dan berkas milik klien sebelumnya tidak ikut tampil. */
     await expect(page.getByText("9.500.000")).toHaveCount(0);
     await expect(page.getByText(/berkas-klien\.zip/)).toHaveCount(0);
   });
@@ -396,21 +392,17 @@ test.describe("shell aplikasi", () => {
     await page.goto("/kontrak");
     await expect(page).toHaveTitle("Kontrak · StairsLife");
 
-    // Fokus pindah ke isi halaman setelah navigasi klien.
     await page.getByRole("link", { name: "Lamaran saya" }).first().click();
     await page.waitForURL(/\/mahasiswa\/lamaran$/);
     await expect(page).toHaveTitle("Lamaran saya · StairsLife");
     const fokus = await page.evaluate(() => document.activeElement?.id ?? "");
     expect(fokus).toBe("konten");
 
-    // Bilah offline muncul saat jaringan putus, lalu hilang saat kembali.
     await context.setOffline(true);
     await expect(page.getByText("Kamu sedang offline")).toBeVisible();
     await context.setOffline(false);
     await expect(page.getByText("Kamu sedang offline")).toHaveCount(0);
 
-    // Sesi yang benar-benar ditolak server berakhir di halaman masuk dengan
-    // penjelasan, bukan lemparan diam-diam.
     await page.unrouteAll();
     await mockApi(page, {
       "GET /contracts/my": () => galat(401, "TOKEN_EXPIRED", "Token kedaluwarsa."),
@@ -508,7 +500,6 @@ test.describe("shell aplikasi", () => {
     });
 
     await page.goto("/mahasiswa/cari");
-    // Shell aplikasi tetap terpasang: tidak ada footer publik di halaman ini.
     await expect(page.getByRole("link", { name: "Lamaran saya" }).first()).toBeVisible();
     await expect(page.getByRole("contentinfo")).toHaveCount(0);
     await expect(page.getByText("Desain feed Instagram")).toBeVisible();
@@ -520,7 +511,6 @@ test.describe("shell aplikasi", () => {
     await expect(page.getByText("Desain feed Instagram")).toHaveCount(0);
     expect(diminta.some((q) => q.includes("tier=menengah"))).toBe(true);
 
-    // Detail tetap di dalam shell, bukan melompat ke halaman publik.
     await page.getByRole("link", { name: "Foto produk katalog" }).click();
     await page.waitForURL(/\/mahasiswa\/cari\/p2$/);
   });
@@ -536,8 +526,6 @@ test.describe("shell aplikasi", () => {
       "GET /users/me": () => ok(pengguna("mahasiswa", { full_name: "Rizky Pratama" })),
     });
 
-    // Urutan inilah yang dulu meruntuhkan halaman: beranda mengisi cache lamaran,
-    // lalu halaman cari membacanya.
     await page.goto("/mahasiswa");
     await page.waitForTimeout(900);
     await page.getByRole("link", { name: "Cari proyek" }).first().click();
@@ -546,10 +534,8 @@ test.describe("shell aplikasi", () => {
     await expect(page.getByText("Ada yang gagal dimuat")).toHaveCount(0);
     await expect(page.getByText("Dilamar")).toBeVisible();
 
-    // Logo di sidebar bukan tautan lagi.
     await expect(page.getByRole("link", { name: "StairsLife, ke beranda" })).toHaveCount(0);
 
-    // Chip kategori sudah tidak ada, chip tingkat tetap.
     await expect(page.getByRole("button", { name: "Semua kategori" })).toHaveCount(0);
     await expect(page.getByRole("button", { name: "Menengah", exact: true })).toBeVisible();
   });
@@ -565,13 +551,10 @@ test.describe("shell aplikasi", () => {
 
     await page.goto("/bisnis/proyek/p1");
     await expect(page.getByRole("heading", { name: "Design Logo Toko Pastry" })).toBeVisible();
-    // Brief yang sama dengan yang dibaca mahasiswa
     await expect(page.getByText("Butuh logo dan varian untuk kemasan")).toBeVisible();
     await expect(page.getByText("Berkas logo AI dan PNG")).toBeVisible();
-    // Bukan tombol lamar, tapi jalan ke pelamar
     await expect(page.getByRole("link", { name: "Lihat pelamar" })).toBeVisible();
     await expect(page.getByRole("link", { name: /Lamar proyek/ })).toHaveCount(0);
-    // Pelamarnya ada di halaman yang sama
     await expect(page.getByText("Mahasiswa 1")).toBeVisible();
     await expect(page.getByText("Mahasiswa 2")).toBeVisible();
   });
@@ -592,7 +575,6 @@ test.describe("shell aplikasi", () => {
     await mockApi(page, {
       "GET /users/me": () => ok(pengguna("admin")),
       "GET /admin/me": () => ok({ penuh: true, izin: [], peran: [] }),
-      /* Respons tanpa daily_trend: dulu ini menjatuhkan seluruh halaman. */
       "GET /admin/finances": () => ok({ summary: { total_komisi: 0, total_gmv: 0, total_transaksi: 0, komisi_hari_ini: 0, komisi_minggu_ini: 0, komisi_bulan_ini: 0 } }),
       "GET /admin/finances/detail": () => ok({ payments: [], pagination: { page: 1, limit: 20, total: 0, total_pages: 1 } }),
     });
@@ -615,16 +597,11 @@ test.describe("shell aplikasi", () => {
     const kartu = page.getByRole("article").filter({ hasText: "Foto produk untuk katalog" });
     const sudah = page.getByRole("article").filter({ hasText: "Desain feed Instagram" });
 
-    // Kategori ikut tampil di kartu, sesuai rujukan rancangan.
     await expect(kartu.getByText("Fotografi produk")).toBeVisible();
 
-    /* Proyek yang sudah dilamar tidak menawarkan tombol lamar lagi, dan
-       menandainya dengan lencana. */
     await expect(sudah.getByRole("link", { name: "Lamar" })).toHaveCount(0);
     await expect(sudah.getByText("Dilamar")).toBeVisible();
 
-    /* Tombol lamar berada di atas lapisan tautan kartu: menekannya harus
-       membuka formulir lamaran, bukan halaman detail. */
     await kartu.getByRole("link", { name: "Lamar" }).click();
     await page.waitForURL(/\/mahasiswa\/lamar\/p1$/);
 
@@ -645,13 +622,9 @@ test.describe("shell aplikasi", () => {
         ok([{ ...dasar, contracts: punyaKontrak ? [{ id: "c1", status: "active" }] : [] }]),
     });
 
-    /* Tanpa kontrak: tawarannya membuat kontrak. */
     await page.goto("/bisnis/proyek/p1");
     await expect(page.getByRole("button", { name: "Buat kontrak" })).toBeVisible();
 
-    /* Dengan kontrak: tawarannya membuka kontrak yang sudah ada. Dulu backend
-       tidak mengirim bidang contracts di daftar pelamar sama sekali, jadi
-       kartunya selalu menawarkan "Buat kontrak" walau kontraknya sudah jadi. */
     punyaKontrak = true;
     await page.reload();
     const buka = page.getByRole("link", { name: "Buka kontraknya" });
@@ -683,16 +656,9 @@ test.describe("shell aplikasi", () => {
     await page.getByRole("button", { name: "Terima pelamar ini" }).click();
     await page.getByRole("dialog").getByRole("button", { name: "Ya, terima pelamar ini" }).click();
 
-    /* Modal berikutnya harus bertahan. Dulu daftar pelamar dimuat ulang dengan
-       mengganti dependensi useAsync, yang membongkar pohon komponennya dan
-       membuang modal ini sebelum sempat terlihat. */
     const dialog = page.getByRole("dialog");
     await expect(dialog.getByLabel("Nilai kontrak")).toBeVisible();
 
-    /* Dan kolomnya harus menerima seluruh ketikan. Dulu efek fokus Modal ikut
-       bergantung pada onClose yang ditulis inline, jadi setiap ketikan memasang
-       ulang efeknya dan melempar fokus ke tombol: hanya huruf pertama yang
-       masuk. */
     const nilai = dialog.getByLabel("Nilai kontrak");
     await nilai.fill("");
     await nilai.pressSequentially("175000", { delay: 20 });
@@ -703,8 +669,6 @@ test.describe("shell aplikasi", () => {
   test("kartu proyek: semua kartu setinggi sama dan kakinya tidak pernah pecah", async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 1000 });
     await pasangSesi(page, "mahasiswa");
-    /* Nilai paling menantang yang mungkin muncul: nominal delapan digit di dua
-       sisi, jumlah pelamar tiga digit, judul dan brief panjang pendek. */
     const bahan = [
       { id: "p1", title: "Logo", description: "Singkat.", budget_min: 75000, budget_max: 100000, applicant_count: 1 },
       {
@@ -744,8 +708,6 @@ test.describe("shell aplikasi", () => {
       });
     });
 
-    /* Nominal dan jumlah pelamar tidak boleh dipenggal di tengah, dan garis
-       kaki kedua kartu harus berada di ketinggian yang sama. */
     expect(ukur.every((u) => u.nominalUtuh && u.pelamarUtuh)).toBe(true);
     expect(new Set(ukur.map((u) => u.tinggi)).size).toBe(1);
     expect(new Set(ukur.map((u) => u.kaki)).size).toBe(1);
@@ -771,9 +733,6 @@ test.describe("shell aplikasi", () => {
     const penanda = tablist.locator("> span").first();
     await expect(tablist.getByRole("tab", { name: /Semua/ })).toHaveAttribute("aria-selected", "true");
 
-    /* Satu penanda yang sama dipakai untuk semua tab, dan kotaknya harus
-       menempel pada tab yang sedang aktif. Dulu tiap tab menggambar latarnya
-       sendiri, jadi perpindahannya tidak bisa diikuti mata. */
     const menempel = async (nama: RegExp) => {
       const tab = tablist.getByRole("tab", { name: nama });
       await expect
@@ -790,7 +749,6 @@ test.describe("shell aplikasi", () => {
     await tablist.getByRole("tab", { name: /Selesai/ }).click();
     await expect(tablist.getByRole("tab", { name: /Selesai/ })).toHaveAttribute("aria-selected", "true");
     await menempel(/Selesai/);
-    /* Saringannya benar-benar bekerja, bukan sekadar penandanya yang pindah. */
     await expect(page.getByText("1 proyek")).toBeVisible();
   });
 
@@ -806,7 +764,6 @@ test.describe("shell aplikasi", () => {
     await expect(page.getByText("Rp 100.000")).toBeVisible();
     await expect(page.getByText(/sampai/)).toHaveCount(0);
 
-    /* Rute /proyek sudah dihapus: tautan ke sana akan berakhir di 404. */
     for (const rute of ["/mahasiswa/cari", "/mahasiswa/cari/p1", "/mahasiswa/lamar/p1"]) {
       await page.goto(rute);
       await expect(page.locator('a[href^="/proyek"]')).toHaveCount(0);
@@ -821,7 +778,6 @@ test.describe("shell aplikasi", () => {
     });
     await page.goto("/mahasiswa/cari/p1");
 
-    // Nama pemasang bisa dibuka profilnya, dari dua tempat.
     await expect(page.locator('a[href="/pengguna/u-bisnis"]')).toHaveCount(2);
     await page.locator('a[href="/pengguna/u-bisnis"]').first().click();
     await page.waitForURL(/\/pengguna\/u-bisnis$/);
@@ -839,27 +795,21 @@ test.describe("shell aplikasi", () => {
     await page.goto("/mahasiswa/cari");
     await page.waitForTimeout(1100);
 
-    /* Labelnya memang berganti (membuka lalu mengirim), jadi tombolnya dicari
-       lewat bilah pencariannya, bukan lewat namanya. */
     const pemicu = page.getByRole("search").getByRole("button").first();
     const kolom = page.getByRole("searchbox", { name: "Cari proyek" });
     const chip = page.getByRole("button", { name: "Menengah" });
 
-    // Terlipat: chip tingkat tetap terjangkau, kolomnya dilewati Tab.
     await expect(pemicu).toHaveAttribute("aria-expanded", "false");
     await expect(chip).toBeVisible();
     await expect(kolom).toHaveAttribute("tabindex", "-1");
 
-    // Ditekan: melebar dan langsung menerima ketikan.
     await pemicu.click();
     await expect(pemicu).toHaveAttribute("aria-expanded", "true");
     await expect(kolom).toBeFocused();
 
-    // Menekan di luar saat kolomnya kosong melipatnya kembali.
     await page.getByText("6 proyek sedang dibuka").click();
     await expect(pemicu).toHaveAttribute("aria-expanded", "false");
 
-    // Tapi ketikan yang belum dikirim menahannya tetap terbuka.
     await pemicu.click();
     await kolom.fill("Landing");
     await page.getByText("6 proyek sedang dibuka").click();
@@ -868,11 +818,9 @@ test.describe("shell aplikasi", () => {
 
     await kolom.press("Enter");
     await page.waitForURL(/search=Landing/);
-    // Kata kunci yang berlaku menahan kolomnya tetap terbuka.
     await expect(pemicu).toHaveAttribute("aria-expanded", "true");
     await expect(chip).toBeVisible();
 
-    // Escape mengosongkan kata kunci sekaligus melipat kolomnya.
     await kolom.press("Escape");
     await page.waitForURL(/\/mahasiswa\/cari$/);
     await expect(pemicu).toHaveAttribute("aria-expanded", "false");
@@ -897,9 +845,6 @@ test.describe("shell aplikasi", () => {
     await expect(page.getByTitle("Sudah dibaca")).toBeVisible();
     await expect(page.getByTitle("Terkirim, belum dibaca")).toHaveCount(2);
 
-    /* Bedanya harus terlihat, bukan hanya tertulis di atribut: yang sudah
-       dibaca biru, yang belum abu. Pesan tanpa bidang is_read sama sekali
-       diperlakukan seperti belum dibaca. */
     const warna = await page.evaluate(() =>
       Array.from(document.querySelectorAll("[data-dibaca]")).map((el) => ({
         dibaca: el.getAttribute("data-dibaca"),
@@ -912,8 +857,6 @@ test.describe("shell aplikasi", () => {
     expect(abu.every((w) => w.warna === abu[0].warna)).toBe(true);
   });
 
-  /* ── Alur uang: escrow dari setor sampai dilepas ────────────────────────── */
-
   test("bisnis menyetor dana: invoice dibuat, dipantulkan, lalu statusnya ditahan", async ({ page }) => {
     let diminta: unknown = null;
     let sync = 0;
@@ -924,9 +867,6 @@ test.describe("shell aplikasi", () => {
       "GET /disputes/my": () => ok([]),
       "POST /payments/invoice": (_r, body) => {
         diminta = body;
-        /* Xendit sungguhan mengarahkan ke domainnya sendiri. Di sini tujuannya
-           diganti halaman pantulan kita, supaya seluruh rantai FE bisa diuji
-           tanpa menyentuh Xendit. */
         return ok({
           payment_id: "pay1",
           invoice_url: "http://localhost:3001/payment/result?status=success&payment_id=pay1",
@@ -953,17 +893,10 @@ test.describe("shell aplikasi", () => {
     await expect(page.getByRole("heading", { name: "Setor dana ke escrow" })).toBeVisible();
     await page.getByRole("button", { name: "Bayar ke escrow" }).click();
 
-    // Nominal yang ditagih harus sama dengan yang disepakati di kontrak.
     await expect.poll(() => diminta).toEqual({ contract_id: "c1", amount: 2000000 });
 
-    // Pantulan dari Xendit mendarat di halaman hasil, yang tidak percaya pada
-    // parameter status melainkan menarik ulang status dari backend.
     await page.waitForURL(/\/payment\/result/);
     await expect(page.getByText("Dana sudah masuk escrow")).toBeVisible();
-    /* Minimal sekali: di mode pengembangan React menjalankan efek dua kali,
-       jadi jumlah pastinya bukan hal yang layak dikunci di sini. Yang penting
-       halaman ini memang menanyakan statusnya ke backend, bukan memercayai
-       parameter status dari Xendit. */
     expect(sync).toBeGreaterThanOrEqual(1);
     await expect(page.getByRole("link", { name: /kontrak/i }).first()).toBeVisible();
   });
@@ -988,15 +921,12 @@ test.describe("shell aplikasi", () => {
 
     const dialog = page.getByRole("dialog");
     await expect(dialog.getByText("Lepas dana sekarang?")).toBeVisible();
-    /* Keputusan dana tidak boleh tertutup karena salah klik di luar kotak. */
     await page.mouse.click(10, 10);
     await expect(dialog).toBeVisible();
 
     await dialog.getByRole("button", { name: "Ya, lepas dananya" }).click();
     await expect.poll(() => disetujui).toBe(true);
   });
-
-  /* ── Verifikasi kartu mahasiswa ─────────────────────────────────────────── */
 
   test("verifikasi KTM: kolom wajib diperiksa sebelum berkas dikirim", async ({ page }) => {
     let unggah = 0;
@@ -1013,13 +943,10 @@ test.describe("shell aplikasi", () => {
     await page.goto("/mahasiswa/verifikasi");
     await page.getByRole("button", { name: "Kirim untuk direview" }).click();
 
-    /* Tiap pesan muncul dua kali: sekali di ringkasan galat sebagai tautan ke
-       kolomnya, sekali di kolom itu sendiri. Keduanya memang disengaja. */
     await expect(page.getByText("Isi nama kampus sesuai yang tertulis di kartu.").first()).toBeVisible();
     await expect(page.getByText("Pilih foto kartu mahasiswamu.").first()).toBeVisible();
     await expect(page.getByText("Pilih foto selfie sambil memegang kartu.").first()).toBeVisible();
     await expect(page.getByRole("link", { name: /Isi nama kampus/ })).toBeVisible();
-    /* Tidak ada berkas yang terlanjur naik saat formulirnya belum lengkap. */
     expect(unggah).toBe(0);
   });
 
@@ -1031,8 +958,6 @@ test.describe("shell aplikasi", () => {
       "GET /users/me": () => ok({ ...pengguna("mahasiswa"), is_verified: false, university: "" }),
       "GET /users/me/verification": () => ok(null),
       "POST /upload": (route) => {
-        /* Urutan field penting: multer membaca req.body.type untuk memilih
-           daftar ekstensi, jadi type harus mendahului file. */
         const isi = route.request().postData() ?? "";
         const jenis = /name="type"\s+([a-z-]+)/.exec(isi)?.[1] ?? "?";
         jenisUnggah.push(jenis);
@@ -1097,7 +1022,6 @@ test.describe("shell aplikasi", () => {
     await pemicu.click();
     const dialog = page.getByRole("dialog");
     await expect(dialog).toBeVisible();
-    // Fokus awal ada di hari ini; mundur satu hari mengenai tanggal lampau yang terkunci.
     await page.keyboard.press("ArrowLeft");
     await page.keyboard.press("Enter");
     await expect(dialog).toBeVisible();
@@ -1157,8 +1081,6 @@ test.describe("shell aplikasi", () => {
     const chat = page.getByRole("link", { name: "Chat pelamar" });
     await expect(chat).toHaveAttribute("href", "/pesan/tanya/u-mahasiswa");
 
-    /* Tautannya benar-benar membuka obrolan, bukan berhenti di 404: rute pesan
-       memang tidak dikunci per peran, jadi pemilik usaha boleh membukanya. */
     await chat.click();
     await page.waitForURL(/\/pesan\/tanya\/u-mahasiswa$/);
     await expect(page.getByRole("heading", { name: "Pesan" }).first()).toBeVisible();
@@ -1199,7 +1121,6 @@ test.describe("shell aplikasi", () => {
     await maks.type("250000");
   });
 
-
   test("beranda punya tombolnya sendiri, dan badge identitas profil sebangun", async ({ page }) => {
     await pasangSesi(page, "mahasiswa", { full_name: "Austin Yang", is_verified: true, tier: "pemula" });
     await mockApi(page, {
@@ -1211,8 +1132,6 @@ test.describe("shell aplikasi", () => {
     });
     await page.setViewportSize({ width: 1280, height: 900 });
 
-    /* Angka saldo yang pertama terlihat ada di beranda, jadi tombolnya harus
-       ada di sana juga, bukan hanya di dompet. */
     await page.goto("/mahasiswa");
     await expect(page.getByText("Rp 475.000")).toBeVisible();
     await page.getByRole("button", { name: "Sembunyikan saldo" }).click();
@@ -1220,8 +1139,6 @@ test.describe("shell aplikasi", () => {
     await page.getByRole("button", { name: "Tampilkan saldo" }).click();
     await expect(page.getByText("Rp 475.000")).toBeVisible();
 
-    /* Tiga label identitas berdiri berdampingan, jadi bentuk dan ukurannya
-       harus sama. Dulu pil, kotak, lalu pil lagi, dengan dua ukuran huruf. */
     await page.goto("/profil");
     await expect(page.getByText("Terverifikasi", { exact: true })).toBeVisible();
     const ukur = await page.evaluate(() =>
@@ -1262,28 +1179,23 @@ test.describe("shell aplikasi", () => {
     await expect(tombol).toBeVisible();
     await tombol.click();
 
-    /* Ketiga angka saldo ikut tertutup, bukan hanya yang ditekan. */
     await expect(page.getByText("Rp 475.000")).toHaveCount(0);
     await expect(page.getByText("Rp 120.000")).toHaveCount(0);
     await expect(page.getByText("Rp 1.250.000")).toHaveCount(0);
 
-    /* Pilihannya bertahan setelah halaman dimuat ulang. */
     await page.reload();
     await expect(page.getByRole("button", { name: "Tampilkan saldo" })).toBeVisible();
     await expect(page.getByText("Rp 475.000")).toHaveCount(0);
 
-    /* Dan ikut berlaku di beranda serta halaman tarik dana. */
     await page.goto("/mahasiswa");
     await expect(page.getByText("Rp 475.000")).toHaveCount(0);
     await page.goto("/mahasiswa/dompet/tarik");
     await expect(page.getByText("Rp 475.000")).toHaveCount(0);
 
-    /* Dibuka lagi, angkanya kembali. */
     await page.goto("/mahasiswa/dompet");
     await page.getByRole("button", { name: "Tampilkan saldo" }).click();
     await expect(page.getByText("Rp 475.000")).toBeVisible();
   });
-
 
   test("portofolio dan ulasan tampil di profil sendiri, hanya dibaca", async ({ page }) => {
     test.setTimeout(180_000);
@@ -1302,19 +1214,15 @@ test.describe("shell aplikasi", () => {
     await expect(page.getByText("Hasilnya rapi dan tepat waktu.").first()).toBeVisible();
     await expect(page.getByText("Sweetie Batter")).toBeVisible();
 
-    /* Hanya dibaca: tidak ada kolom isian atau tombol simpan di seksi ini. */
     const kontrol = await page.evaluate(() => ({
       isian: document.querySelectorAll("main input, main textarea, main select").length,
       tautanBerkas: document.body.innerHTML.includes("rahasia.pdf"),
     }));
     expect(kontrol.isian).toBe(0);
-    /* Tautan berkas hasil kerja tetap tidak ditampilkan, seperti di profil publik. */
     expect(kontrol.tautanBerkas).toBe(false);
 
-    /* Ulasan yang sudah tampil di kartu portofolio tidak diulang di bawahnya. */
     await expect(page.getByText("Hasilnya rapi dan tepat waktu.")).toHaveCount(1);
 
-    /* Ulasan lain yang belum tampil di portofolio tetap muncul. */
     await expect(page.getByText("Komunikatif, tapi revisinya agak lama.")).toBeVisible();
 
     const lihat = page.getByRole("link", { name: "Lihat sebagai orang lain" });

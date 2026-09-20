@@ -1,9 +1,4 @@
-/* ============================================================
-   ELEVASI — hemat. Kartu default bergaris, bukan bershadow.
-   Shadow hanya untuk lapisan yang benar-benar mengapung
-   (dropdown, modal, toast, sticky bar). Warna shadow hangat,
-   bukan abu netral.
-   ============================================================ */
+/* Token bayangan. */
 
 :root {
   --shadow-none: none;

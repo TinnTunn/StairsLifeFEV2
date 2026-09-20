@@ -1,9 +1,10 @@
+// Klien API dompet, penarikan, dan rekening bank.
+
 import type { BankAccount, Wallet, Withdrawal } from "../types";
 import { apiFetch } from "./client";
 
 export interface CreateBankAccountPayload {
   bank_name: string;
-  /** Huruf besar, angka, atau underscore. Contoh: BCA, MANDIRI. */
   bank_code: string;
   account_number: string;
   account_holder: string;
@@ -11,11 +12,8 @@ export interface CreateBankAccountPayload {
 }
 
 export const wallet = {
-  /** Saldo tersimpan sebagai BigInt di database, tapi tiba sebagai number. */
   summary: () => apiFetch<Wallet>("/withdrawals/wallet"),
 
-  /* Minimum kotor 50.000 dan biaya admin 2.500 keduanya bisa diubah lewat env
-     backend, jadi jangan dikeraskan sebagai konstanta di sini. */
   requestWithdrawal: (bank_account_id: string, amount: number) =>
     apiFetch<Withdrawal>("/withdrawals", { method: "POST", body: { bank_account_id, amount } }),
 

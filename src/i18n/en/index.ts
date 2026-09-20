@@ -1,3 +1,5 @@
+// Rakitan kamus bahasa Inggris.
+
 export { umum } from "./umum";
 export { navigasi } from "./navigasi";
 export { beranda } from "./beranda";

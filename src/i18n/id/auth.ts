@@ -1,4 +1,5 @@
-/* Halaman masuk, daftar, lupa dan ganti kata sandi, serta verifikasi email. */
+// Kamus Indonesia: halaman masuk, daftar, dan kata sandi.
+
 export const auth = {
   panel: {
     label: "Cara StairsLife memegang dana",

@@ -1,6 +1,5 @@
-/* Jumlah proyek ditulis sebagai keterangan, bukan lencana berdenyut: angkanya
-   informasi, bukan peringatan, dan titik hijau berkedip menarik mata ke tempat
-   yang tidak menuntut tindakan apa pun. */
+/* Gaya halaman cari proyek. */
+
 .kepala {
   display: flex;
   align-items: baseline;
@@ -17,16 +16,9 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Grid rapat seperti daftar publik: tiga kolom di layar lebar shell, dua di
-   tablet, satu di ponsel. */
-/* align-items start: kartu setinggi isinya sendiri, tidak diregangkan
-   mengikuti kartu tertinggi di barisnya sehingga menyisakan rongga kosong. */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
-  /* Semua baris setinggi baris tertinggi, bukan setiap baris mengukur dirinya
-     sendiri. Isi kartu sudah dibatasi (judul dua baris, ringkasan dua baris,
-     kaki dua baris), jadi selisihnya kecil dan gridnya terbaca rata. */
   grid-auto-rows: 1fr;
   gap: var(--space-4);
   margin-top: var(--space-3);

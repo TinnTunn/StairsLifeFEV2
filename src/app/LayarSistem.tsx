@@ -1,3 +1,5 @@
+// Layar sistem bersama untuk halaman galat dan 404.
+
 "use client";
 
 import Link from "next/link";
@@ -9,7 +11,6 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { useBahasa } from "@/i18n/BahasaProvider";
 import styles from "./sistem.module.css";
 
-/** Kerangka bersama halaman 404, galat, dan rute yang belum dibangun. */
 export function LayarSistem({
   kode,
   icon,

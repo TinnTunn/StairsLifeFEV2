@@ -1,3 +1,5 @@
+// Halaman daftar proyek milik pemilik bisnis.
+
 "use client";
 
 import Link from "next/link";
@@ -85,9 +87,6 @@ function Isi() {
               </span>
             </div>
             <div className={styles.rowAside}>
-              {/* Rentangnya, bukan hanya batas atas: pemilik proyek menulis dua
-                  angka, jadi menampilkan satu membuat daftarnya terbaca seperti
-                  harga pasti. */}
               <span className={styles.anggaran}>{labelAnggaran(proyek, t.komponen.kartuProyek)}</span>
               <StatusBadge status={PROJECT_STATUS[proyek.status]} />
             </div>

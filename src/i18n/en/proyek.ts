@@ -1,3 +1,5 @@
+// Kamus Inggris: proyek dan lamaran.
+
 import type { proyek as Id } from "../id/proyek";
 
 export const proyek: typeof Id = {

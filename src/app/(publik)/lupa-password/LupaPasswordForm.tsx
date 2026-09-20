@@ -1,3 +1,5 @@
+// Formulir permintaan atur ulang kata sandi.
+
 "use client";
 
 import { useState, type FormEvent } from "react";
@@ -28,9 +30,6 @@ export function LupaPasswordForm() {
         return;
       }
       await auth.forgotPassword(email);
-      /* Backend sengaja membalas sama untuk email terdaftar maupun tidak,
-         supaya alamat yang terdaftar tidak bisa ditebak dari responsnya.
-         Pesan di sini mengikuti perilaku itu. */
       setTerkirim(true);
     } catch (e) {
       setError(e instanceof ApiError ? e.message : t.umum.galat.jaringan);

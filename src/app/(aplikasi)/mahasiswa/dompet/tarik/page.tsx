@@ -1,9 +1,10 @@
+// Halaman pengajuan penarikan dana.
+
 "use client";
 
 import { useState, type FormEvent } from "react";
 import { Button } from "@/components/actions/Button";
 import { Icon } from "@/components/actions/Icon";
-import { Money } from "@/components/data/Money";
 import { EmptyState } from "@/components/feedback/EmptyState";
 import { SampleDataNotice } from "@/components/feedback/SampleDataNotice";
 import { SkeletonCard } from "@/components/feedback/Skeleton";
@@ -21,10 +22,6 @@ import app from "../../dashboard.module.css";
 import styles from "../dompet.module.css";
 import { TautanKembali } from "@/components/navigation/TautanKembali";
 import { SaldoRahasia, TombolSaldo } from "@/components/data/SaldoRahasia";
-
-/* Minimum dan biaya admin dibaca dari GET /settings/public, sumber yang sama
-   dengan yang dipakai backend saat memproses penarikan (env
-   WITHDRAWAL_MIN_AMOUNT dan WITHDRAWAL_ADMIN_FEE). */
 
 export default function TarikDana() {
   const { t } = useBahasa();
@@ -60,9 +57,6 @@ function Isi() {
   const nominal = Number(jumlah) || 0;
   const diterima = Math.max(0, nominal - BIAYA_ADMIN);
   const daftarRekening = rekening.data ?? [];
-  /* Rekening utama, atau satu-satunya rekening, dipilih lebih dulu. Menyuruh
-     orang memilih dari daftar berisi satu baris hanya menambah langkah, dan
-     penarikan yang gagal di langkah itu terasa seperti aplikasi yang rewel. */
   const rekeningDipilih = rekeningId || daftarRekening.find((r) => r.is_primary)?.id || daftarRekening[0]?.id || "";
 
   if (selesai) {

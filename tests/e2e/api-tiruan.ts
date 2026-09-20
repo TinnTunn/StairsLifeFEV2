@@ -1,9 +1,8 @@
+// API tiruan untuk uji E2E, mengikuti bentuk envelope backend.
+
 import type { Page, Route } from "@playwright/test";
 
-/* API tiruan untuk uji E2E. Bentuk respons mengikuti envelope backend
-   ({ success, data, message }) dan kode galat dari filter global. */
-
-export const API = "http://localhost:3000/api/v1";
+export const API = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:3000/api/v1";
 
 export type Penangan = (route: Route, body: unknown) => unknown | Promise<unknown>;
 
@@ -38,7 +37,6 @@ export function pengguna(role: "mahasiswa" | "bisnis" | "admin", tambahan: Recor
   };
 }
 
-/** Pasang sesi di localStorage sebelum skrip halaman berjalan. */
 export async function pasangSesi(page: Page, role: "mahasiswa" | "bisnis" | "admin", tambahan: Record<string, unknown> = {}) {
   const sesi = { token: "token-uji", refresh_token: "refresh-uji", user: pengguna(role, tambahan) };
   await page.addInitScript((isi) => {
@@ -46,11 +44,6 @@ export async function pasangSesi(page: Page, role: "mahasiswa" | "bisnis" | "adm
   }, JSON.stringify(sesi));
 }
 
-/**
- * Mock semua permintaan ke API. `rute` dicocokkan dengan "METHOD /path"
- * (tanpa query). Rute yang tidak didaftarkan dibalas data kosong yang aman,
- * supaya halaman tidak bergantung pada backend sungguhan.
- */
 export async function mockApi(page: Page, rute: Record<string, Penangan> = {}) {
   await page.route(`${API}/**`, async (route) => {
     const req = route.request();

@@ -1,6 +1,5 @@
-/* Satu kolom: ringkasan proyek dulu, lalu formulirnya di bawah. Dua kolom
-   membuat kolom isian menyempit sementara separuh layar kiri kosong, dan
-   pertanyaan panjang "kenapa kamu cocok" jadi sempit tanpa alasan. */
+/* Gaya formulir lamaran. */
+
 .layout {
   display: flex;
   flex-direction: column;

@@ -1,6 +1,5 @@
-/* Tombol gaya V2: radius sedang, tebal 600 sampai 700, naik 1px saat hover,
-   bayangan brand pada tombol utama, kilau menyapu saat hover, dan tekan yang
-   sedikit mengecil. */
+/* Gaya tombol dasar. */
+
 .btn {
   position: relative;
   overflow: hidden;
@@ -43,7 +42,6 @@
   outline-offset: 2px;
 }
 
-/* ---------- Ukuran ---------- */
 .sm {
   height: 38px;
   padding: 0 14px;
@@ -82,7 +80,6 @@
   width: 100%;
 }
 
-/* ---------- Varian ---------- */
 .primary {
   background: var(--brand);
   color: var(--text-on-primary);
@@ -93,7 +90,6 @@
   box-shadow: var(--shadow-brand);
 }
 
-/* Kilau menyapu sekali setiap hover, seperti tombol utama V2. */
 .primary::after {
   content: "";
   position: absolute;
@@ -142,7 +138,6 @@
   box-shadow: var(--shadow-md);
 }
 
-/* Di atas hero, CTA banner, dan panel gelap. */
 .white {
   background: var(--on-dark);
   color: var(--tinta);
@@ -178,8 +173,6 @@
     animation: none;
   }
 
-  /* Spinner adalah tanda proses berjalan, bukan hiasan: tetap berputar,
-     hanya lebih pelan. */
   .spinner {
     animation-duration: 1.8s;
   }

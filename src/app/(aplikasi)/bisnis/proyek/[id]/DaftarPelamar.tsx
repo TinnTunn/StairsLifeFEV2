@@ -1,3 +1,5 @@
+// Daftar pelamar satu proyek dengan aksi terima dan tolak.
+
 "use client";
 
 import Link from "next/link";
@@ -17,24 +19,10 @@ import { useAsync } from "@/lib/useAsync";
 import { ApplicantActions } from "./pelamar/ApplicantActions";
 import styles from "./pelamar/pelamar.module.css";
 
-/**
- * Daftar pelamar satu proyek, dipakai di halaman detail proyek milik bisnis.
- *
- * Keputusan menerima atau menolak lamaran ada di sini, bukan di halaman
- * terpisah: pemilik usaha membaca brief proyeknya lalu langsung menimbang
- * pelamarnya di layar yang sama.
- */
 export function DaftarPelamar({ projectId, onBerubah }: { projectId: string; onBerubah?: () => void }) {
   const { t, bahasa } = useBahasa();
   const p = t.aplikasi.bisnis.pelamar;
   const u = t.aplikasi.umum;
-  /* muatUlang, bukan mengubah dependensi useAsync.
-     Dulu daftar ini dimuat ulang dengan menaikkan sebuah penanda versi yang
-     ikut jadi dependensi, dan itu dianggap permintaan baru: data lama dibuang,
-     loading kembali true, seluruh daftar berganti kerangka. Anak-anaknya ikut
-     dilepas, termasuk ApplicantActions yang barusan menyalakan modal "buat
-     kontrak", sehingga modal itu hilang sebelum sempat terlihat. muatUlang
-     menahan data lama tetap tampil dan tidak membongkar pohon komponennya. */
   const hasil = useAsync(() => projectApplications(projectId), [projectId]);
 
   if (hasil.loading) return <SkeletonCard lines={3} media label={p.memuat} />;
@@ -77,10 +65,7 @@ export function DaftarPelamar({ projectId, onBerubah }: { projectId: string; onB
                     <span className={styles.tier}>{t.umum.tingkat[pengguna?.tier ?? "pemula"]}</span>
                     {p.proyekSelesai(pengguna?.total_projects ?? 0)}
                   </span>
-                  {/* "0.00" dari Decimal bernilai truthy; tanpa ulasan jangan tampil nol. */}
                   {Number(pengguna?.rating_avg) > 0 ? <Rating value={Number(pengguna?.rating_avg)} size="sm" /> : null}
-                  {/* Keputusan menerima pelamar butuh lebih dari avatar dan
-                      tingkat; portofolio kontrak selesai ada di halaman profil. */}
                   {pengguna?.id ? (
                     <Link href={`/pengguna/${pengguna.id}`} className={styles.tautanProfil}>
                       {p.lihatProfil}
@@ -118,10 +103,6 @@ export function DaftarPelamar({ projectId, onBerubah }: { projectId: string; onB
                 }
                 onBerubah={() => {
                   hasil.muatUlang();
-                  /* Status proyeknya ikut berubah di server begitu satu pelamar
-                     diterima, jadi induknya harus memuat ulang juga. Tanpa ini
-                     lencana di kepala halaman tetap tertulis AKTIF padahal
-                     proyeknya sudah tertutup. */
                   onBerubah?.();
                 }}
               />

@@ -1,3 +1,5 @@
+// Kerangka dua kolom untuk halaman autentikasi.
+
 import type { ReactNode } from "react";
 import { Icon } from "@/components/actions/Icon";
 import { AlihkanJikaMasuk } from "@/components/layout/AlihkanJikaMasuk";
@@ -7,8 +9,6 @@ import styles from "./shell.module.css";
 
 type Sisi = "umum" | "mahasiswa" | "bisnis";
 
-/* Setiap poin adalah perilaku aplikasi yang sudah diuji ujung ke ujung, bukan
-   klaim pemasaran: tidak ada jumlah pengguna atau testimoni karangan di sini. */
 const IKON: Record<Sisi, IconName[]> = {
   umum: ["Lock", "Kontrak", "Wallet"],
   mahasiswa: ["BadgeCheck", "Lock", "Wallet"],
@@ -17,7 +17,6 @@ const IKON: Record<Sisi, IconName[]> = {
 
 const KEADAAN = ["selesai", "aktif", "nanti"] as const;
 
-/** Layout split gaya V2: kolom aurora di kiri, kartu formulir di atas cream-mesh. */
 export async function AuthShell({
   sisi = "umum",
   lebar = false,
@@ -26,7 +25,6 @@ export async function AuthShell({
 }: {
   sisi?: Sisi;
   lebar?: boolean;
-  /** Matikan untuk halaman yang juga dibuka pengguna yang sudah masuk, misalnya ganti kata sandi dari email. */
   alihkanJikaMasuk?: boolean;
   children: ReactNode;
 }) {

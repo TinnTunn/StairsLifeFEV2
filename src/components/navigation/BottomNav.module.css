@@ -1,5 +1,5 @@
-/* Bottom nav gaya V2: permukaan dengan bayangan ke atas, ikon aktif naik
-   dan membesar. Tingginya plus safe area dipesan di shell. */
+/* Gaya navigasi bawah. */
+
 .nav {
   position: fixed;
   inset: auto 0 0 0;

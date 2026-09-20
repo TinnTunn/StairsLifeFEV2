@@ -1,5 +1,4 @@
-/* Gaya panel admin gaya V2. Baris daftar, stat tile, dan kartu sapaan memakai
-   dashboard.module.css bersama; berkas ini hanya menambah yang khas admin. */
+/* Gaya panel admin. */
 
 .toolbar {
   display: flex;
@@ -47,27 +46,11 @@
   line-height: var(--leading-relaxed);
 }
 
-.berkas {
-  display: inline-flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-/* Kontrol di dalam baris yang judulnya tautan meregang harus berada di atas lapisan tautan itu. */
 .diAtasTautan {
   position: relative;
   z-index: 1;
 }
 
-/* Tiga kolom tetap untuk sisi kanan baris proyek: nominal, lencana status,
-   lalu tombolnya.
-
-   Sebelumnya ketiganya hanya satu deret rata kanan dengan jarak 6px, jadi
-   kolom nominal bergeser sampai 54px dari baris ke baris mengikuti panjang
-   lencana ("Aktif" berbanding "Dalam sengketa") dan matanya tidak punya garis
-   tegak untuk diikuti. Lebar minimumnya menampung lencana terpanjang di kedua
-   bahasa; yang lebih panjang dari itu melebarkan kolomnya sendiri, bukan
-   memotong teksnya. */
 .asideProyek {
   display: grid;
   grid-template-columns: minmax(112px, auto) minmax(116px, auto) auto;
@@ -75,8 +58,6 @@
   gap: var(--space-6);
 }
 
-/* Nominal rata kanan, lencana rata kiri: keduanya jadi punya tepi lurus yang
-   sama di seluruh daftar. */
 .asideProyek > :first-child {
   justify-self: end;
 }
@@ -86,17 +67,10 @@
 }
 
 @media (max-width: 720px) {
-  /* Di layar sempit barisnya sudah membungkus dan sisi kanan berdiri sendiri,
-     jadi kolom tetap hanya menyisakan lubang. */
   .asideProyek {
     grid-template-columns: auto auto auto;
     gap: var(--space-5);
   }
-}
-
-.berkasGalat {
-  font-size: var(--text-caption);
-  color: var(--danger-text);
 }
 
 .paginasi {
@@ -114,7 +88,6 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* ---------- Kartu ---------- */
 .kartu {
   display: flex;
   flex-direction: column;
@@ -176,7 +149,6 @@
   align-items: start;
 }
 
-/* ---------- Antrean "perlu ditindak" ---------- */
 .antrean {
   display: flex;
   flex-direction: column;
@@ -222,7 +194,6 @@
   color: var(--brand);
 }
 
-/* ---------- Linimasa audit ---------- */
 .audit {
   display: flex;
   flex-direction: column;
@@ -282,7 +253,6 @@
   color: var(--text-muted);
 }
 
-/* ---------- Kartu item (verifikasi, penarikan) ---------- */
 .item {
   display: flex;
   flex-direction: column;
@@ -410,7 +380,6 @@
   list-style: none;
 }
 
-/* ---------- Tabel keuangan ---------- */
 .tabelBungkus {
   overflow-x: auto;
   border: var(--border-width) solid var(--border-subtle);
@@ -465,7 +434,6 @@
   color: var(--text-muted);
 }
 
-/* ---------- Detail sengketa ---------- */
 .detail {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -576,7 +544,6 @@
   line-height: var(--leading-relaxed);
 }
 
-/* ---------- Kotak dukungan ---------- */
 .dukungan {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -690,7 +657,6 @@
     width: 100%;
   }
 
-  /* Tombol keputusan selebar kartu supaya mudah dijangkau jempol. */
   .itemAksi > *,
   .itemAksiKanan > * {
     flex: 1 1 100%;
@@ -711,7 +677,6 @@
   }
 }
 
-/* ---------- Editor peran ---------- */
 .izinGrup {
   margin: 0;
   padding: 0;

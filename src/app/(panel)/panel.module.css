@@ -1,3 +1,5 @@
+/* Gaya grup panel admin. */
+
 .shell {
   min-height: 100dvh;
   display: flex;
@@ -5,7 +7,6 @@
   background: var(--bg-subtle);
 }
 
-/* Hanya pengatur bahasa dan tema, ditempel di kanan atas. */
 .bar {
   display: flex;
   align-items: center;

@@ -1,9 +1,7 @@
+// Daftar butir navigasi tiap peran beserta izin rutenya.
+
 import type { UserRole } from "@/lib/types";
 import type { NavItem, SidebarEntry } from "../navigation/Sidebar";
-
-/* Setiap entri di sini menunjuk rute yang benar-benar ada. Labelnya berupa
-   kunci kamus (t.navigasi.item dan t.navigasi.seksi), diterjemahkan oleh
-   Sidebar dan BottomNav sesuai bahasa aktif. */
 
 export const BERANDA_PERAN: Record<UserRole, string> = {
   mahasiswa: "/mahasiswa",
@@ -77,7 +75,6 @@ export const BOTTOM_ADMIN: NavItem[] = [
   { href: "/admin/pengguna", label: "pengguna", icon: "Users" },
 ];
 
-/** Izin backend yang dibutuhkan setiap halaman admin. Rute yang tidak tercantum tidak dibatasi. */
 export const IZIN_RUTE_ADMIN: Array<[string, string]> = [
   ["/admin/verifikasi", "Verification"],
   ["/admin/pengguna", "Users"],

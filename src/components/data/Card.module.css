@@ -1,4 +1,5 @@
-/* Kartu gaya V2: garis tipis plus bayangan lembut yang menguat saat hover. */
+/* Gaya kartu dasar. */
+
 .card {
   display: flex;
   flex-direction: column;
@@ -25,8 +26,6 @@
   transform: translateY(-3px);
 }
 
-/* Kartu yang bisa diklik ikut naik saat difokus keyboard, supaya pengguna
-   keyboard mendapat umpan balik yang sama dengan pengguna mouse. */
 .interactive:focus-visible {
   border-color: var(--brand-soft-border);
   box-shadow: var(--shadow-card-hover);

@@ -1,3 +1,5 @@
+// Penunjuk tahapan kontrak dari dibuat sampai selesai.
+
 "use client";
 
 import { useBahasa } from "@/i18n/BahasaProvider";
@@ -11,11 +13,9 @@ export interface ContractStep {
 }
 
 export interface ContractStepperProps {
-  /** Keenam tahap ditampilkan sekaligus, bukan hanya tahap aktif: pengguna perlu tahu apa yang datang setelah dananya berpindah. */
   steps: ContractStep[];
   current: number;
   orientation?: "horizontal" | "vertical" | "responsive";
-  /** "ink" untuk stepper di atas panel tinta tetap. */
   surface?: "default" | "ink";
   className?: string;
 }

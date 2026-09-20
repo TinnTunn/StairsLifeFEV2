@@ -1,3 +1,5 @@
+// Unggah dan tinjau berkas hasil kerja pada satu kontrak.
+
 "use client";
 
 import { useState } from "react";
@@ -12,18 +14,11 @@ import { useAsync } from "@/lib/useAsync";
 import app from "../../mahasiswa/dashboard.module.css";
 import styles from "./kontrak.module.css";
 
-/**
- * Berkas hasil kerja disimpan di bucket privat, jadi URL-nya bukan tautan yang
- * bisa dibuka langsung: kolomnya hanya menyimpan path storage. Tautan yang bisa
- * dipakai diminta saat diklik lewat endpoint signed-url, yang berlaku satu jam.
- */
 function NamaBerkas({ path, urutan }: { path: string; urutan: number }) {
   const { t } = useBahasa();
   const h = t.aplikasi.kontrak.hasil;
   const [membuka, setMembuka] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  /* Backend menyimpan berkas dengan nama acak dan tidak mencatat nama aslinya,
-     jadi yang bisa ditampilkan dengan jujur hanya urutan dan jenisnya. */
   const ekstensi = path.includes(".") ? path.split(".").pop()?.toUpperCase() : undefined;
 
   async function buka() {
@@ -32,15 +27,10 @@ function NamaBerkas({ path, urutan }: { path: string; urutan: number }) {
       setError(h.modeContoh);
       return;
     }
-    /* Path publik (avatar, gambar chat) sudah berupa URL penuh; sisanya perlu
-       ditandatangani dulu. */
     if (path.startsWith("http")) {
       window.open(path, "_blank", "noopener");
       return;
     }
-    /* Tab dibuka saat klik, sebelum menunggu signed URL. window.open setelah
-       await tidak lagi dianggap bagian dari klik pengguna dan diblokir sebagai
-       popup di Chrome dan Safari. */
     const tab = window.open("", "_blank");
     if (tab) tab.opener = null;
     setMembuka(true);
@@ -77,17 +67,10 @@ function NamaBerkas({ path, urutan }: { path: string; urutan: number }) {
 export function Deliverables({ contract, mahasiswa }: { contract: Contract; mahasiswa: boolean }) {
   const { t, bahasa } = useBahasa();
   const h = t.aplikasi.kontrak.hasil;
-  /* Dimuat ulang setiap status kontrak berubah, supaya riwayat ikut bertambah
-     setelah kirim, setujui, atau minta perbaikan tanpa memuat ulang halaman. */
   const riwayat = useAsync(() => contractDeliverables(contract.id), [contract.id, contract.status]);
   const terkini = parseDeliverableUrls(contract.deliverable_url);
   const daftar = [...(riwayat.data?.data ?? [])].sort((a, b) => b.submitted_at.localeCompare(a.submitted_at));
 
-  /* contracts.deliverable_notes tidak bisa dipercaya sebagai catatan mahasiswa.
-     Saat bisnis meminta perbaikan, backend menimpanya dengan alasan penolakan,
-     dan kiriman ulang tanpa catatan tidak menghapusnya. Riwayat menyimpan
-     catatan dan alasan di kolom terpisah per kiriman, jadi keduanya dibaca dari
-     sana. Kolom kontrak hanya dipakai kalau riwayatnya kosong. */
   const revisi = terkini.length === 0 ? daftar.find((d) => d.status === "rejected") : undefined;
   const catatanKini =
     terkini.length > 0 ? (daftar.length > 0 ? daftar[0].deliverable_notes : contract.deliverable_notes) : null;

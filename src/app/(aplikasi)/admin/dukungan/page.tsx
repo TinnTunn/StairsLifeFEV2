@@ -1,3 +1,5 @@
+// Halaman admin untuk membalas pesan dukungan pengguna.
+
 "use client";
 
 import { useState, type FormEvent } from "react";

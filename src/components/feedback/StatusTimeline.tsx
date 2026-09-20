@@ -1,8 +1,9 @@
+// Linimasa perjalanan status sebuah kontrak atau lamaran.
+
 import styles from "./StatusTimeline.module.css";
 
 export interface TimelineItem {
   label: string;
-  /** Sudah diformat lewat formatTanggalJam, bukan tanggal mentah. */
   time?: string;
   description?: string;
   tone?: "done" | "active" | "todo" | "alert";
@@ -15,10 +16,6 @@ const DOT = {
   alert: styles.dotAlert,
 };
 
-/**
- * Riwayat status yang sudah terjadi, dengan cap waktu. Berbeda dari
- * ContractStepper yang menampilkan tahap yang akan datang.
- */
 export function StatusTimeline({ items, className }: { items: TimelineItem[]; className?: string }) {
   return (
     <ol className={[styles.list, className].filter(Boolean).join(" ")}>

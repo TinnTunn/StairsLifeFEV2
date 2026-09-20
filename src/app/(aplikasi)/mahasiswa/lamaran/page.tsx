@@ -1,3 +1,5 @@
+// Halaman daftar lamaran milik mahasiswa.
+
 "use client";
 
 import Link from "next/link";

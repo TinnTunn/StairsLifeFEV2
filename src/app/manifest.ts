@@ -1,6 +1,7 @@
+// Manifest web app (nama, ikon, warna tema).
+
 import type { MetadataRoute } from "next";
 
-/* Pintasan layar utama di HP memakai logo, bukan tangkapan layar halaman. */
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "StairsLife",
@@ -8,8 +9,6 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "Platform freelance mahasiswa dan UMKM Indonesia dengan pembayaran escrow.",
     start_url: "/",
     display: "standalone",
-    /* Dibaca sistem operasi, bukan CSS, jadi token var() tidak bisa dipakai.
-       Nilainya sama dengan --bg-page dan --brand (clay-600) mode terang. */
     // eslint-disable-next-line no-restricted-syntax
     background_color: "#FCF8F2",
     // eslint-disable-next-line no-restricted-syntax

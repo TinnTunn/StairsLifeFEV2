@@ -1,3 +1,5 @@
+// Isi halaman detail proyek yang dipakai sisi publik dan aplikasi.
+
 "use client";
 
 import Link from "next/link";
@@ -11,21 +13,9 @@ import type { Project } from "@/lib/types";
 import { ApplyAction } from "./ApplyAction";
 import styles from "./DetailProyek.module.css";
 
-/**
- * Isi detail satu proyek: brief, hasil yang diminta, keahlian, dan panel
- * anggaran beserta tombol lamar.
- *
- * Dipakai dua tempat dengan kepala halaman yang berbeda: halaman publik
- * /proyek/[id] yang dirender di server supaya bisa diindeks, dan halaman di
- * dalam shell aplikasi yang dipakai mahasiswa yang sudah masuk. Isinya satu
- * berkas supaya brief yang dibaca calon pelamar tidak pernah berbeda antara
- * keduanya.
- */
 export interface IsiDetailProyekProps {
   project: Project;
-  /** Pengganti tombol lamar, dipakai halaman pemilik usaha. */
   aksi?: ReactNode;
-  /** Pengganti catatan escrow di bawah panel. */
   catatan?: string;
 }
 
@@ -86,8 +76,6 @@ export function IsiDetailProyek({ project, aksi, catatan }: IsiDetailProyekProps
 
       <aside className={styles.aside}>
         <div className={styles.panel}>
-          {/* Pemasang proyek bisa dibuka profilnya: sebelum melamar, orang ingin
-              tahu siapa yang memasang dan bagaimana rekam jejaknya. */}
           <Link href={`/pengguna/${project.business_id}`} className={styles.pemasang}>
             <Avatar name={business} size="sm" />
             <span className={styles.pemasangTeks}>

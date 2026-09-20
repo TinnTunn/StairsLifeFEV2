@@ -1,6 +1,4 @@
-/* ============================================================
-   SPASI & UKURAN — basis 4px. Kepadatan "nyaman".
-   ============================================================ */
+/* Token jarak. */
 
 :root {
   --space-0: 0;
@@ -19,41 +17,35 @@
   --space-13: 80px;
   --space-14: 112px;
 
-  /* Ritme vertikal */
-  --gap-field: 6px;        /* label → input */
-  --gap-inline: 8px;       /* antar tombol/chip */
-  --gap-stack: 12px;       /* antar baris dalam kartu */
-  --gap-card: 16px;        /* antar kartu */
-  --gap-block: 24px;       /* antar blok dalam halaman app */
-  --section-y-app: 24px;   /* padding vertikal seksi aplikasi */
+  --gap-field: 6px;
+  --gap-inline: 8px;
+  --gap-stack: 12px;
+  --gap-card: 16px;
+  --gap-block: 24px;
+  --section-y-app: 24px;
   --section-y-marketing: 64px;
   --section-y-marketing-lg: 112px;
 
-  /* Padding internal */
   --pad-card: 16px;
   --pad-card-lg: 20px;
   --pad-cell-x: 16px;
   --pad-cell-y: 12px;
-  --pad-page-x: 16px;      /* 360px */
-  --pad-page-x-md: 24px;   /* 768px */
-  --pad-page-x-dt: 40px;   /* 1024px — lebar desktop paling umum; 24px terbaca
-                              "rapat kiri" karena cap --width-container (1152px)
-                              belum menggigit di rentang 1024–1152 */
-  --pad-page-x-lg: 48px;   /* 1280px */
-  --pad-page-y: 20px;      /* 360px — jarak atas konten halaman aplikasi */
-  --pad-page-y-md: 24px;   /* 768px */
-  --pad-page-y-lg: 28px;   /* 1280px */
-  --pad-page-bottom: 96px;      /* ruang untuk BottomNav di mobile */
-  --pad-page-bottom-lg: 48px;   /* ≥1024px — BottomNav tersembunyi */
+  --pad-page-x: 16px;
+  --pad-page-x-md: 24px;
+  --pad-page-x-dt: 40px;
+  --pad-page-x-lg: 48px;
+  --pad-page-y: 20px;
+  --pad-page-y-md: 24px;
+  --pad-page-y-lg: 28px;
+  --pad-page-bottom: 96px;
+  --pad-page-bottom-lg: 48px;
 
-  /* Tinggi kontrol — semua ≥ 44px di viewport sentuh */
   --control-sm: 36px;
   --control-md: 44px;
   --control-lg: 52px;
   --tap-min: 44px;
-  --row-height: 52px;      /* baris tabel, kepadatan nyaman */
+  --row-height: 52px;
 
-  /* Lebar */
   --width-content: 720px;
   --width-container: 1152px;
   --width-sidebar: 248px;
@@ -61,7 +53,6 @@
   --height-topbar: 64px;
   --height-bottomnav: 60px;
 
-  /* Breakpoint (dokumentasi; media query pakai nilai literal) */
   --bp-sm: 360px;
   --bp-md: 768px;
   --bp-lg: 1280px;

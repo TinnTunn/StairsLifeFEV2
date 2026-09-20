@@ -1,3 +1,5 @@
+// Halaman admin untuk mengubah pengaturan platform.
+
 "use client";
 
 import { useState, type FormEvent } from "react";
@@ -64,7 +66,6 @@ function FormPlatform({ awal, onSimpan }: { awal: PlatformSettings; onSimpan: ()
     setTersimpan(false);
     const k = Number(komisi);
     const s = Number(sla);
-    /* Backend memakai IsInt, jadi desimal ditolak di sini lebih dulu. */
     if (!Number.isInteger(k) || k < 0 || k > 100) return setError(p.salahKomisi);
     if (!Number.isInteger(s) || s < 1 || s > 30) return setError(p.salahSla);
     if (await jalankan(() => admin.updateSettings({ platform_fee: k, verification_sla_days: s }))) {

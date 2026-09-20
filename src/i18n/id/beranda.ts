@@ -1,3 +1,5 @@
+// Kamus Indonesia: beranda publik.
+
 export const beranda = {
   meta: {
     judul: "StairsLife: Kerjakan proyek nyata, bangun portofoliomu",

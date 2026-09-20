@@ -1,10 +1,6 @@
-import type { Project } from "../types";
+// Data contoh proyek untuk mode tanpa backend.
 
-/* Data contoh untuk mengembangkan tampilan tanpa menyalakan backend.
-   Nama dan nominalnya diambil dari brief produk yang diberikan pengguna
-   (Kopi Senja Malang, Rani Pratiwi), bukan dikarang di sini. Setiap halaman
-   yang memakainya menampilkan penanda "data contoh" yang terlihat pengguna,
-   supaya tidak pernah terbaca sebagai isi sungguhan. */
+import type { Project } from "../types";
 
 function iso(daysFromNow: number): string {
   const d = new Date("2026-09-08T09:00:00+07:00");

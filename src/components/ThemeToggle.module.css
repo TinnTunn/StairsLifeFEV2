@@ -1,4 +1,5 @@
-/* Ikon berputar sedikit dengan pegas saat disentuh, seperti tombol tema V2. */
+/* Gaya tombol pengalih tema. */
+
 .toggle svg {
   transition: transform var(--duration-base) var(--ease-spring);
 }

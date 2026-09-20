@@ -1,3 +1,5 @@
+// Halaman daftar kontrak untuk mahasiswa dan pemilik bisnis.
+
 "use client";
 
 import Link from "next/link";

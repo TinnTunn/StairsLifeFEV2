@@ -1,3 +1,5 @@
+// Halaman pengajuan verifikasi status mahasiswa.
+
 "use client";
 
 import { useState } from "react";
@@ -30,8 +32,6 @@ function Isi() {
   const { t, bahasa } = useBahasa();
   const v = t.aplikasi.mahasiswa.verifikasi;
   const hasil = useAsync(async () => (USE_MOCK ? null : Promise.all([users.verification(), users.me()])), []);
-  /* Pengajuan yang baru terkirim ditampilkan langsung dari respons POST, tanpa
-     memuat ulang status dari server. */
   const [terkirim, setTerkirim] = useState<Verification | null>(null);
 
   if (hasil.loading) return <SkeletonCard lines={2} label={v.memuat} />;
@@ -78,10 +78,6 @@ function Isi() {
           action={<Button href="/mahasiswa/cari">{t.aplikasi.umum.cariProyek}</Button>}
         />
       ) : null}
-      {/* Backend menimpa pengajuan lama dan mengembalikan status ke pending
-          untuk setiap kiriman. Form hanya muncul setelah ditolak, supaya
-          mahasiswa yang sedang direview atau sudah disetujui tidak tanpa
-          sengaja mengulang antrean. */}
       {pengajuan.status === "rejected" ? (
         <FormVerifikasi judul={v.unggahUlang} universitasAwal={universitas} onTerkirim={setTerkirim} />
       ) : null}
@@ -89,15 +85,10 @@ function Isi() {
         <StatusTimeline
           items={[
             { label: v.diterima, time: formatTanggalJam(pengajuan.submitted_at, bahasa), tone: "done" },
-            /* Berpatokan pada status, bukan reviewed_at. Backend tidak
-               mengosongkan reviewed_at saat pengajuan dikirim ulang, jadi
-               pengajuan pending bisa masih membawa tanggal penolakan lama. */
             pengajuan.status !== "pending" && pengajuan.reviewed_at
               ? {
                   label: pengajuan.status === "approved" ? v.disetujuiAdmin : v.ditolakAdmin,
                   time: formatTanggalJam(pengajuan.reviewed_at, bahasa),
-                  /* Tanpa description: alasan penolakan sudah tampil di banner
-                     paling atas, dan mengulangnya di sini hanya menambah panjang. */
                   tone: pengajuan.status === "approved" ? "done" : "alert",
                 }
               : { label: v.direview, tone: "active" },

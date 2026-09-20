@@ -1,19 +1,15 @@
-/* ============================================================
-   GERAK — halus dan singkat. Tidak ada bounce, tidak ada spring
-   berlebih, tidak ada animasi masuk pada data keuangan.
-   ============================================================ */
+/* Token durasi dan kurva gerak. */
 
 :root {
-  --duration-instant: 80ms; /* @kind other */
-  /* fast = hover/warna/border · base = dropdown/tab/toast · slow = modal/sheet · deliberate = transisi status escrow */
-  --duration-fast: 140ms; /* @kind other */
-  --duration-base: 200ms; /* @kind other */
-  --duration-slow: 320ms; /* @kind other */
-  --duration-deliberate: 520ms; /* @kind other */
+  --duration-instant: 80ms;
+  --duration-fast: 140ms;
+  --duration-base: 200ms;
+  --duration-slow: 320ms;
+  --duration-deliberate: 520ms;
 
-  --ease-out: cubic-bezier(0.2, 0, 0, 1); /* @kind other */
-  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1); /* @kind other */
-  --ease-entrance: cubic-bezier(0.16, 1, 0.3, 1); /* @kind other */
+  --ease-out: cubic-bezier(0.2, 0, 0, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-entrance: cubic-bezier(0.16, 1, 0.3, 1);
 
   --transition-color: color var(--duration-fast) var(--ease-out), background-color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
   --transition-transform: transform var(--duration-fast) var(--ease-out);
@@ -21,10 +17,10 @@
 
 @media (prefers-reduced-motion: reduce) {
   :root {
-    --duration-instant: 1ms; /* @kind other */
-    --duration-fast: 1ms; /* @kind other */
-    --duration-base: 1ms; /* @kind other */
-    --duration-slow: 1ms; /* @kind other */
-    --duration-deliberate: 1ms; /* @kind other */
+    --duration-instant: 1ms;
+    --duration-fast: 1ms;
+    --duration-base: 1ms;
+    --duration-slow: 1ms;
+    --duration-deliberate: 1ms;
   }
 }

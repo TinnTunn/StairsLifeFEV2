@@ -1,9 +1,10 @@
+// Tombol berisi ikon saja yang tetap punya label bagi pembaca layar.
+
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import styles from "./IconButton.module.css";
 
 export interface IconButtonProps extends Omit<ComponentPropsWithoutRef<"button">, "children"> {
   children: ReactNode;
-  /** Wajib: ikon di dalamnya aria-hidden, jadi ini satu-satunya nama kontrol. */
   label: string;
   variant?: "ghost" | "outline" | "solid" | "danger";
   size?: "sm" | "md" | "lg";

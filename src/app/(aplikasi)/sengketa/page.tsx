@@ -1,3 +1,5 @@
+// Halaman daftar sengketa milik pengguna.
+
 "use client";
 
 import Link from "next/link";

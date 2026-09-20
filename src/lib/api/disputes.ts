@@ -1,3 +1,5 @@
+// Klien API sengketa.
+
 import type { DisputeSummary, Payment, UserRole } from "../types";
 import { apiFetch } from "./client";
 
@@ -20,7 +22,6 @@ export interface DisputeDetail {
   admin_notes: string | null;
   created_at: string;
   resolved_at: string | null;
-  /** Porsi mahasiswa dari putusan, dari wallet_transactions. null bila tidak ada. */
   student_share: number | null;
   users_disputes_opened_byTousers: Pihak | null;
   contracts: {
@@ -36,7 +37,6 @@ export interface DisputeDetail {
   } | null;
 }
 
-/** Status yang berarti sengketa masih berjalan dan dana ditahan. */
 export const SENGKETA_AKTIF = ["open", "under_review", "in_review", "mediation"];
 
 export function sengketaAktif(status: string | null | undefined): boolean {
@@ -44,21 +44,17 @@ export function sengketaAktif(status: string | null | undefined): boolean {
 }
 
 export const disputes = {
-  /** CreateDisputeDto: contract_id, reason (min 20), evidence_url opsional. */
   create: (payload: { contract_id: string; reason: string; evidence_url?: string }) =>
     apiFetch<{ id: string; status: string }>("/disputes", { method: "POST", body: payload }),
 
-  /** Sengketa yang dibuka sendiri maupun yang melibatkan kontrak milik pengguna. */
   mine: () => apiFetch<DisputeRingkas[]>("/disputes/my"),
 
   detail: (id: string) => apiFetch<DisputeDetail>(`/disputes/${id}`),
 
-  /** Backend menimpa evidence_url, jadi pemanggil mengirim daftar lengkap. */
   setEvidence: (id: string, evidence_url: string) =>
     apiFetch<DisputeDetail>(`/disputes/${id}/evidence`, { method: "POST", body: { evidence_url } }),
 };
 
-/** Beberapa berkas bukti disimpan sebagai JSON array di kolom teks yang sama. */
 export function gabungBukti(paths: string[]): string | undefined {
   if (paths.length === 0) return undefined;
   return paths.length === 1 ? paths[0] : JSON.stringify(paths);

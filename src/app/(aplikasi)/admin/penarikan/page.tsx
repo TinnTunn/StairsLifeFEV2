@@ -1,3 +1,5 @@
+// Halaman admin untuk memproses antrean penarikan dana.
+
 "use client";
 
 import { useState } from "react";

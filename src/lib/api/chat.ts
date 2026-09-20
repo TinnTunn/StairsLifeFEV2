@@ -1,3 +1,5 @@
+// Klien API obrolan kontrak, tanya jawab, dan dukungan.
+
 import type { UserRole } from "../types";
 import { apiFetch } from "./client";
 
@@ -6,9 +8,7 @@ export interface PesanObrolan {
   sender_id: string | null;
   content: string;
   created_at: string;
-  /** Pesan dukungan dan mediasi menyimpan peran pengirim. */
   sender_role?: string | null;
-  /** Ditandai true oleh backend begitu lawan bicara membuka ruangnya. */
   is_read?: boolean;
   sender?: { id: string; full_name: string; role: UserRole; avatar_url?: string | null } | null;
 }
@@ -34,7 +34,6 @@ export interface RuangTanya {
   last_sender_id: string;
 }
 
-/** Jenis percakapan yang dipakai komponen Obrolan. */
 export type SumberObrolan =
   | { jenis: "kontrak"; id: string }
   | { jenis: "tanya"; id: string }

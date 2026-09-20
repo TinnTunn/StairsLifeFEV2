@@ -1,3 +1,5 @@
+// Halaman profil sendiri beserta rekam jejaknya.
+
 "use client";
 
 import { useSearchParams } from "next/navigation";
@@ -39,7 +41,6 @@ export default function Profil() {
     >
       {(session) => (
         <>
-          {/* useSearchParams butuh Suspense supaya halaman tetap bisa dirender statis. */}
           <Suspense fallback={null}>
             <BannerTersimpan />
           </Suspense>
@@ -55,12 +56,7 @@ function Isi({ session }: { session: Session }) {
   const p = t.aplikasi.profil;
   const mahasiswa = session.user.role === "mahasiswa";
   const hasil = useAsync(async () => (USE_MOCK ? null : users.me()), []);
-  /* is_verified hanya benar atau salah, jadi tidak bisa membedakan "belum
-     mengajukan" dari "sedang direview". Status lengkapnya dibaca terpisah. */
   const verifikasi = useAsync(async () => (USE_MOCK || !mahasiswa ? null : users.verification()), [mahasiswa]);
-  /* Rekam jejak dibaca dari endpoint publik yang sama dengan yang dipakai orang
-     lain, jadi yang dilihat pemiliknya persis yang dilihat calon pemberi kerja.
-     Dimuat terpisah supaya kepala profil tidak ikut menunggu. */
   const jejak = useAsync(
     async () =>
       USE_MOCK ? null : Promise.all([users.profile(session.user.id), users.portfolio(session.user.id)]),
@@ -73,9 +69,6 @@ function Isi({ session }: { session: Session }) {
     return <EmptyState icon="AlertTriangle" title={p.gagal} description={`${hasil.error} ${t.aplikasi.umum.muatUlang}`} />;
   }
 
-  /* Mode contoh hanya punya data dari sesi, bukan profil lengkap dari backend.
-     Yang ditampilkan dibatasi ke apa yang benar-benar diketahui, sisanya
-     dinyatakan belum tersedia. */
   const u = hasil.data;
   const nama = u?.full_name ?? session.user.full_name;
   const email = u?.email ?? session.user.email;
@@ -104,18 +97,12 @@ function Isi({ session }: { session: Session }) {
             <span className={styles.meta}>{email}</span>
             <div className={styles.badges}>
               <span className={styles.peran}>{t.umum.peran[session.user.role]}</span>
-              {/* Bisnis tidak diverifikasi (DECISIONS.md), jadi tidak ada badge status untuknya. */}
               {mahasiswa ? <StatusBadge status={statusVerifikasi} /> : null}
-              {/* Tingkat adalah jenjang mahasiswa; akun bisnis ikut membawa nilai bawaan "pemula". */}
               {u && mahasiswa ? <span className={styles.chip}>{t.umum.tingkat[u.tier]}</span> : null}
             </div>
           </div>
-          {/* rating_avg datang sebagai string Decimal. "0.00" bernilai truthy,
-              dan akun tanpa ulasan akan tampil dengan rating nol. */}
           {Number(u?.rating_avg) > 0 && u ? (
             <div className={styles.rating}>
-              {/* Tanpa count: total_projects adalah jumlah proyek selesai, bukan
-                  jumlah ulasan, dan backend tidak mengirim jumlah ulasan di sini. */}
               <Rating value={Number(u.rating_avg)} />
             </div>
           ) : null}
@@ -157,9 +144,6 @@ function Isi({ session }: { session: Session }) {
         ) : null}
       </div>
 
-      {/* Portofolio dan ulasan: hanya dibaca, tidak bisa disunting. Keduanya
-          tumbuh sendiri dari kontrak yang selesai, dan menyuntingnya akan
-          membuat rekam jejak kehilangan gunanya sebagai bukti. */}
       <div className={styles.jejakKepala}>
         <div>
           <h3 className={styles.jejakJudul}>{p.rekamJejak}</h3>

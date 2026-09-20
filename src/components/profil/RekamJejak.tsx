@@ -1,3 +1,5 @@
+// Rekam jejak pengguna: angka ringkas, portofolio, dan ulasan.
+
 "use client";
 
 import { Icon } from "@/components/actions/Icon";
@@ -17,29 +19,12 @@ export interface RekamJejakProps {
   };
 }
 
-/**
- * Rekam jejak seseorang: angka ringkas, portofolio kontrak yang sudah selesai,
- * lalu ulasan yang diterimanya.
- *
- * Dipakai halaman profil publik dan halaman profil sendiri. Disatukan supaya
- * keduanya tidak pernah bercerita berbeda tentang orang yang sama: yang dilihat
- * pemiliknya persis yang dilihat calon pemberi kerja.
- *
- * Dua hal sengaja tidak ditampilkan meski dikirim backend: total penghasilan,
- * karena angka pendapatan bukan urusan calon pemberi kerja, dan tautan berkas
- * hasil kerja, karena itu milik klien sebelumnya.
- */
 export function RekamJejak({ profil, portofolio }: RekamJejakProps) {
   const { t, bahasa } = useBahasa();
   const g = t.fitur.profilPublik;
   const ringkas = portofolio.summary;
   const item = portofolio.items ?? [];
 
-  /* "Ulasan lain" berarti yang belum terlihat di kartu portofolio di atasnya.
-     Backend mengirim seluruh ulasan di satu daftar sementara tiap kartu
-     portofolio sudah membawa ulasannya sendiri, jadi tanpa saringan ini ulasan
-     yang sama tampil dua kali di halaman yang sama. Dicocokkan lewat waktu
-     dibuatnya, satu-satunya penanda yang ada di kedua sisi. */
   const tanda = (u: { created_at: string; rating: number; comment: string | null }) =>
     `${Date.parse(u.created_at)}|${u.rating}|${u.comment ?? ""}`;
   const sudahTampil = new Set(item.filter((k) => k.review).map((k) => tanda(k.review!)));

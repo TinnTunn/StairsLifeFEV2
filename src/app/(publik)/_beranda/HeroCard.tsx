@@ -1,3 +1,5 @@
+// Kartu contoh proyek di pita utama beranda.
+
 import { Icon } from "@/components/actions/Icon";
 import type { Kamus } from "@/i18n/kamus";
 import { labelAnggaran } from "@/lib/anggaran";
@@ -7,11 +9,6 @@ import styles from "./beranda-hero.module.css";
 
 const EMOJI_TINGKAT: Record<UserTier, string> = { pemula: "🌱", menengah: "📈", mahir: "🏆" };
 
-/**
- * Kartu kaca yang melayang di hero, seperti hero-card V2. Isinya proyek
- * terbaru yang benar-benar dibuka; kalau belum ada, kartunya tampil dengan
- * label "contoh tampilan" yang terlihat.
- */
 export function HeroCard({ project, t }: { project: Project | null; t: Kamus }) {
   const k = t.beranda.kartu;
   const tier = project?.tier ?? "pemula";
@@ -30,8 +27,6 @@ export function HeroCard({ project, t }: { project: Project | null; t: Kamus }) 
         </div>
 
         <h2 className={styles.cardTitle}>
-          {/* Tanpa tautan: proyek hanya bisa dibuka dari dalam aplikasi, dan
-              tamu diarahkan mendaftar lebih dulu. */}
           {project ? project.title : k.judulContoh}
         </h2>
 

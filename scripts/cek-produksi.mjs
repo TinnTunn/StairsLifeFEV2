@@ -1,19 +1,7 @@
-/* Penjaga sebelum build.
- *
- * NEXT_PUBLIC_* dibekukan ke dalam bundel saat build, bukan dibaca saat
- * dijalankan. Kalau satu saja lupa diisi di Vercel, buildnya tetap sukses,
- * penyebarannya tetap hijau, dan aplikasinya baru gagal di peramban pengguna
- * karena menembak http://localhost:3000. CSP pun ikut salah, karena
- * connect-src diturunkan dari alamat yang sama.
- *
- * Di mesin sendiri skrip ini hanya mengingatkan. Di Vercel, CI, atau build
- * produksi mana pun ia menghentikan build, karena di sana localhost tidak
- * pernah benar. */
+// Penjaga sebelum build: menghentikan build produksi kalau variabel NEXT_PUBLIC_ salah.
 
 import nextEnv from "@next/env";
 
-/* Berkas .env dimuat dengan pemuat Next sendiri, jadi urutan .env.local,
-   .env.production, dan .env persis sama dengan yang nanti dipakai build. */
 nextEnv.loadEnvConfig(process.cwd(), false, { info: () => {}, error: console.error });
 
 const diLuar = Boolean(process.env.VERCEL || process.env.CI) || process.env.NODE_ENV === "production";
@@ -33,7 +21,6 @@ function url(nama, { wajibHttps }) {
     temuan.push(`${nama} bukan URL yang sah: ${nilai}`);
     return;
   }
-  /* localhost benar di mesin sendiri, jadi hanya jadi temuan di luar. */
   if (diLuar && /^(localhost|127\.0\.0\.1|0\.0\.0\.0)$/.test(u.hostname)) {
     temuan.push(`${nama} masih menunjuk ${u.hostname}. Isi dengan domain sungguhan.`);
   }

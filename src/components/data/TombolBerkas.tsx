@@ -1,3 +1,5 @@
+// Tombol membuka atau mengunduh berkas lampiran.
+
 "use client";
 
 import { useState } from "react";
@@ -7,11 +9,6 @@ import { Button } from "../actions/Button";
 import { Icon } from "../actions/Icon";
 import styles from "./TombolBerkas.module.css";
 
-/**
- * Berkas verifikasi, hasil kerja, dan bukti sengketa ada di bucket privat.
- * Tab dibuka saat klik, lalu diarahkan setelah signed URL didapat, supaya
- * tidak diblokir sebagai popup. Backend yang memutuskan siapa boleh membuka.
- */
 export function TombolBerkas({
   path,
   label,

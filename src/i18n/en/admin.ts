@@ -1,3 +1,5 @@
+// Kamus Inggris: panel admin.
+
 import type { admin as Id } from "../id/admin";
 
 export const admin: typeof Id = {

@@ -1,3 +1,5 @@
+// Halaman formulir memasang proyek baru.
+
 "use client";
 
 import { useRouter } from "next/navigation";
@@ -100,22 +102,12 @@ function Form() {
         description: form.description.trim(),
         budget_min: min,
         budget_max: max,
-        /* Backend memakai IsDateString, jadi tanggal dari input date perlu
-           dijadikan ISO lengkap. */
         deadline: new Date(`${form.deadline}T23:59:59`).toISOString(),
-        /* Penanda kategori sedang ditahan: satu-satunya penanda proyek yang
-           dipakai sekarang adalah tingkat. Backend masih mewajibkan kolom ini
-           terisi, jadi dikirim satu nilai tetap sampai kategorinya dipakai
-           lagi (lihat DECISIONS.md). */
         category: KATEGORI_DITAHAN,
         tier: form.tier,
         ...(form.skills.trim() ? { skills: form.skills.split(",").map((s) => s.trim()).filter(Boolean) } : {}),
         ...(form.deliverables.trim() ? { deliverables: form.deliverables.trim() } : {}),
       });
-      /* replace: Back tidak membuka formulir kosong untuk proyek yang sudah terpasang. */
-      /* Ke halaman detail, bukan daftar pelamar: proyek yang baru dipasang
-         pasti belum punya pelamar, dan yang ingin dilihat pemiliknya adalah
-         hasil tulisannya sendiri. */
       router.replace(`/bisnis/proyek/${dibuat.id}`);
     } catch (e) {
       galat.setGalatUmum(e instanceof ApiError ? e.messages : [t.umum.galat.jaringan]);

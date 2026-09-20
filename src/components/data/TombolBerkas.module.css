@@ -1,3 +1,5 @@
+/* Gaya tombol berkas. */
+
 .berkas {
   display: inline-flex;
   flex-direction: column;

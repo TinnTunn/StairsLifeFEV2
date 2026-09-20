@@ -1,5 +1,5 @@
-/* App shell gaya V2: kanvas cream-mesh, topbar kaca yang lengket, sidebar
-   permukaan terangkat. */
+/* Gaya kerangka aplikasi. */
+
 .shell {
   display: flex;
   height: 100dvh;
@@ -96,8 +96,6 @@
 
 .inner {
   width: 100%;
-  /* --width-content (720px) adalah lebar kolom baca. Dashboard membawa grid
-     statistik dan tabel, jadi memakai lebar kontainer aplikasi. */
   max-width: var(--width-container);
   margin-inline: auto;
   display: flex;
@@ -105,9 +103,6 @@
   gap: var(--space-6);
 }
 
-/* Isi halaman masuk berurutan (fade-up bertingkat seperti stat tile V2).
-   Fill-mode backwards supaya transform tidak tertahan dan hover lift di
-   kartu tetap berjalan. */
 .inner > * {
   animation: sl-naik 480ms var(--ease-out) backwards;
 }
@@ -142,9 +137,6 @@
   padding: 4px 6px 10px;
 }
 
-/* Di bawah 1024px sidebar menjadi drawer off-canvas, BUKAN display:none.
-   Rute seperti Dokumen dan Pengaturan hanya ada di sidebar; menyembunyikannya
-   membuat halaman itu tidak terjangkau di perangkat utama pengguna. */
 @media (max-width: 1023px) {
   .menuButton,
   .brandMobile {
@@ -196,13 +188,10 @@
 
   .content {
     padding-top: var(--space-6);
-    /* Ruang untuk bottom nav plus safe area, supaya isi terakhir tidak
-       tersembunyi di baliknya. */
     padding-bottom: calc(var(--height-bottomnav) + env(safe-area-inset-bottom, 0px) + var(--space-8));
   }
 }
 
-/* Topbar sempit: bahasa dan tema pindah ke drawer. */
 @media (max-width: 639px) {
   .topPrefs {
     display: none;
@@ -278,8 +267,6 @@
   color: var(--danger-text);
 }
 
-/* Tautan merek tetap setinggi ambang sentuh walau glyph-nya kecil: area
-   diperbesar, bukan logonya. */
 .brandLink {
   display: inline-flex;
   align-items: center;
@@ -287,7 +274,6 @@
   text-decoration: none;
 }
 
-/* Aksi halaman: topbar di layar lebar, di atas isi di layar sempit. */
 .aksiLebar {
   display: contents;
 }

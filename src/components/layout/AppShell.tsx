@@ -1,3 +1,5 @@
+// Kerangka aplikasi: bilah atas, sidebar, dan navigasi bawah.
+
 "use client";
 
 import { usePathname } from "next/navigation";
@@ -20,9 +22,7 @@ import styles from "./AppShell.module.css";
 export interface AppShellProps {
   session: Session;
   sidebar: SidebarEntry[];
-  /** Maksimal 5 tujuan utama. Sisanya tetap terjangkau lewat drawer sidebar. */
   bottom: NavItem[];
-  /** Isi di kanan judul topbar yang milik shell, bukan halaman (mis. lonceng). */
   topbarExtra?: ReactNode;
   children: ReactNode;
 }
@@ -30,25 +30,15 @@ export interface AppShellProps {
 export function AppShell({ session, sidebar, bottom, topbarExtra, children }: AppShellProps) {
   const pathname = usePathname();
   const { t } = useBahasa();
-  /* Drawer dicatat terbuka untuk rute tertentu. Begitu rute berpindah, termasuk
-     lewat tautan di dalam drawer, ia otomatis tertutup tanpa efek tambahan. */
   const [menuDi, setMenuDi] = useState<string | null>(null);
   const menu = menuDi === pathname;
   const setMenu = (buka: boolean) => setMenuDi(buka ? pathname : null);
   const role = session.user.role;
   const konten = useRef<HTMLElement>(null);
-  /* Slot disimpan sebagai state (bukan ref) supaya halaman dirender ulang
-     begitu elemennya tersedia dan portal judulnya bisa dipasang. */
   const [slotJudul, setSlotJudul] = useState<HTMLElement | null>(null);
   const [slotAksi, setSlotAksi] = useState<HTMLElement | null>(null);
-  /* Isi aplikasi bergulir di dalam main, bukan jendela, jadi posisinya dikelola sendiri. */
   useKelolaGulir(konten);
 
-  /* Navigasi klien tidak memindahkan fokus: tanpa ini, pengguna keyboard tetap
-     tertinggal di tautan sidebar yang tadi ditekan dan pembaca layar tidak
-     diberi tahu halamannya sudah berganti. Muat pertama dilewati supaya fokus
-     tidak direbut dari awal halaman. preventScroll dipakai karena posisi gulir
-     sudah diatur useKelolaGulir. */
   const muatPertama = useRef(true);
   useEffect(() => {
     if (muatPertama.current) {
@@ -88,22 +78,17 @@ export function AppShell({ session, sidebar, bottom, topbarExtra, children }: Ap
           role={t.umum.peran[role]}
           items={sidebar}
           brand={
-            /* Bukan tautan: di dalam aplikasi, satu-satunya jalan keluar adalah
-               tombol keluar di bawah. Logo yang bisa ditekan membawa orang ke
-               halaman pemasaran dan terasa seperti tersesat dari akunnya. */
             <span aria-label={t.navigasi.header.logoLabel} className={styles.brandLink}>
               <Logo size={22} />
             </span>
           }
           footer={
             <>
-              {/* Di layar sempit pilihan bahasa dan tema pindah ke sini agar topbar tidak sesak. */}
               <div className={styles.prefs}>
                 <LanguageToggle />
                 <ThemeToggle />
               </div>
               <div className={styles.userCard}>
-                {/* Tanda verifikasi hanya untuk mahasiswa: bisnis selalu is_verified true sejak daftar. */}
                 <Avatar
                   name={session.user.full_name}
                   src={session.user.avatar_url}

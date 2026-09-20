@@ -1,5 +1,5 @@
-/* Segmented ID | EN dengan penanda yang bergeser, gaya segmented control V2.
-   Lebar setiap opsi dikunci supaya header tidak bergeser saat bahasa berganti. */
+/* Gaya tombol pengalih bahasa. */
+
 .toggle {
   position: relative;
   display: inline-grid;

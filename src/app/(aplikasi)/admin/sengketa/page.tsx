@@ -1,3 +1,5 @@
+// Halaman admin berisi daftar sengketa.
+
 "use client";
 
 import Link from "next/link";

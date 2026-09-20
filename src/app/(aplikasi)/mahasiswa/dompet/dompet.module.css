@@ -1,5 +1,5 @@
-/* Dompet gaya V2: saldo utama di kartu aurora, dua saldo pendamping di kartu
-   terang, mutasi dalam daftar baris bersama. */
+/* Gaya halaman dompet. */
+
 .balances {
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr));
@@ -64,9 +64,6 @@
   background: radial-gradient(circle, var(--aurora-1), transparent 66%);
 }
 
-/* Tombol tutup saldo menempel di ujung labelnya, bukan di samping angkanya:
-   angka saldo berubah lebar saat ditutup, dan tombol yang ikut bergeser
-   membuat orang kehilangan sasaran yang barusan ditekannya. */
 .tombolSaldo {
   color: inherit;
 }
@@ -86,15 +83,12 @@
   color: var(--on-dark-muted);
 }
 
-/* Angka saldo utama memakai warna teks di atas aurora, bukan warna uang masuk
-   yang dirancang untuk permukaan terang. */
 .balanceAngka span {
   color: var(--on-dark);
   font-family: var(--font-display);
   font-size: var(--text-bento-num);
   font-weight: var(--weight-black);
   letter-spacing: -0.03em;
-  /* Angka proporsional: digit tabular di huruf display membuat titik ribuan tampak renggang. */
   font-variant-numeric: proportional-nums;
 }
 

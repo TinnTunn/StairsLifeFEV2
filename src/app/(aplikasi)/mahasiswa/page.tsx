@@ -1,3 +1,5 @@
+// Beranda mahasiswa: saldo, lamaran berjalan, dan proyek yang cocok.
+
 "use client";
 
 import Link from "next/link";
@@ -39,7 +41,6 @@ function Stat({
 }: {
   label: string;
   icon: IconName;
-  /** Kontrol kecil di kepala kartu, misalnya tombol menyembunyikan saldo. */
   aksi?: ReactNode;
   children: ReactNode;
 }) {
@@ -47,9 +48,6 @@ function Stat({
     <div className={styles.stat}>
       <div className={styles.statKepala}>
         <span className={styles.statLabel}>{label}</span>
-        {/* Kontrolnya menempati petak ikon, bukan ditambahkan di sebelahnya:
-            kartu ini selebar tiga kartu lain, dan satu elemen tambahan membuat
-            labelnya patah jadi dua baris sementara tetangganya satu baris. */}
         {aksi ?? (
           <span className={styles.statIkon} aria-hidden="true">
             <Icon name={icon} size={16} />
@@ -69,8 +67,6 @@ function Isi({ session }: { session: Session }) {
   const verified = session.user.is_verified;
   const lamaran = useAsync(myApplications, [], "lamaran-saya");
   const dompet = useAsync(myWallet, []);
-  /* Tanpa status pengajuan, mahasiswa yang kartunya sedang direview tetap
-     disuruh mengunggah kartu. */
   const pengajuan = useAsync(async () => (verified || USE_MOCK ? null : users.verification()), [verified]);
 
   if (lamaran.loading || dompet.loading || pengajuan.loading) {
@@ -140,13 +136,7 @@ function Isi({ session }: { session: Session }) {
         <Stat label={b.statDiterima} icon="CheckCircle2">
           <span className={styles.statValue}>{diterima}</span>
         </Stat>
-        {/* Tombolnya ada di sini juga, bukan hanya di dompet: angka ini yang
-            pertama terlihat saat halaman dibuka, jadi di sinilah orang ingin
-            menutupnya saat layarnya sedang dilihat orang lain. */}
         <Stat label={b.statSaldo} icon="Wallet" aksi={<TombolSaldo className={styles.statTombol} />}>
-          {/* Ikut pilihan yang dibuat di dompet: menyembunyikan saldo di satu
-              tempat lalu memperlihatkannya di tempat lain tidak menyembunyikan
-              apa pun. */}
           <span className={`${styles.statValue} ${styles.statUang}`}>
             {saldoTersembunyi ? "Rp ••••••" : formatRupiah(wallet?.amount ?? 0)}
           </span>

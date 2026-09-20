@@ -1,3 +1,5 @@
+// Tombol dasar dengan ragam warna dan ukuran.
+
 import Link from "next/link";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import styles from "./Button.module.css";
@@ -7,9 +9,7 @@ type Size = "sm" | "md" | "lg" | "xl";
 
 interface Common {
   children?: ReactNode;
-  /** primary hanya untuk satu aksi terpenting per layar. */
   variant?: Variant;
-  /** sm 38px, md 44px (default), lg 52px, xl 56px. */
   size?: Size;
   fullWidth?: boolean;
   loading?: boolean;
@@ -47,8 +47,6 @@ export function Button(props: ButtonProps) {
     .filter(Boolean)
     .join(" ");
 
-  /* Label tetap terlihat saat loading supaya lebar tombol tidak melompat dan
-     pengguna tidak kehilangan konteks aksi yang sedang berjalan. */
   const content = (
     <>
       {loading ? <Spinner size={size === "sm" ? 14 : 16} /> : iconLeft}
@@ -59,8 +57,6 @@ export function Button(props: ButtonProps) {
 
   if (rest.href !== undefined) {
     const { href, ...anchorRest } = rest as ComponentPropsWithoutRef<"a"> & { href: string };
-    /* Anchor tidak punya atribut disabled. Saat loading, href dilepas sekaligus
-       supaya tautan benar-benar mati, bukan hanya terlihat mati. */
     if (loading) {
       return (
         <span {...anchorRest} className={cls} aria-disabled="true" aria-busy="true" role="link">

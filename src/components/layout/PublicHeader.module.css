@@ -1,5 +1,5 @@
-/* Navbar gaya V2: kaca buram yang menempel di atas, bayangan saat halaman
-   bergeser, garis bawah tautan yang tumbuh dari kiri. */
+/* Gaya kepala halaman publik. */
+
 .header {
   position: sticky;
   top: 0;
@@ -58,9 +58,6 @@
   color: var(--brand);
 }
 
-/* Kolom selebar tetap: label Indonesia dan Inggris berbeda panjang
-   ("Cara Kerja" dan "How It Works"), dan tanpa kolom tetap tautan di
-   sebelahnya ikut bergeser setiap bahasa berganti. */
 .nav {
   display: none;
   grid-template-columns: repeat(3, 124px);
@@ -125,8 +122,6 @@
   display: none;
 }
 
-/* Lebar minimum yang muat untuk label kedua bahasa, supaya kelompok tombol
-   kanan tidak bergeser saat bahasa berganti. */
 .daftar {
   display: inline-flex;
 }
@@ -193,8 +188,6 @@
   grid-template-columns: 1fr;
 }
 
-/* Tombol daftar disembunyikan di layar sangat sempit supaya logo, tema, dan
-   menu tetap muat; tombolnya tetap ada di panel menu. */
 @media (max-width: 379px) {
   .daftar {
     display: none;

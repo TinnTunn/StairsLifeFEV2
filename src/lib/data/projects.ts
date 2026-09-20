@@ -1,3 +1,5 @@
+// Pembaca proyek yang memilih antara data contoh dan backend.
+
 import { teksGalat } from "@/i18n/aktif";
 import type { Bahasa } from "@/i18n/jenis";
 import { ApiError, USE_MOCK } from "../api/client";
@@ -5,15 +7,9 @@ import { projects as api, type ProjectFilter } from "../api/projects";
 import { MOCK_PROJECTS } from "../mock/projects";
 import type { Project } from "../types";
 
-/* Satu titik peralihan antara data contoh dan API sungguhan.
-   Halaman tidak pernah memeriksa USE_MOCK sendiri, jadi menyalakan backend
-   hanya perlu mengubah satu env var, bukan menyunting setiap layar. */
-
 export interface ProjectListResult {
   items: Project[];
-  /** true saat isinya data contoh, dipakai untuk menampilkan penanda ke pengguna. */
   sample: boolean;
-  /** Terisi kalau backend menyala tapi gagal dihubungi. */
   error?: string;
 }
 
@@ -27,16 +23,10 @@ function filterMock(filter: ProjectFilter): Project[] {
   });
 }
 
-/** bahasa diisi pemanggil di server, karena cookie bahasa tidak terbaca dari sini. */
 export async function listProjects(filter: ProjectFilter = {}, bahasa?: Bahasa): Promise<ProjectListResult> {
   if (USE_MOCK) return { items: filterMock(filter), sample: true };
   try {
-    /* Endpoint publik tanpa guard, jadi aman dipanggil dari Server Component
-       tanpa token. revalidate 60 detik: daftar proyek berubah dalam hitungan
-       jam, bukan detik. */
     const items = await api.list(filter, { revalidate: 60 });
-    /* Alasannya sama dengan ambil() di data/work: daftar yang datang bukan
-       daftar dijadikan kosong, bukan dibiarkan menjatuhkan halaman. */
     return { items: Array.isArray(items) ? items : [], sample: false };
   } catch (error) {
     const message = error instanceof ApiError ? error.message : teksGalat(bahasa).jaringan;

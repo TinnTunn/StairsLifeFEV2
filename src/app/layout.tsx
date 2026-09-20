@@ -1,3 +1,5 @@
+// Layout akar: font, tema, bahasa, dan metadata dasar situs.
+
 import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
 import { Manrope, Schibsted_Grotesk } from "next/font/google";
@@ -15,9 +17,6 @@ import "@/styles/tema.css";
 import "@/styles/app.css";
 import "@/styles/motion.css";
 
-/* Font FE V2: Schibsted Grotesk untuk judul, Manrope untuk teks dan angka.
-   next/font meng-self-host binary-nya saat build, jadi tidak ada permintaan
-   ke Google dan tidak ada pergeseran layout saat font tiba. */
 const display = Schibsted_Grotesk({
   subsets: ["latin"],
   weight: ["500", "600", "700", "800"],
@@ -42,8 +41,6 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     description: t.umum.meta.deskripsi,
     applicationName: t.umum.meta.situs,
-    /* Pratinjau saat tautan dibagikan ke WhatsApp atau LinkedIn. Gambarnya
-       app/opengraph-image.png, dipasang otomatis oleh Next. */
     openGraph: {
       type: "website",
       siteName: t.umum.meta.situs,
@@ -56,8 +53,6 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export const viewport: Viewport = {
-  /* Zoom tidak dikunci: mengunci maximumScale memutus pembaca yang
-     mengandalkan perbesaran. */
   width: "device-width",
   initialScale: 1,
 };
@@ -66,7 +61,6 @@ export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const { bahasa } = await ambilKamus();
-  /* Nonce dari proxy.ts; tanpa ini CSP memblokir skrip tema di <head>. */
   const nonce = (await headers()).get("x-nonce") ?? undefined;
   return (
     <html lang={bahasa} data-scroll-behavior="smooth" className={`${display.variable} ${sans.variable}`} suppressHydrationWarning>

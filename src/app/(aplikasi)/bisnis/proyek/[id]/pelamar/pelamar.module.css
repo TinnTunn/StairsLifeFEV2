@@ -1,4 +1,5 @@
-/* Kartu pelamar gaya V2: avatar besar, surat di permukaan cekung, aksi di kaki kartu. */
+/* Gaya kartu pelamar. */
+
 .list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(420px, 100%), 1fr));
@@ -148,7 +149,6 @@
   }
 }
 
-/* Tautan kecil ke profil lengkap pelamar, di bawah rating. */
 .tautanProfil {
   display: inline-flex;
   align-items: center;

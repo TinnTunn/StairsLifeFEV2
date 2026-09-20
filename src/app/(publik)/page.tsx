@@ -1,3 +1,5 @@
+// Halaman beranda publik.
+
 import type { Metadata } from "next";
 import { Button } from "@/components/actions/Button";
 import { Icon, type IconName } from "@/components/actions/Icon";
@@ -20,21 +22,15 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const WARNA_LANGKAH = ["brandSoft", "cream", "tinta", "brand"] as const;
 
-/* Enam ikon PNG pilihan pemilik produk (public/assets/ikon/icons8), urut
-   sama dengan kamus: verifikasi KTM, escrow, kontrak digital, revisi dengan
-   catatan, sistem tingkat, dompet dan penarikan. */
 const FITUR: { icon: IconName; warna: string }[] = [
   { icon: "Terverifikasi", warna: "brand" },
   { icon: "Gembok", warna: "success" },
   { icon: "Kontrak", warna: "info" },
   { icon: "Komentar", warna: "rating" },
-  { icon: "Level", warna: "rating" },
+  { icon: "Bintang", warna: "rating" },
   { icon: "Dompet", warna: "warm" },
 ];
 
-/* Ikon nilai digambar ulang sebagai SVG (public/assets/ikon) supaya tetap tajam
-   di layar retina; PNG 48px dari Icons8 buram saat diperbesar dan lisensi
-   gratisnya mewajibkan tautan atribusi. */
 const NILAI_IKON = ["/assets/ikon/perisai.svg", "/assets/ikon/mata.svg", "/assets/ikon/pelukan.svg"];
 const LINIMASA_WARNA = ["success", "warning", "brand"] as const;
 
@@ -49,7 +45,6 @@ export default async function Beranda() {
       {sample ? <SampleDataNotice /> : null}
       <Parallax />
 
-      {/* ============ HERO ============ */}
       <section className={hero.hero}>
         <span className={`${hero.orb} ${hero.orbKiri}`} data-parallax="-0.14" aria-hidden="true" />
         <span className={`${hero.orb} ${hero.orbKanan}`} data-parallax="0.18" aria-hidden="true" />
@@ -65,9 +60,6 @@ export default async function Beranda() {
             </h1>
             <p className={`${hero.deskripsi} ${hero.masuk} ${hero.masuk2}`}>{b.hero.deskripsi}</p>
             <div className={`${hero.aksi} ${hero.masuk} ${hero.masuk3}`}>
-              {/* Ke pendaftaran, bukan ke daftar proyek: melamar mensyaratkan akun
-                  mahasiswa, jadi tamu yang menekan ini memang harus membuat akun
-                  dulu. Sepasang dengan "Pasang proyek" yang juga ke pendaftaran. */}
               <Button href="/daftar/mahasiswa" size="xl" iconRight={<Icon name="ChevronRight" size={20} />}>
                 {b.hero.ctaUtama}
               </Button>
@@ -82,13 +74,10 @@ export default async function Beranda() {
         </div>
       </section>
 
-      {/* ============ STATISTIK ============ */}
       <section className={styles.stats} aria-label={b.statistik.label}>
         <div className={styles.statsGrid}>
           {[
             { nilai: <AngkaNaik nilai={items.length} />, label: b.statistik.proyekDibuka },
-            /* Komisi dibaca dari pengaturan backend; tanpa angka yang terbaca,
-               stat ini tidak ditampilkan daripada menebak. */
             ...(pengaturan
               ? [{ nilai: <AngkaNaik nilai={pengaturan.platform_fee} akhiran="%" />, label: b.statistik.komisi }]
               : []),
@@ -103,7 +92,6 @@ export default async function Beranda() {
         </div>
       </section>
 
-      {/* ============ UNTUK SIAPA ============ */}
       <section className={styles.section} aria-labelledby="judul-sisi">
         <div className={`${styles.eyebrowBlock} ${styles.centered}`} data-reveal>
           <span className={styles.eyebrow}>{b.sisi.eyebrow}</span>
@@ -116,7 +104,6 @@ export default async function Beranda() {
         </div>
       </section>
 
-      {/* ============ CARA KERJA ============ */}
       <section className={styles.sectionCream} id="cara-kerja" aria-labelledby="judul-cara-kerja">
         <div className={styles.section}>
           <div className={styles.eyebrowBlock} data-reveal>
@@ -143,7 +130,6 @@ export default async function Beranda() {
         </div>
       </section>
 
-      {/* ============ FITUR ============ */}
       <section className={styles.section} id="fitur" aria-labelledby="judul-fitur">
         <div className={styles.eyebrowBlock} data-reveal>
           <span className={styles.eyebrow}>{b.fitur.eyebrow}</span>
@@ -170,7 +156,6 @@ export default async function Beranda() {
         </ul>
       </section>
 
-      {/* ============ TENTANG KAMI ============ */}
       <section className={styles.sectionCream} id="tentang" aria-labelledby="judul-tentang">
         <div className={styles.section}>
           <div className={`${styles.eyebrowBlock} ${styles.centered}`} data-reveal>
@@ -230,7 +215,6 @@ export default async function Beranda() {
         </div>
       </section>
 
-      {/* ============ CTA ============ */}
       <section className={`${styles.cta} sl-noise`}>
         <div className={styles.ctaInner} data-reveal="zoom">
           <h2 className={styles.ctaTitle}>{b.cta.judul}</h2>

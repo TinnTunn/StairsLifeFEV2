@@ -1,3 +1,5 @@
+// Halaman pilih peran sebelum mendaftar.
+
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Icon } from "@/components/actions/Icon";

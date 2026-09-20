@@ -1,3 +1,5 @@
+// Tombol membatalkan lamaran yang belum diproses.
+
 "use client";
 
 import Link from "next/link";
@@ -10,9 +12,6 @@ import { applications } from "@/lib/api/applications";
 import { ApiError, USE_MOCK } from "@/lib/api/client";
 import styles from "../../dashboard.module.css";
 
-/* Backend (withdrawApplication) menerima pembatalan selama status masih
-   pending atau shortlisted, lalu menghapus baris lamarannya. Karena barisnya
-   hilang, mahasiswa bisa melamar proyek yang sama lagi. */
 export function BatalkanLamaran({ id, projectId }: { id: string; projectId: string }) {
   const router = useRouter();
   const { t } = useBahasa();
@@ -30,7 +29,6 @@ export function BatalkanLamaran({ id, projectId }: { id: string; projectId: stri
         return;
       }
       await applications.cancel(id);
-      /* replace: lamaran yang dibatalkan sudah dihapus, jadi Back tidak boleh membukanya lagi. */
       router.replace("/mahasiswa/lamaran");
     } catch (e) {
       setError(e instanceof ApiError ? e.messages.join(" ") : t.umum.galat.jaringan);
@@ -67,7 +65,6 @@ export function BatalkanLamaran({ id, projectId }: { id: string; projectId: stri
           <p role="alert" className={styles.galat}>
             <span>
               {error}{" "}
-              {/* Status bisa berubah sejak halaman dibuka, misalnya bisnis baru saja menerima. */}
               <Link href={`/mahasiswa/cari/${projectId}`}>{d.lihatProyekSingkat}</Link>
             </span>
           </p>

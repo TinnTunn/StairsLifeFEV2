@@ -1,3 +1,5 @@
+// Pilihan radio.
+
 import type { ComponentPropsWithoutRef } from "react";
 import s from "./choice.module.css";
 

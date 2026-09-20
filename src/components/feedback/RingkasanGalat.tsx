@@ -1,18 +1,11 @@
+// Ringkasan galat formulir yang menautkan ke kolom bermasalah.
+
 "use client";
 
 import { useEffect, useRef } from "react";
 import type { ItemGalat } from "@/lib/useGalatKolom";
 import { Icon } from "../actions/Icon";
 
-/**
- * Ringkasan galat formulir yang digulir ke tengah layar dan menerima fokus
- * setiap kali isinya berubah. Tanpa ini, pesan di atas formulir panjang tetap
- * di luar layar setelah tombol kirim di bawah ditekan, dan pengguna mengira
- * tidak terjadi apa-apa.
- *
- * Pesan yang terkait kolom menjadi tautan: menekannya memindahkan fokus ke
- * kolom itu, sementara pesan yang sama juga tampil di bawah kolomnya.
- */
 export function RingkasanGalat({
   pesan,
   className,

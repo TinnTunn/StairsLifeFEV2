@@ -1,3 +1,5 @@
+// Halaman konfirmasi perubahan alamat email.
+
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { ambilKamus } from "@/i18n/server";

@@ -1,3 +1,5 @@
+// Halaman admin untuk memutus satu sengketa.
+
 "use client";
 
 import { use, useState } from "react";
@@ -216,7 +218,6 @@ function FormPutusan({ sengketa, onSelesai }: { sengketa: AdminDispute; onSelesa
     setError(null);
     const payload = periksa();
     if (!payload) return;
-    /* Putusan akhir memindahkan uang dan tidak bisa diulang, jadi selalu lewat konfirmasi. */
     if (payload.status === "resolved") setKonfirmasi(true);
     else void simpan(payload);
   }

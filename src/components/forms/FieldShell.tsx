@@ -1,10 +1,11 @@
+// Kerangka kolom formulir: label, petunjuk, dan pesan galat.
+
 import type { ReactNode } from "react";
 import styles from "./field.module.css";
 
 export interface FieldMeta {
   label?: string;
   hint?: string;
-  /** Error selalu teks, bukan hanya garis merah: warna saja hilang untuk pengguna buta warna. */
   error?: string;
   required?: boolean;
 }

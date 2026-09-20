@@ -1,89 +1,4 @@
-/* Detail proyek gaya V2: pita judul cream-mesh, isi dalam kartu, panel aksi
-   kaca yang menempel di desktop. */
-.hero {
-  background: var(--grad-cream-mesh);
-  border-bottom: var(--border-width) solid var(--border-subtle);
-}
-
-.heroInner {
-  width: 100%;
-  max-width: var(--width-container);
-  margin-inline: auto;
-  padding: 20px var(--pad-page-x) 36px;
-}
-
-.page {
-  width: 100%;
-  max-width: var(--width-container);
-  margin-inline: auto;
-  padding: var(--space-10) var(--pad-page-x) var(--space-12);
-}
-
-.back {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  min-height: var(--tap-min);
-  font-size: var(--text-body-sm);
-  font-weight: var(--weight-semibold);
-  color: var(--text-muted);
-  text-decoration: none;
-  transition: color var(--duration-fast) var(--ease-out);
-}
-
-.back svg {
-  transition: transform var(--duration-base) var(--ease-spring);
-}
-
-.back:hover {
-  color: var(--brand);
-}
-
-.back:hover svg {
-  transform: translateX(-3px);
-}
-
-.header {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 14px;
-  margin-top: 8px;
-  animation: sl-naik 560ms var(--ease-out) backwards;
-}
-
-.title {
-  margin: 0;
-  max-width: 28ch;
-  font-family: var(--font-display);
-  font-size: var(--text-display-2);
-  font-weight: var(--weight-black);
-  line-height: 1.08;
-  letter-spacing: -0.03em;
-  color: var(--text-strong);
-  text-wrap: balance;
-}
-
-.business {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-size: var(--text-body);
-  font-weight: var(--weight-semibold);
-  color: var(--text-muted);
-}
-
-.businessLogo {
-  width: 32px;
-  height: 32px;
-  display: grid;
-  place-items: center;
-  border-radius: 10px;
-  background: var(--brand-soft);
-  color: var(--brand);
-  font-family: var(--font-display);
-  font-weight: var(--weight-black);
-}
+/* Gaya halaman detail proyek. */
 
 .layout {
   display: grid;
@@ -193,9 +108,6 @@
   animation: sl-pop 520ms var(--ease-spring) 120ms backwards;
 }
 
-/* Anggaran di atas latar gradien tipis dengan kilau yang menyapu, seperti
-   budget card di hero V2. */
-/* Baris pemasang proyek: rapi dan tenang, tanpa kartu di dalam kartu. */
 .pemasang {
   display: flex;
   align-items: center;
@@ -267,17 +179,12 @@
   color: var(--brand);
 }
 
-/* Ukuran h4, bukan h2: rentang anggaran memuat dua nominal dan pemisahnya,
-   dan di panel selebar 320px ukuran judul halaman memecahnya jadi dua baris
-   tepat di tengah rentang. */
 .budgetValue {
   font-family: var(--font-display);
   font-size: var(--text-h3);
   font-weight: var(--weight-black);
   line-height: 1.25;
   letter-spacing: -0.01em;
-  /* Proporsional, bukan tabular: angkanya dibaca sebagai satu nominal, bukan
-     dijajarkan dengan baris lain, dan tabular membuat titik ribuan renggang. */
   font-variant-numeric: proportional-nums;
   color: var(--text-strong);
   text-wrap: balance;
@@ -319,8 +226,6 @@
   text-align: right;
 }
 
-/* Setiap layar yang menyangkut dana menjawab siapa memegang uangnya sekarang,
-   tanpa pengguna perlu mengklik apa pun. */
 .escrowNote {
   display: flex;
   gap: 10px;
@@ -346,14 +251,12 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .header,
   .block,
   .panel,
   .budget::after {
     animation: none;
   }
 
-  .back:hover svg,
   .chip:hover {
     transform: none;
   }

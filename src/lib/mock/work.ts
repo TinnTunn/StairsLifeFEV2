@@ -1,9 +1,7 @@
+// Data contoh lamaran, kontrak, pembayaran, dan dompet.
+
 import type { Application, Contract, Payment, Wallet } from "../types";
 import { MOCK_PROJECTS } from "./projects";
-
-/* Data contoh untuk area terautentikasi. Nominal dan namanya mengikuti brief
-   produk (Kopi Senja Malang, Rani Pratiwi). Setiap layar yang memakainya
-   menampilkan penanda "data contoh" yang terlihat pengguna. */
 
 const MAHASISWA = "s0000000-0000-4000-8000-000000000001";
 

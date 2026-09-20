@@ -1,4 +1,5 @@
-/* ============ Hero aurora gaya V2, warna logo ============ */
+/* Gaya pita utama beranda publik. */
+
 .hero {
   position: relative;
   overflow: hidden;
@@ -8,7 +9,6 @@
   padding: 64px 0;
 }
 
-/* Cahaya aurora yang bergeser pelan di belakang konten (V2 sl-hero-drift). */
 .hero::before {
   content: "";
   position: absolute;
@@ -16,8 +16,8 @@
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(38% 38% at 22% 28%, var(--aurora-1) 0%, transparent 60%),
-    radial-gradient(34% 34% at 78% 62%, var(--aurora-2) 0%, transparent 62%);
+  radial-gradient(38% 38% at 22% 28%, var(--aurora-1) 0%, transparent 60%),
+  radial-gradient(34% 34% at 78% 62%, var(--aurora-2) 0%, transparent 62%);
   filter: blur(8px);
   animation: sl-aurora 16s ease-in-out infinite alternate;
 }
@@ -73,7 +73,6 @@
   min-width: 0;
 }
 
-/* Masuk berurutan saat halaman dibuka (anim-up V2). */
 .masuk {
   animation: sl-naik 600ms var(--ease-out) backwards;
 }
@@ -89,7 +88,6 @@
 .masuk3 {
   animation-delay: 240ms;
 }
-
 
 .badge {
   display: inline-flex;
@@ -122,7 +120,6 @@
   color: var(--spark);
 }
 
-/* Bar sorot di belakang frasa kedua, tumbuh dari kiri (slUnderline V2). */
 .aksen::after {
   content: "";
   position: absolute;
@@ -158,7 +155,6 @@
   animation: sl-pop 700ms var(--ease-out) 300ms backwards;
 }
 
-/* ---------- Kartu kaca ---------- */
 .stage {
   position: relative;
   z-index: 0;
@@ -169,7 +165,6 @@
   transition: transform 200ms var(--ease-out);
 }
 
-/* Halo cahaya yang berputar di belakang kartu (sl-orbit V2). */
 .halo {
   position: absolute;
   left: 50%;
@@ -235,27 +230,6 @@
   color: var(--on-dark);
 }
 
-.cardLink {
-  color: inherit;
-  text-decoration: none;
-}
-
-.cardLink::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: var(--radius-xl);
-}
-
-.cardLink:focus-visible {
-  outline: none;
-}
-
-.card:has(.cardLink:focus-visible) {
-  outline: var(--focus-ring-width) solid var(--spark);
-  outline-offset: 4px;
-}
-
 .company {
   display: flex;
   align-items: center;
@@ -299,7 +273,6 @@
   transform: translateY(-2px);
 }
 
-/* Pil anggaran dengan kilau yang menyapu berkala (sl-sweep V2). */
 .budget {
   position: relative;
   overflow: hidden;

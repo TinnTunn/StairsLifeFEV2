@@ -1,3 +1,5 @@
+// Kamus Inggris: kata umum yang dipakai lintas halaman.
+
 import type { umum as Id } from "../id/umum";
 
 export const umum: typeof Id = {

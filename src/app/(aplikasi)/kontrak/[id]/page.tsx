@@ -1,3 +1,5 @@
+// Halaman detail kontrak: tahapan escrow, hasil kerja, dan obrolan.
+
 "use client";
 
 import { use, useEffect, useRef, useState } from "react";
@@ -41,11 +43,6 @@ export default function DetailKontrak({ params }: { params: Promise<{ id: string
   );
 }
 
-/**
- * Tahap dihitung dari status kontrak dan status pembayaran yang sebenarnya,
- * bukan dari satu kolom. Keenamnya ditampilkan sekaligus supaya pengguna tahu
- * apa yang datang setelah dananya berpindah, bukan hanya tahap sekarang.
- */
 function tahapan(c: Contract, p: Payment | null, d: KamusDetail, bahasa: Bahasa): { steps: ContractStep[]; current: number } {
   const dibayar = p ? ["held", "released", "split_settled"].includes(p.status) : false;
   const dilepas = p ? ["released", "split_settled"].includes(p.status) : false;
@@ -72,7 +69,6 @@ function tahapan(c: Contract, p: Payment | null, d: KamusDetail, bahasa: Bahasa)
   let current = 0;
   if (dibayar) current = 2;
   if (c.status === "pending_review") current = 3;
-  /* Setelah dana dilepas semua tahap selesai, jadi penanda "tahap saat ini" tidak dipasang lagi. */
   if (c.status === "completed") current = dilepas ? steps.length : 4;
   if (!dibayar && c.status === "active") current = 1;
 
@@ -141,8 +137,6 @@ function Isi({ id, mahasiswa, akuId }: { id: string; mahasiswa: boolean; akuId: 
   }
 
   const p = bayar.data?.data ?? null;
-  /* Backend menjaga satu ulasan per pengulas lewat unique constraint, jadi
-     form ulasan disembunyikan begitu orang ini sudah menulis satu. */
   const ulasanku = (ulasan.data?.data ?? []).find((r) => r.reviewer_id === akuId);
   const sudahMengulas = Boolean(ulasanku);
   const ulasanUntukku = (ulasan.data?.data ?? []).find((r) => r.reviewee_id === akuId);
@@ -181,9 +175,6 @@ function Isi({ id, mahasiswa, akuId }: { id: string; mahasiswa: boolean; akuId: 
         </div>
       ) : null}
 
-      {/* Kontrak dibuka dari banyak arah (daftar, notifikasi, tautan email),
-          jadi jalan kembalinya harus ada di halamannya sendiri, bukan hanya
-          lewat tombol kembali peramban. */}
       <TautanKembali href="/kontrak" label={d.keDaftar} />
 
       <div className={styles.head}>
@@ -274,8 +265,6 @@ function Isi({ id, mahasiswa, akuId }: { id: string; mahasiswa: boolean; akuId: 
 
       {bisaDisengketakan && !sengketaBerjalan && !sengketa.loading ? <AjukanSengketa contractId={c.id} /> : null}
 
-      {/* Tanpa kartu ini, form ulasan hanya menghilang setelah terkirim dan
-          tidak ada yang memberi tahu bahwa ulasannya tersimpan. */}
       {ulasanku || ulasanUntukku ? (
         <div className={styles.card}>
           <h3 className={styles.cardTitle}>
@@ -304,12 +293,6 @@ function Isi({ id, mahasiswa, akuId }: { id: string; mahasiswa: boolean; akuId: 
 
 const JEDA_CEK = 20_000;
 
-/**
- * Pihak lain bisa mengubah kontrak kapan saja (menyetor dana, mengirim hasil,
- * membuka sengketa). Status diperiksa ulang tiap 20 detik selama tab terlihat
- * dan saat tab kembali dibuka; bila berubah, data dimuat ulang dan pengguna
- * diberi tahu sebelum menekan tombol yang sudah tidak berlaku.
- */
 function useKontrakLangsung(id: string, tanda: string, muatUlang: () => void) {
   const [tampil, setTampil] = useState(false);
   const tandaSekarang = useRef(tanda);
@@ -347,7 +330,6 @@ function useKontrakLangsung(id: string, tanda: string, muatUlang: () => void) {
   return {
     tampil,
     tutup: () => setTampil(false),
-    /** Perubahan karena aksi sendiri tidak perlu diberitahukan. */
     abaikanSebentar: () => {
       abaikanSampai.current = Date.now() + 8_000;
       setTampil(false);

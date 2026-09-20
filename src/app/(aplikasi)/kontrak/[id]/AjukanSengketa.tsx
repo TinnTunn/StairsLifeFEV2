@@ -1,3 +1,5 @@
+// Formulir mengajukan sengketa atas sebuah kontrak.
+
 "use client";
 
 import { useRouter } from "next/navigation";
@@ -16,7 +18,6 @@ import styles from "./kontrak.module.css";
 
 const MIN_ALASAN = 20;
 
-/** Kartu kecil "ada masalah?" di bawah kontrak, dengan modal pengajuan sengketa. */
 export function AjukanSengketa({ contractId }: { contractId: string }) {
   const { t } = useBahasa();
   const s = t.fitur.sengketa;

@@ -1,3 +1,5 @@
+/* Gaya halaman contoh komponen. */
+
 .page {
   width: 100%;
   max-width: var(--width-container);
@@ -30,8 +32,6 @@
   gap: var(--space-3);
 }
 
-/* auto-fit dengan minmax: kolom menyusut dan membungkus mengikuti isi, jadi
-   tidak ada lebar tetap yang menjebol pembungkusnya di layar sempit. */
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));

@@ -1,3 +1,5 @@
+// Lonceng notifikasi di bilah atas beserta jumlah yang belum dibaca.
+
 "use client";
 
 import Link from "next/link";
@@ -26,17 +28,10 @@ export const IKON_NOTIFIKASI: Record<NotificationType, IconName> = {
   withdrawal: "ArrowUpRight",
 };
 
-/** Dipanggil halaman notifikasi setelah menandai dibaca, supaya lencana ikut. */
 export function kabariNotifikasiBerubah() {
   window.dispatchEvent(new Event(EVENT_NOTIFIKASI));
 }
 
-/**
- * Lonceng di topbar shell aplikasi. Jumlah belum dibaca diperbarui tiap 30
- * detik selama tab terlihat, saat berpindah halaman, dan saat tab kembali
- * difokuskan. Tanpa WebSocket: satu permintaan kecil per 30 detik cukup untuk
- * kabar yang tidak menuntut detik.
- */
 export function LoncengNotifikasi() {
   const { t, bahasa } = useBahasa();
   const n = t.fitur.notifikasi;

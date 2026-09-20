@@ -1,3 +1,5 @@
+// Formulir pendaftaran akun untuk kedua peran.
+
 "use client";
 
 import { useRouter } from "next/navigation";
@@ -15,13 +17,6 @@ import { LayarProses } from "@/components/feedback/LayarProses";
 import { idKolom, useGalatKolom } from "@/lib/useGalatKolom";
 import styles from "../masuk/auth.module.css";
 
-/**
- * Satu formulir, bukan stepper empat langkah.
- * POST /auth/register menerima seluruh data sekaligus dan tidak menerima
- * berkas apa pun. Unggah kartu mahasiswa punya endpoint tersendiri yang baru
- * bisa dipanggil setelah akun ada, jadi ia menjadi langkah berikutnya di
- * halaman verifikasi, bukan langkah di dalam pendaftaran.
- */
 export function RegisterForm({ role }: { role: "mahasiswa" | "bisnis" }) {
   const router = useRouter();
   const { t } = useBahasa();
@@ -71,9 +66,6 @@ export function RegisterForm({ role }: { role: "mahasiswa" | "bisnis" }) {
         return;
       }
 
-      /* Hanya field yang terisi yang dikirim. Backend memakai
-         forbidNonWhitelisted, dan mengirim string kosong untuk field opsional
-         akan tersimpan sebagai nilai kosong, bukan diabaikan. */
       const payload: RegisterPayload = {
         full_name: form.full_name.trim(),
         email: form.email.trim(),

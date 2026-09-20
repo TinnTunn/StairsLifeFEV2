@@ -1,3 +1,5 @@
+// Kamus Inggris: pesan galat dari backend.
+
 import type { galatApi as Id } from "../id/galat-api";
 
 export const galatApi: typeof Id = {

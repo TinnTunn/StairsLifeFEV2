@@ -1,3 +1,5 @@
+// Halaman admin untuk meninjau pengajuan verifikasi mahasiswa.
+
 "use client";
 
 import { useState } from "react";

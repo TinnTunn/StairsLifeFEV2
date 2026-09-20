@@ -1,3 +1,5 @@
+// Nominal saldo yang bisa disembunyikan beserta tombol matanya.
+
 "use client";
 
 import { Icon } from "@/components/actions/Icon";
@@ -9,17 +11,6 @@ import styles from "./SaldoRahasia.module.css";
 
 export type SaldoRahasiaProps = MoneyProps;
 
-/**
- * Nominal saldo yang bisa disembunyikan pemiliknya.
- *
- * Dompet sering dibuka di tempat yang tidak privat: perpustakaan kampus,
- * angkutan umum, atau layar yang sedang dibagikan. Menyembunyikan angkanya
- * membuat halaman ini tetap bisa dipakai tanpa memperlihatkan berapa uang yang
- * dipegang.
- *
- * Yang disembunyikan hanya tampilannya. Nilainya tetap ada di halaman dan tetap
- * dipakai perhitungan lain, jadi tombol dan validasi tidak ikut berubah.
- */
 export function SaldoRahasia(props: SaldoRahasiaProps) {
   const { tersembunyi } = useSaldoTersembunyi();
   const { t } = useBahasa();
@@ -30,8 +21,6 @@ export function SaldoRahasia(props: SaldoRahasiaProps) {
   return (
     <span className={[styles.bungkus, className].filter(Boolean).join(" ")}>
       {label ? <span className={styles.label}>{label}</span> : null}
-      {/* Titiknya dekoratif; pembaca layar mendengar bahwa saldonya disembunyikan,
-          bukan deretan titik yang tidak berarti. */}
       <span className={`${styles.tutup} ${styles[size]}`} aria-hidden="true">
         Rp ••••••
       </span>
@@ -40,7 +29,6 @@ export function SaldoRahasia(props: SaldoRahasiaProps) {
   );
 }
 
-/** Tombol mata untuk menyalakan dan mematikan penyembunyian saldo. */
 export function TombolSaldo({ className }: { className?: string }) {
   const { tersembunyi, ubah } = useSaldoTersembunyi();
   const { t } = useBahasa();

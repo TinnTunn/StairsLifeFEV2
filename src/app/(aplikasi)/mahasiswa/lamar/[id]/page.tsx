@@ -1,3 +1,5 @@
+// Halaman formulir melamar sebuah proyek.
+
 "use client";
 
 import { useRouter } from "next/navigation";
@@ -26,8 +28,6 @@ import app from "../../dashboard.module.css";
 import styles from "./lamar.module.css";
 import { TautanKembali } from "@/components/navigation/TautanKembali";
 
-/* Backend menolak cover letter di bawah 50 karakter. Batas yang sama ditegakkan
-   di sini supaya pengguna tahu sebelum mengirim, bukan setelah ditolak. */
 const MIN_SURAT = 50;
 
 export default function Lamar({ params }: { params: Promise<{ id: string }> }) {
@@ -51,8 +51,6 @@ function Isi({ projectId, terverifikasi }: { projectId: string; terverifikasi: b
   const l = t.aplikasi.mahasiswa.lamar;
   const u = t.aplikasi.umum;
   const proyek = useAsync(() => getProject(projectId), [projectId]);
-  /* Backend menolak lamaran kedua dengan 409. Diperiksa sebelum form tampil,
-     supaya mahasiswa tidak menulis surat dulu baru tahu lamarannya ditolak. */
   const lamaranku = useAsync(myApplications, []);
 
   const [surat, setSurat] = useState("");
@@ -130,7 +128,6 @@ function Isi({ projectId, terverifikasi }: { projectId: string; terverifikasi: b
         estimated_completion: new Date(`${selesai}T23:59:59`).toISOString(),
         ...(tawaran ? { offered_budget: Number(tawaran) } : {}),
       });
-      /* replace: Back dari detail lamaran tidak kembali ke formulir yang sudah terkirim. */
       router.replace(`/mahasiswa/lamaran/${dibuat.id}`);
     } catch (e) {
       if (e instanceof ApiError && e.status === 409) {

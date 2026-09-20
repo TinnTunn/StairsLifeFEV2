@@ -1,5 +1,5 @@
-/* Teks yang dipakai lintas halaman: aksi umum, peran, tingkat, tema,
-   bahasa, dan pesan kesalahan jaringan. */
+// Kamus Indonesia: kata umum yang dipakai lintas halaman.
+
 export const umum = {
   meta: {
     situs: "StairsLife",

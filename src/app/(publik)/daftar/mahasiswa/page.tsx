@@ -1,3 +1,5 @@
+// Halaman pendaftaran akun mahasiswa.
+
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ambilKamus } from "@/i18n/server";

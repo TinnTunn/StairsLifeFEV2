@@ -1,3 +1,5 @@
+// Halaman detail satu lamaran beserta statusnya.
+
 "use client";
 
 import Link from "next/link";
@@ -35,10 +37,6 @@ export default function DetailLamaran({ params }: { params: Promise<{ id: string
   );
 }
 
-/* Timeline dibangun dari kolom yang benar-benar ada di backend: created_at dan
-   status. Tabel applications tidak punya updated_at dan tidak menyimpan riwayat
-   status, jadi hanya tahap "dikirim" yang punya cap waktu. Tahap lain tampil
-   tanpa tanggal, bukan diberi tanggal karangan. */
 function timeline(a: Application, d: Kamus["aplikasi"]["mahasiswa"]["detailLamaran"], bahasa: Bahasa): TimelineItem[] {
   const dikirim: TimelineItem = { label: d.dikirim, time: formatTanggalJam(a.created_at, bahasa), tone: "done" };
 
@@ -47,8 +45,6 @@ function timeline(a: Application, d: Kamus["aplikasi"]["mahasiswa"]["detailLamar
     return [dikirim, { label: d.masukSeleksi, tone: "done" }, { label: d.menungguKeputusan, tone: "active" }];
   }
   if (a.status === "approved") {
-    /* Tanpa langkah "Masuk seleksi": bisnis bisa menerima langsung dari
-       status terkirim, dan backend tidak mencatat apakah seleksi pernah terjadi. */
     return [dikirim, { label: d.diterima, description: d.diterimaIsi, tone: "done" }];
   }
   return [dikirim, { label: d.ditolak, tone: "alert" }];

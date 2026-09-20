@@ -1,3 +1,5 @@
+// Sakelar hidup dan mati.
+
 import type { ComponentPropsWithoutRef } from "react";
 import s from "./choice.module.css";
 
@@ -6,7 +8,6 @@ export interface SwitchProps extends Omit<ComponentPropsWithoutRef<"input">, "ty
   description?: string;
 }
 
-/** Untuk pengaturan yang berlaku seketika. Pilihan yang baru berlaku setelah tombol Simpan tetap memakai Checkbox. */
 export function Switch({ label, description, disabled, className, ...rest }: SwitchProps) {
   return (
     <label

@@ -1,5 +1,5 @@
-/* Sidebar gaya V2: permukaan terangkat, item aktif bernuansa brand dengan
-   garis kiri, geser halus saat hover. */
+/* Gaya sidebar navigasi. */
+
 .sidebar {
   width: var(--width-sidebar);
   flex: none;
@@ -85,7 +85,6 @@
   transform: none;
 }
 
-/* Garis kiri penanda halaman aktif, tumbuh dari tengah saat rute berpindah. */
 .item::before {
   content: "";
   position: absolute;

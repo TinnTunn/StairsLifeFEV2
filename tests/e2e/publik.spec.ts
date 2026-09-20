@@ -1,3 +1,5 @@
+// Uji E2E halaman publik.
+
 import { expect, test } from "@playwright/test";
 import { galat, mockApi, ok, pasangSesi, pengguna } from "./api-tiruan";
 
@@ -32,7 +34,6 @@ test.describe("halaman publik", () => {
     await page.getByRole("button", { name: "Masuk ke akunku" }).click();
 
     await expect(page.getByRole("status").filter({ hasText: "Memeriksa akunmu" })).toBeVisible();
-    // Pengalih "sudah masuk" tidak boleh mendahului formulir ke beranda peran.
     await page.waitForURL(/\/kontrak$/);
     await expect(page.getByRole("heading", { name: "Belum ada kontrak" })).toBeVisible();
   });
@@ -40,9 +41,6 @@ test.describe("halaman publik", () => {
   test("ringkasan galat pendaftaran menautkan ke kolom yang salah", async ({ page }) => {
     await mockApi(page);
     await page.goto("/daftar/mahasiswa");
-    /* Diulang sampai berhasil: di mode dev, rute yang baru pertama kali dibuka
-       masih dikompilasi, jadi klik bisa mendahului hidrasi dan formulirnya
-       terkirim biasa tanpa validasi klien. */
     await expect(async () => {
       await page.getByRole("button", { name: "Buat akun mahasiswa" }).click();
       await expect(page.locator("#kolom-full_name")).toHaveAttribute("aria-invalid", "true", { timeout: 3000 });
@@ -61,19 +59,14 @@ test.describe("halaman publik", () => {
       },
     });
     await page.goto("/");
-    /* Sesinya ditutup tanpa pemberitahuan apa pun di layar: yang membuktikan
-       aturannya bekerja adalah token yang hilang dan logout yang terkirim. */
     await expect.poll(() => page.evaluate(() => window.localStorage.getItem("stairslife-session"))).toBeNull();
     expect(logout).toBe(1);
     await expect(page.getByText(/Sesimu ditutup/)).toHaveCount(0);
-    // Header publik tidak lagi menawarkan jalan kembali ke aplikasi.
     await expect(page.getByRole("link", { name: "Ke berandaku" })).toHaveCount(0);
     await expect(page.getByRole("link", { name: "Masuk" }).first()).toBeVisible();
   });
 
   test("tombol utama di beranda membawa tamu ke pendaftaran", async ({ page }) => {
-    /* Melamar mensyaratkan akun mahasiswa, jadi tamu yang menekan tombol utama
-       memang harus mendaftar dulu, bukan mampir ke daftar proyek. */
     await mockApi(page);
     await page.goto("/");
     await page.getByRole("link", { name: "Cari Proyek" }).first().click();
@@ -98,19 +91,16 @@ test.describe("halaman publik", () => {
       "GET /withdrawals": () => ok({ items: [], pagination: { page: 1, limit: 20, total: 0, totalPages: 0 } }),
     });
 
-    // Rute admin tanpa sesi mengarah ke pintu admin, bukan halaman masuk biasa.
     await page.goto("/admin/penarikan");
     await page.waitForURL(/\/masuk\/admin\?lanjut=/);
     await expect(page.getByRole("heading", { name: "Masuk ke panel admin" })).toBeVisible();
 
-    // Akun bukan admin ditolak di pintu ini dan sesinya tidak ditulis.
     await page.locator("#kolom-email").fill("bukan-admin@contoh.id");
     await page.locator("#kolom-password").fill("uji-bukan-sandi");
     await page.getByRole("button", { name: "Masuk ke panel" }).click();
     await expect(page.getByText(/bukan akun admin/)).toBeVisible();
     expect(await page.evaluate(() => window.localStorage.getItem("stairslife-session"))).toBeNull();
 
-    // Akun admin masuk dan mendarat di tujuan semula.
     await page.locator("#kolom-email").fill("uji-admin@contoh.id");
     await page.locator("#kolom-password").fill("uji-bukan-sandi");
     await page.getByRole("button", { name: "Masuk ke panel" }).click();
@@ -152,11 +142,6 @@ test.describe("halaman publik", () => {
       },
     });
 
-    /* Meniru pengisian otomatis peramban: nilai ditulis langsung ke DOM tanpa
-       memancarkan event apa pun, persis seperti Chrome mengisi formulir yang
-       sudah terpasang. Dulu formulirnya menolak dengan "belum diisi" padahal
-       kolomnya terlihat terisi, dan tidak ada permintaan yang keluar sama
-       sekali. */
     await page.goto("/masuk", { waitUntil: "load" });
     await page.evaluate(() => {
       const e = document.querySelector("#kolom-email") as HTMLInputElement;
@@ -164,7 +149,6 @@ test.describe("halaman publik", () => {
       e.value = "autofill@contoh.id";
       p.value = "RahasiaAutofill1";
     });
-    /* Kolomnya memang terlihat terisi oleh pengguna. */
     await expect(page.locator("#kolom-password")).toHaveValue("RahasiaAutofill1");
     await page.waitForTimeout(2200);
 
@@ -173,12 +157,7 @@ test.describe("halaman publik", () => {
     await expect(page.getByText("Kata sandi belum diisi.")).toHaveCount(0);
   });
 
-
   test("color-scheme mengikuti tema yang benar-benar dipakai", async ({ page }) => {
-    /* Warna yang digambar peramban sendiri (isian otomatis, scrollbar, pemilih
-       tanggal) diambil dari color-scheme, bukan dari token kita. Saat pengguna
-       memaksa tema terang di sistem yang gelap, keduanya sempat berbeda dan
-       Chrome menulis teks isian otomatis putih di atas kolom putih. */
     await page.emulateMedia({ colorScheme: "dark" });
     await page.addInitScript(() => window.localStorage.setItem("stairslife-theme", "light"));
     await page.goto("/masuk", { waitUntil: "load" });

@@ -1,6 +1,4 @@
-/* Bagian yang sama di Input, Textarea, dan Select: label, hint, dan pesan error.
-   Dikumpulkan supaya aturan "error itu teks lebih dulu, bukan sekadar garis
-   merah" berlaku sama di ketiganya. */
+/* Gaya kolom formulir dan kendalinya. */
 
 .field {
   display: flex;
@@ -34,8 +32,6 @@
   color: var(--danger-text);
 }
 
-/* Bulatan ini memakai --text-on-danger, bukan putih. Di mode gelap --danger
-   menerang, dan putih di atasnya jatuh ke 3,6:1 sehingga gagal AA. */
 .errorMark {
   width: 14px;
   height: 14px;
@@ -51,7 +47,6 @@
   line-height: 1;
 }
 
-/* Kotak kontrol: input, select, dan pembungkus dengan prefix atau suffix. */
 .control {
   display: flex;
   align-items: center;
@@ -63,8 +58,6 @@
   transition: var(--transition-color), box-shadow var(--duration-fast) var(--ease-out);
 }
 
-/* focus-within menggantikan pelacakan fokus lewat state React: cincinnya muncul
-   saat input di dalamnya difokus, termasuk lewat keyboard. */
 .control:focus-within {
   border-color: var(--brand);
   box-shadow: 0 0 0 1px var(--brand), 0 0 0 4px var(--brand-glow);
@@ -74,8 +67,6 @@
   border-color: var(--border-strong);
 }
 
-/* Ikon di dalam kolom ikut menyala saat kolomnya difokus, mengulang sinyal
-   cincin fokus di tempat mata sedang melihat. */
 .control > [data-ikon] {
   flex: none;
   color: var(--text-subtle);
@@ -91,8 +82,6 @@
   border-color: var(--danger);
 }
 
-/* Cincin solid, bukan --danger-soft: isian lembut hampir sewarna dengan latar
-   dan gagal syarat 3:1 untuk indikator fokus, sama seperti --focus-ring semula. */
 .invalid:focus-within {
   border-color: var(--danger);
   box-shadow: 0 0 0 var(--focus-ring-width) var(--danger);
@@ -107,7 +96,6 @@
   height: var(--control-sm);
 }
 
-/* V2 memakai kolom 48px: lebih lega untuk jari dan cocok dengan tombol lg. */
 .md {
   height: 48px;
 }
@@ -128,13 +116,8 @@
   color: var(--text-muted);
 }
 
-/* Input di dalam .control mewarisi cincin fokus dari pembungkusnya, jadi
-   outline sendiri dimatikan di sini dan hanya di sini. */
 .input {
   flex: 1;
-  /* Mengisi tinggi .control. Tanpa ini input hanya setinggi teks (23px) di
-     dalam kotak 44px, dan ketukan di bagian atas atau bawah kotak tidak
-     memfokuskan apa pun di layar sentuh. */
   align-self: stretch;
   min-width: 0;
   padding: 0;
@@ -146,10 +129,6 @@
   color: var(--text-base);
 }
 
-/* Chrome mewarnai kolom yang diisi otomatis (kata sandi tersimpan, alamat
-   email) dengan biru bawaannya, dan latar itu tidak bisa ditimpa background
-   biasa. Bayangan dalam setebal kolom adalah satu-satunya cara menutupinya,
-   dan -webkit-text-fill-color mengembalikan warna teksnya. */
 .input:-webkit-autofill,
 .input:-webkit-autofill:hover,
 .input:-webkit-autofill:focus,
@@ -164,8 +143,6 @@
   text-align: right;
 }
 
-/* Textarea membawa kotaknya sendiri, bukan memakai .control, karena tingginya
-   mengikuti isi dan bisa diubah pengguna. */
 .textarea {
   width: 100%;
   min-height: 104px;
@@ -209,8 +186,6 @@
   color: var(--text-subtle);
 }
 
-/* Mendekati batas, penghitung berubah warna DAN teksnya tetap terbaca sebagai
-   angka: warna sendirian tidak cukup sebagai peringatan. */
 .counterNear {
   color: var(--warning-text);
 }

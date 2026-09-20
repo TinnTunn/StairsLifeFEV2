@@ -1,3 +1,5 @@
+// Sidebar navigasi aplikasi.
+
 "use client";
 
 import Link from "next/link";
@@ -10,17 +12,14 @@ import styles from "./Sidebar.module.css";
 
 export interface NavItem {
   href: string;
-  /** Kunci t.navigasi.item, diterjemahkan sesuai bahasa aktif. */
   label: keyof Kamus["navigasi"]["item"];
   icon: IconName;
   badge?: number;
   badgeTone?: "default" | "danger";
-  /** Cocokkan juga rute turunannya. Beranda peran memakai false agar tidak selalu aktif. */
   matchNested?: boolean;
 }
 
 export interface NavSection {
-  /** Kunci t.navigasi.seksi. */
   section: keyof Kamus["navigasi"]["seksi"];
 }
 
@@ -39,11 +38,6 @@ export interface SidebarProps {
   className?: string;
 }
 
-/**
- * Item navigasi adalah tautan sungguhan, bukan tombol dengan callback: rutenya
- * bisa dibuka di tab baru, dan status aktif dibaca dari URL sehingga tetap
- * benar setelah muat ulang halaman.
- */
 export function Sidebar({ items, brand, footer, role, className }: SidebarProps) {
   const pathname = usePathname();
   const { t } = useBahasa();

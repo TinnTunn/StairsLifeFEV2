@@ -1,3 +1,5 @@
+// Kamus Inggris: halaman galat dan 404.
+
 import type { sistem as Id } from "../id/sistem";
 
 export const sistem: typeof Id = {

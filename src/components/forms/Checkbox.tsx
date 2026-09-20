@@ -1,3 +1,5 @@
+// Kotak centang.
+
 "use client";
 
 import { useEffect, useRef, type ComponentPropsWithoutRef } from "react";
@@ -19,8 +21,6 @@ export function Checkbox({
 }: CheckboxProps) {
   const ref = useRef<HTMLInputElement>(null);
 
-  /* indeterminate hanya bisa disetel lewat properti DOM, tidak ada atributnya
-     di HTML, jadi CSS baru bisa membacanya setelah ini berjalan. */
   useEffect(() => {
     if (ref.current) ref.current.indeterminate = indeterminate;
   }, [indeterminate]);

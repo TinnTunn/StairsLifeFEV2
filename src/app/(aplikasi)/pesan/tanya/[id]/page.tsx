@@ -1,3 +1,5 @@
+// Halaman obrolan tanya jawab dengan pengguna lain.
+
 "use client";
 
 import Link from "next/link";
@@ -9,13 +11,6 @@ import { Halaman } from "@/components/layout/KonteksShell";
 import { useBahasa } from "@/i18n/BahasaProvider";
 import styles from "./tanya.module.css";
 
-/**
- * Tanya jawab sebelum kontrak.
- *
- * Nama lawan bicara ada di kepala kotak obrolan, bukan di topbar: topbar
- * menyebut bagian aplikasi ("Pesan"), sedangkan percakapan ini punya identitas
- * sendiri yang harus menempel pada isinya.
- */
 export default function Tanya({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
   const { t } = useBahasa();

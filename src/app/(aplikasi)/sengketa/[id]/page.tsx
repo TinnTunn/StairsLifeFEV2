@@ -1,3 +1,5 @@
+// Halaman detail sengketa beserta obrolan mediasinya.
+
 "use client";
 
 import { use, useState } from "react";

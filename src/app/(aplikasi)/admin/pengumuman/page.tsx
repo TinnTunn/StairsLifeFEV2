@@ -1,3 +1,5 @@
+// Halaman admin untuk mengirim pengumuman.
+
 "use client";
 
 import { useState, type FormEvent } from "react";

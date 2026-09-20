@@ -1,8 +1,5 @@
-/* Bilah saring proyek: kolom pencarian yang mengembang, lalu chip tingkat.
+/* Gaya bilah pencarian dan saringan. */
 
-   Satu baris di semua lebar. Kolomnya melebar dari lingkaran ikon, dan chip di
-   sebelahnya bergeser mengikuti lebar itu dalam durasi yang sama, jadi yang
-   terlihat satu gerakan, bukan dua animasi yang kebetulan bersamaan. */
 .bilah {
   display: flex;
   flex-wrap: wrap;
@@ -30,14 +27,10 @@
   border-color: var(--brand-soft-border);
 }
 
-/* Cincin fokus sama seperti kolom isian lain: garis tepi yang berubah warna
-   saja tidak cukup, karena saat terbuka tepinya memang sudah oranye. */
 .cari:focus-within {
   box-shadow: 0 0 0 1px var(--brand), 0 0 0 4px var(--brand-glow);
 }
 
-/* Bingkainya memotong isinya, jadi cincin fokus tombol digambar ke dalam
-   supaya tidak terpotong tepi kapsul. */
 .tombolIkon:focus-visible,
 .tombolTutup:focus-visible {
   outline-offset: calc(-1 * var(--focus-ring-width));
@@ -48,8 +41,6 @@
   border-color: var(--brand);
 }
 
-/* Lingkaran ikon: saat terlipat tugasnya membuka kolom, saat terbuka mengirim
-   pencarian. Ukurannya mengisi bingkai supaya sasaran tekannya tetap penuh. */
 .tombolIkon,
 .tombolTutup {
   display: grid;
@@ -88,14 +79,10 @@
   outline: none;
 }
 
-/* Tombol hapus bawaan peramban dimatikan: tombol tutup di kanan sudah
-   mengerjakan itu sekaligus melipat kolomnya. */
 .masukan::-webkit-search-cancel-button {
   display: none;
 }
 
-/* Isi kolom baru muncul setelah bingkainya melebar, bukan bersamaan: teks yang
-   ikut melar dari nol terbaca seperti kesalahan render. */
 .masukan,
 .tombolTutup {
   opacity: 0;
@@ -114,17 +101,9 @@
     opacity var(--duration-fast) var(--ease-out) 120ms;
 }
 
-/* Chip menggulir mendatar kalau ruangnya menyempit, tidak membungkus jadi tiga
-   baris yang mendorong kartu ke bawah. Lebar minimumnya membuat chip pindah ke
-   baris berikutnya di layar sempit alih-alih tergencet jadi nol. */
 .chips {
   display: flex;
   gap: var(--space-2);
-  /* Basis tetap, bukan auto: keputusan membungkus jadi mengikuti ruang yang
-     benar-benar dipakai kolom pencarian, bukan panjang teks chip yang berbeda
-     antara bahasa Indonesia dan Inggris. Saat kolomnya terlipat semuanya muat
-     satu baris; saat melebar di layar sempit, chip pindah ke baris berikutnya
-     utuh, bukan tergencet. */
   flex: 1 1 200px;
   min-width: 0;
   overflow-x: auto;
@@ -156,9 +135,6 @@
     transform var(--duration-slow) var(--ease-spring);
 }
 
-/* Geseran chip sudah dikerjakan tata letak saat kolomnya melebar. Dorongan
-   kecil bertingkat ini yang membuat barisnya terbaca seperti didorong, bukan
-   seperti satu balok kaku yang pindah. */
 .bilah[data-buka="true"] .chip {
   transform: translateX(calc(var(--urutan, 0) * 2px));
   transition-delay: calc(var(--urutan, 0) * 40ms);

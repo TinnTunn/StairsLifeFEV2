@@ -1,9 +1,10 @@
+// Kartu dasar bergaris sebagai wadah isi.
+
 import type { ElementType, ReactNode } from "react";
 import styles from "./Card.module.css";
 
 export interface CardProps {
   children: ReactNode;
-  /** Ganti ke "article", "li", atau "section" agar strukturnya benar di konteksnya. */
   as?: ElementType;
   padding?: "none" | "sm" | "md" | "lg";
   interactive?: boolean;

@@ -1,16 +1,10 @@
+// Pemunculan elemen saat masuk layar, mengikuti prefers-reduced-motion.
+
 "use client";
 
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
-/**
- * Menandai elemen [data-reveal] dengan data-terlihat begitu masuk layar.
- * Dipasang sekali di root layout, dipindai ulang setiap rute berganti.
- *
- * Elemen yang dirender belakangan (data dari API yang datang setelah mount)
- * ditangkap MutationObserver, supaya kartu yang muncul setelah fetch tidak
- * tertinggal tersembunyi sampai pengaman CSS 2,5 detik menyala.
- */
 export function RevealObserver() {
   const pathname = usePathname();
 

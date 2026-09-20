@@ -1,3 +1,5 @@
+// Panel aksi melamar sebuah proyek.
+
 "use client";
 
 import { Button } from "@/components/actions/Button";
@@ -9,11 +11,6 @@ import { myApplications } from "@/lib/data/work";
 import { useAsync } from "@/lib/useAsync";
 import styles from "./DetailProyek.module.css";
 
-/**
- * Tombol lamar berbeda per keadaan pengguna, dan keadaan itu hanya ada di
- * klien karena token disimpan di localStorage. Halamannya sendiri tetap
- * dirender di server supaya bisa diindeks mesin pencari.
- */
 export function ApplyAction({
   projectId,
   open,
@@ -21,15 +18,12 @@ export function ApplyAction({
 }: {
   projectId: string;
   open: boolean;
-  /** Untuk tombol tanya sebelum melamar; hanya tampil bagi mahasiswa. */
   businessId?: string | null;
 }) {
   const { session, siap } = useSesi();
   const { t } = useBahasa();
   const l = t.proyek.lamar;
   const mahasiswa = session?.user.role === "mahasiswa";
-  /* Hanya dimuat untuk mahasiswa, supaya tamu dan bisnis tidak memicu
-     permintaan yang pasti ditolak. */
   const lamaranku = useAsync(
     async () => (mahasiswa ? (await myApplications()).data : []),
     [mahasiswa, session?.user.id],
@@ -46,13 +40,9 @@ export function ApplyAction({
     );
   }
 
-  /* Setinggi tombol lg, supaya kartu samping tidak melompat saat sesi terbaca. */
   if (!siap) return <Skeleton height={52} />;
 
   if (!session) {
-    /* Daftar dulu, bukan masuk dulu: tamu yang sampai ke sini datang dari
-       pencarian atau tautan yang dibagikan, dan belum tentu punya akun.
-       Tombol masuk tetap ada di bawahnya untuk yang sudah punya. */
     return (
       <>
         <Button href="/daftar/mahasiswa" fullWidth size="lg">
@@ -122,8 +112,6 @@ export function ApplyAction({
   );
 }
 
-/* Pertanyaan sebelum melamar lewat chat tanya, supaya brief yang kurang jelas
-   tidak dijawab lewat WhatsApp di luar platform. */
 function TombolTanya({ businessId }: { businessId?: string | null }) {
   const { t } = useBahasa();
   if (!businessId) return null;

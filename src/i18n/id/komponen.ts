@@ -1,3 +1,5 @@
+// Kamus Indonesia: teks di dalam komponen bersama.
+
 export const komponen = {
   memuatAkun: "Memuat akun",
   modal: { tutup: "Tutup" },

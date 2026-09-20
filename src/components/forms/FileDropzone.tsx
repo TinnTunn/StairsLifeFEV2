@@ -1,3 +1,5 @@
+// Area unggah berkas lewat seret atau pilih.
+
 "use client";
 
 import { useId, useRef, useState, type DragEvent } from "react";
@@ -24,11 +26,6 @@ function ukuran(bytes: number): string {
   return `${(bytes / (1024 * 1024)).toFixed(1).replace(".", ",")} MB`;
 }
 
-/**
- * Zona jatuhnya adalah <button> sungguhan, bukan div ber-role.
- * Tarik-lepas tidak punya padanan keyboard, jadi memilih lewat tombol harus
- * benar-benar bisa difokus dan ditekan dengan Enter atau Spasi.
- */
 export function FileDropzone({
   label,
   hint,

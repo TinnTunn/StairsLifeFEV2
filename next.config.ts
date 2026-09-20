@@ -1,22 +1,10 @@
+// Konfigurasi Next: header keamanan, CSP, dan pengalihan deep link berbahasa Inggris.
+
 import type { NextConfig } from "next";
 
-/* Backend menaruh deep link berbahasa Inggris di notifications.action_url dan
-   di tautan email. Rute produk memakai bahasa Indonesia, jadi setiap path yang
-   benar-benar dikirim backend dipetakan di sini. Daftar ini diambil dari
-   grep action_url di ../StairsLifeBEV2/src, bukan dikira-kira: kalau backend
-   menambah deep link baru, tambahkan barisnya di sini juga. */
 const nextConfig: NextConfig = {
-  /* Tidak mengumumkan framework dan versinya ke setiap respons. */
   poweredByHeader: false,
 
-  /* Header keamanan dasar. Content-Security-Policy lengkap (dengan nonce per
-     permintaan) dipasang di src/proxy.ts.
-     - X-Frame-Options: halaman masuk, kontrak, dan tombol "Setujui dan lepas
-       dana" tidak boleh disematkan di iframe situs lain (clickjacking);
-       frame-ancestors di CSP menjaga browser modern, ini untuk yang lama.
-     - Referrer-Policy: /reset-password?token=... tidak boleh membocorkan
-       token lewat header Referer ke domain lain.
-     - nosniff: berkas unggahan tidak ditafsirkan ulang sebagai skrip. */
   async headers() {
     return [
       {
@@ -33,8 +21,6 @@ const nextConfig: NextConfig = {
 
   async redirects() {
     return [
-      /* Tautan email dari email.service.ts dan welcome.template.ts. Query
-         string (?token=...) diteruskan otomatis oleh Next ke tujuan. */
       { source: "/verify-email", destination: "/verifikasi-email", permanent: false },
       {
         source: "/",
@@ -48,8 +34,6 @@ const nextConfig: NextConfig = {
         destination: "/bisnis/proyek/baru",
         permanent: false,
       },
-      /* Deep link proyek dari notifikasi dan email selalu ditujukan ke
-         mahasiswa, dan daftar proyek kini hanya ada di dalam aplikasi. */
       { source: "/projects/:id", destination: "/mahasiswa/cari/:id", permanent: false },
       {
         source: "/projects/:id/applications",

@@ -1,3 +1,5 @@
+// Layar kesalahan tak terduga untuk seluruh aplikasi.
+
 "use client";
 
 import { useEffect } from "react";
@@ -16,9 +18,6 @@ export default function KesalahanTakTerduga({
   const { t } = useBahasa();
   const g = t.sistem.galat;
 
-  /* Digest-nya dicatat supaya kesalahan ini bisa dicocokkan dengan log server.
-     Pesan aslinya tidak ditampilkan ke pengguna: isinya bisa memuat detail
-     internal yang tidak berguna dan tidak seharusnya terlihat. */
   useEffect(() => {
     console.error("Kesalahan halaman", error.digest ?? error.message);
   }, [error]);

@@ -1,3 +1,5 @@
+/* Gaya kerangka pemuatan. */
+
 .bar {
   display: block;
   background: linear-gradient(
@@ -15,8 +17,6 @@
   border-radius: var(--radius-full);
 }
 
-/* Shimmer berjalan terus tanpa dipicu pengguna, jadi ia berhenti saat gerak
-   diredam. Bentuk baloknya sendiri sudah cukup menandai "sedang dimuat". */
 @media (prefers-reduced-motion: reduce) {
   .bar {
     animation: none;

@@ -1,3 +1,5 @@
+// Bintang penilaian, mode baca dan mode isi.
+
 "use client";
 
 import { useId, useState, type KeyboardEvent } from "react";
@@ -31,11 +33,6 @@ export interface RatingProps {
   className?: string;
 }
 
-/**
- * Mode editable adalah radiogroup sungguhan dengan roving tabIndex dan navigasi
- * panah. Bintang adalah kolom wajib di alur ulasan, jadi versi yang hanya bisa
- * diklik mouse membuat langkah terakhir alur kontrak mustahil diselesaikan.
- */
 export function Rating({
   value = 0,
   count,

@@ -1,3 +1,5 @@
+// Pengalih isi beranda antara sudut pandang mahasiswa dan bisnis.
+
 "use client";
 
 import { useRef, useState, type KeyboardEvent } from "react";
@@ -9,7 +11,6 @@ import styles from "./beranda.module.css";
 type Sisi = "mahasiswa" | "bisnis";
 const URUTAN: Sisi[] = ["mahasiswa", "bisnis"];
 
-/* Ikon dan warna chip per kartu, mengikuti feat-ico V2. */
 const GAYA: Record<Sisi, { icon: IconName; warna: string }[]> = {
   mahasiswa: [
     { icon: "BadgeCheck", warna: "brand" },
@@ -23,10 +24,6 @@ const GAYA: Record<Sisi, { icon: IconName; warna: string }[]> = {
   ],
 };
 
-/**
- * Pengalih "Untuk Mahasiswa / Untuk UMKM" dari landing V2: segmented control
- * dengan penanda yang bergeser, kartu yang masuk ulang setiap sisi berganti.
- */
 export function AudienceSwitcher() {
   const { t } = useBahasa();
   const s = t.beranda.sisi;

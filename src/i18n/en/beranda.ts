@@ -1,3 +1,5 @@
+// Kamus Inggris: beranda publik.
+
 import type { beranda as Id } from "../id/beranda";
 
 export const beranda: typeof Id = {

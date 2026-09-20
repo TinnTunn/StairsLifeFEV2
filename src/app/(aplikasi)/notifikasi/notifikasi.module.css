@@ -1,3 +1,5 @@
+/* Gaya halaman notifikasi. */
+
 .toolbar {
   display: flex;
   align-items: center;
@@ -102,7 +104,6 @@
   color: var(--text-muted);
 }
 
-/* Di atas tautan yang membentang ke seluruh baris. */
 .aksi {
   position: relative;
   z-index: 1;

@@ -1,3 +1,5 @@
+// Kamus Inggris: halaman di dalam aplikasi.
+
 import type { aplikasi as Id } from "../id/aplikasi";
 
 export const aplikasi: typeof Id = {

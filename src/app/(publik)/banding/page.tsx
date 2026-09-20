@@ -1,3 +1,5 @@
+// Halaman banding untuk akun yang disuspend.
+
 import type { Metadata } from "next";
 import { ambilKamus } from "@/i18n/server";
 import styles from "../masuk/auth.module.css";
@@ -9,8 +11,6 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: t.fitur.banding.halamanJudul, robots: { index: false, follow: false } };
 }
 
-/* Akun beku tidak punya sesi, jadi halaman ini tidak mengalihkan pengguna
-   yang sudah masuk ke dasbor seperti halaman auth lain. */
 export default async function Banding() {
   const { t } = await ambilKamus();
   const b = t.fitur.banding;

@@ -1,9 +1,6 @@
-import type { AuthResult, UserRole } from "../types";
+// Akun contoh dan proses masuk tiruan.
 
-/* Sesi contoh untuk menjelajahi area terautentikasi tanpa backend.
-   Token-nya bukan JWT sungguhan dan akan ditolak backend mana pun; ia hanya
-   mengisi localStorage supaya shell peran bisa dirender dan diperiksa.
-   Setiap halaman yang memakainya menampilkan penanda "data contoh". */
+import type { AuthResult, UserRole } from "../types";
 
 const AKUN: Record<UserRole, { id: string; full_name: string; email: string; is_verified: boolean }> = {
   mahasiswa: {

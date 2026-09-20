@@ -1,3 +1,5 @@
+// Panel hasil verifikasi email.
+
 "use client";
 
 import { useSearchParams } from "next/navigation";
@@ -14,18 +16,12 @@ export function VerifikasiEmailPanel() {
   const token = useSearchParams().get("token");
   const { t } = useBahasa();
   const v = t.auth.verifikasiEmail;
-  /* USE_MOCK adalah konstanta saat build, jadi keadaan awalnya bisa dihitung
-     langsung di sini. Menaruhnya di useEffect memicu render berantai tanpa
-     alasan, karena tidak ada yang perlu disinkronkan. */
   const [keadaan, setKeadaan] = useState<Keadaan>(!token ? "tanpa_token" : USE_MOCK ? "gagal" : "memeriksa");
-  /* null berarti pakai teks bawaan kamus, supaya ikut berganti bahasa. */
   const [pesan, setPesan] = useState<string | null>(null);
   const sudahJalan = useRef(false);
 
   useEffect(() => {
     if (!token || USE_MOCK || sudahJalan.current) return;
-    /* Token sekali pakai. Tanpa penjaga ini, StrictMode memanggil dua kali dan
-       panggilan kedua selalu gagal karena tokennya sudah dipakai. */
     sudahJalan.current = true;
 
     auth

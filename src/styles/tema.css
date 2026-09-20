@@ -1,20 +1,7 @@
-/* ================================================================
-   Tema StairsLife: gaya FE V2 dengan warna logo sekarang.
-   ----------------------------------------------------------------
-   Keputusan pemilik produk 14 September 2026. Bentuk, bayangan, kaca,
-   aurora, mesh, skala huruf, dan gerak mengikuti FE V2
-   (../StairsLifeFEV2/styles). Semua violet V2 diganti keluarga terakota
-   dan kayu dari logo, di atas tinta kayu gelap.
-
-   Dimuat setelah tokens/ sehingga menimpa nilai design system V3 tanpa
-   mengubah berkas aslinya. Komponen tetap memakai nama token yang sama.
-   ================================================================ */
+/* Nilai token yang berbeda antara tema terang dan gelap. */
 
 :root {
-  /* ---------- Warna brand (padanan V2) ---------- */
   --brand: var(--clay-600);
-  /* Warna grafik satu seri; nilai gelapnya dipilih lewat validator dataviz
-     supaya tetap di pita kecerahan 0,48 sampai 0,67 di atas permukaan gelap. */
   --chart-1: #b4531f;
   --brand-hover: var(--clay-700);
   --brand-pressed: var(--clay-800);
@@ -24,27 +11,22 @@
   --brand-soft-hover: var(--clay-100);
   --kilau: rgba(255, 255, 255, 0.4);
 
-  /* Spark: sorotan terang di atas permukaan gelap (periwinkle di V2). */
   --spark: #f0a272;
   --spark-hover: #f6b98f;
   --spark-soft: rgba(240, 162, 114, 0.16);
 
-  /* Warm: warna kedua yang dalam (deep indigo di V2), di sini kayu walnut. */
   --warm: #63290a;
   --warm-hover: #4a1e07;
   --warm-soft: #f6dac6;
 
-  /* Bintang rating tetap emas seperti V2. */
   --rating: #f5a800;
   --rating-soft: #fff8e1;
   --rating-text: #8a5600;
   --rating-empty: #e3d6c4;
 
-  /* Tinta kayu: dasar permukaan gelap permanen (ink-950 di V2). */
   --tinta: #1a120d;
   --tinta-2: #2a1b12;
 
-  /* Teks dan garis di atas permukaan gelap permanen (hero, footer, panel). */
   --on-dark: #ffffff;
   --on-dark-muted: rgba(255, 255, 255, 0.8);
   --on-dark-subtle: rgba(255, 255, 255, 0.58);
@@ -53,8 +35,6 @@
   --on-dark-fill: rgba(255, 255, 255, 0.1);
   --on-dark-fill-strong: rgba(255, 255, 255, 0.16);
 
-  /* Warna set-piece di atas aurora. Tetap sama di kedua tema karena hero
-     dan CTA selalu gelap. */
   --aurora-1: rgba(199, 94, 39, 0.55);
   --aurora-2: rgba(240, 162, 114, 0.3);
   --aurora-3: rgba(245, 168, 0, 0.2);
@@ -66,7 +46,6 @@
   --halo-3: #f5a800;
   --denyut-hijau: rgba(127, 211, 172, 0.55);
 
-  /* ---------- Gradasi dan set-piece ---------- */
   --grad-brand: linear-gradient(135deg, #b4531f 0%, #d0762f 58%, #85390f 100%);
   --grad-night: linear-gradient(165deg, #1a120d 0%, #2a1b12 55%, #63290a 100%);
   --grad-aurora:
@@ -86,14 +65,12 @@
     linear-gradient(160deg, #fbede2 0%, #fcf8f2 52%, #ffffff 100%);
   --noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
 
-  /* ---------- Kaca ---------- */
   --glass-bg: rgba(255, 255, 255, 0.72);
   --glass-bg-dark: rgba(30, 20, 14, 0.55);
   --glass-border: rgba(255, 255, 255, 0.4);
   --glass-border-dark: rgba(255, 255, 255, 0.14);
   --glass-blur: saturate(160%) blur(18px);
 
-  /* ---------- Bayangan berlapis V2, dihangatkan ---------- */
   --shadow-xs: 0 1px 1px rgba(40, 24, 14, 0.04), 0 0 0 1px rgba(40, 24, 14, 0.02);
   --shadow-sm: 0 1px 2px rgba(40, 24, 14, 0.05), 0 2px 6px -2px rgba(40, 24, 14, 0.07);
   --shadow-md: 0 4px 10px -2px rgba(40, 24, 14, 0.08), 0 8px 24px -4px rgba(40, 24, 14, 0.09);
@@ -105,7 +82,6 @@
   --shadow-nav-up: 0 -4px 16px rgba(40, 24, 14, 0.06);
   --shadow-hero-card: 0 24px 60px -12px rgba(180, 83, 31, 0.45);
 
-  /* ---------- Radius V2 (bento-friendly) ---------- */
   --radius-xs: 6px;
   --radius-sm: 10px;
   --radius-md: 12px;
@@ -114,7 +90,6 @@
   --radius-2xl: 28px;
   --radius-3xl: 36px;
 
-  /* ---------- Tipografi V2 ---------- */
   --font-display: var(--font-display-src), "Schibsted Grotesk", "Manrope", system-ui, sans-serif;
   --font-sans: var(--font-sans-src), "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-numeric: var(--font-sans-src), "Manrope", system-ui, sans-serif;
@@ -136,17 +111,14 @@
   --tracking-heading: -0.025em;
   --tracking-eyebrow: 0.16em;
 
-  /* ---------- Gerak V2 ---------- */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --duration-base: 220ms;
 
-  /* ---------- Layout V2 ---------- */
   --width-container: 1240px;
   --height-topbar: 72px;
 }
 
-/* ---------------- Mode gelap ---------------- */
 @media (prefers-color-scheme: dark) {
   :root {
     --brand: #e0763a;
@@ -225,8 +197,6 @@
   --shadow-nav-up: 0 -4px 16px rgba(0, 0, 0, 0.4);
 }
 
-/* Nilai terang dipaksa ulang untuk pengguna yang memilih terang saat
-   sistemnya gelap. Harus identik dengan blok :root pertama. */
 :root[data-theme="light"] {
   --brand: var(--clay-600);
   --chart-1: #b4531f;
@@ -265,7 +235,6 @@
   --shadow-nav-up: 0 -4px 16px rgba(40, 24, 14, 0.06);
 }
 
-/* ---------------- Dasar ---------------- */
 html {
   scroll-behavior: smooth;
 }
@@ -292,14 +261,11 @@ h4 {
   font-weight: var(--weight-bold);
 }
 
-/* Sembunyikan tombol tampilkan kata sandi bawaan Edge dan Chrome, supaya
-   tidak dobel dengan tombol mata milik aplikasi (sama seperti V2). */
 input[type="password"]::-ms-reveal,
 input[type="password"]::-ms-clear {
   display: none;
 }
 
-/* Kelas bantu set-piece yang dipakai lintas halaman. */
 .sl-noise::after {
   content: "";
   position: absolute;

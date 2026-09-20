@@ -1,8 +1,6 @@
-import type { NotificationType } from "@/lib/types";
+// Kamus Indonesia: fitur lintas peran seperti profil dan sengketa.
 
-/* Kamus fitur yang dibangun setelah audit 15 September 2026: notifikasi,
-   sengketa pengguna, pesan, banding akun beku, keamanan akun, peran admin,
-   dan pemilih tanggal. */
+import type { NotificationType } from "@/lib/types";
 
 export const fitur = {
   profilPublik: {
@@ -51,8 +49,6 @@ export const fitur = {
       system: "Pengumuman",
       withdrawal: "Penarikan",
     } satisfies Record<NotificationType, string>,
-    /* Judul dari backend sudah berbahasa Indonesia; hanya kamus Inggris yang
-       mengisi terjemahan. */
     judulTerjemahan: {} as Record<string, string>,
     isiUmum: {
       application: "Ada kabar soal lamaran.",

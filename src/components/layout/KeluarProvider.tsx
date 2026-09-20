@@ -1,3 +1,5 @@
+// Penyedia aksi keluar beserta konfirmasinya.
+
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
@@ -14,9 +16,6 @@ interface KonteksKeluar {
 
 const Konteks = createContext<KonteksKeluar | null>(null);
 
-/* Layar keluar hidup di layout akar, bukan di shell aplikasi. Shell ikut
-   dilepas begitu sesi dihapus, jadi layar yang dipasang di dalamnya akan hilang
-   di tengah jalan dan pengguna sempat melihat "halaman ini butuh akun". */
 const JEDA_MINIMUM = 700;
 
 export function KeluarProvider({ children }: { children: ReactNode }) {
@@ -29,8 +28,6 @@ export function KeluarProvider({ children }: { children: ReactNode }) {
     (namaPengguna: string) => {
       setNama(namaPengguna.split(" ")[0] || namaPengguna);
       tandaiKeluar(true);
-      /* Jeda minimum supaya layar tidak hanya berkedip. Logout backend mencabut
-         sesi refresh; kalau gagal (jaringan), token tetap dihapus di perangkat. */
       const refresh = readSession()?.refresh_token;
       void Promise.allSettled([auth.logout(refresh), new Promise((r) => setTimeout(r, JEDA_MINIMUM))]).then(() => {
         clearSession();
@@ -41,7 +38,6 @@ export function KeluarProvider({ children }: { children: ReactNode }) {
     [router],
   );
 
-  /* Layar ditutup setelah benar-benar sampai di beranda. */
   useEffect(() => {
     if (nama === null || pathname !== "/") return;
     const id = setTimeout(() => {

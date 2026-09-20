@@ -1,13 +1,10 @@
+// Efek miring mengikuti kursor pada kartu pita utama.
+
 "use client";
 
 import { useEffect, useRef, type ReactNode } from "react";
 import styles from "./beranda-hero.module.css";
 
-/**
- * Kartu hero miring 3D mengikuti kursor di seluruh area hero, seperti
- * landing.js V2. Hanya untuk pointer presisi; di layar sentuh dan saat
- * gerak diredam, kartunya tetap diam.
- */
 export function HeroTilt({ children }: { children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
 

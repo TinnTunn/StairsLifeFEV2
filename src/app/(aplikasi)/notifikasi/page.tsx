@@ -1,3 +1,5 @@
+// Halaman daftar notifikasi pengguna.
+
 "use client";
 
 import Link from "next/link";
@@ -30,8 +32,6 @@ export default function HalamanNotifikasi() {
   const { session } = useSesi();
   return (
     <Halaman title={t.fitur.notifikasi.judul} subtitle={t.fitur.notifikasi.sub}>
-      {/* Notifikasi dibuka dari lonceng di topbar, bukan dari sidebar, jadi
-          jalan pulangnya harus ada di halamannya sendiri. */}
       <TautanKembali href={session ? BERANDA_PERAN[session.user.role] : "/mahasiswa"} label={t.umum.aksi.keBeranda} />
       <Isi />
     </Halaman>
@@ -43,7 +43,6 @@ function Isi() {
   const n = t.fitur.notifikasi;
   const [tab, setTab] = useParamUrl<Tab>("status", "semua", ["semua", "belum"]);
   const hasil = useAsync(async () => (USE_MOCK ? [] : notifications.list()), [], "notifikasi");
-  /* Perubahan lokal (dibaca, dihapus) langsung tampil tanpa menunggu muat ulang. */
   const [dibaca, setDibaca] = useState<Set<string>>(new Set());
   const [dihapus, setDihapus] = useState<Set<string>>(new Set());
 

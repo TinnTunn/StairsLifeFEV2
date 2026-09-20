@@ -1,3 +1,5 @@
+// Panel hasil pembayaran beserta jalan lanjutannya.
+
 "use client";
 
 import { useSearchParams } from "next/navigation";
@@ -20,19 +22,13 @@ export function HasilPembayaran() {
   const { t } = useBahasa();
   const p = t.sistem.pembayaran;
 
-  /* USE_MOCK konstan saat build, jadi keadaan awalnya dihitung di sini
-     alih-alih lewat efek yang langsung memanggil setState. */
   const [keadaan, setKeadaan] = useState<Keadaan>(!paymentId ? "tanpa_id" : USE_MOCK ? "gagal" : "memeriksa");
   const [payment, setPayment] = useState<Payment | null>(null);
-  /* null berarti pakai teks bawaan kamus, supaya ikut berganti bahasa. */
   const [pesan, setPesan] = useState<string | null>(null);
 
   useEffect(() => {
     if (!paymentId || USE_MOCK) return;
 
-    /* Status di query hanya kabar dari Xendit ke browser, bukan sumber
-       kebenaran. Yang menentukan adalah webhook ke backend. Sync menarik ulang
-       status invoice supaya halaman ini tetap benar walau webhook-nya telat. */
     payments
       .sync(paymentId)
       .then((hasil) => {

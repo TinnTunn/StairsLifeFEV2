@@ -1,3 +1,5 @@
+// Pemilih tanggal.
+
 "use client";
 
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
@@ -17,24 +19,14 @@ import { FieldShell, fieldStyles as f, type FieldMeta } from "./FieldShell";
 import styles from "./PemilihTanggal.module.css";
 
 export interface PemilihTanggalProps extends FieldMeta {
-  /** "YYYY-MM-DD", sama dengan nilai <input type="date">. */
   value: string;
   onChange: (value: string) => void;
-  /** "YYYY-MM-DD". Bawaan: hari ini. Tanggal sebelumnya tidak bisa dipilih. */
   min?: string;
   max?: string;
   id?: string;
-  /** Tampilkan pintasan +1 minggu, +2 minggu, +1 bulan. */
   pintasan?: boolean;
 }
 
-/**
- * Pengganti <input type="date">. Input bawaan menampilkan format bahasa
- * browser (mm/dd/yyyy muncul di mode Indonesia), tampil berbeda di setiap
- * browser, dan tidak menunjukkan batas tanggal. Di sini tanggal selalu ditulis
- * dalam bahasa antarmuka, dan kalendernya bisa dijelajah dengan keyboard
- * (panah, Home/End, PageUp/PageDown, Enter, Escape).
- */
 export function PemilihTanggal({
   label,
   hint,
@@ -59,8 +51,6 @@ export function PemilihTanggal({
   const akar = useRef<HTMLDivElement>(null);
   const pemicu = useRef<HTMLButtonElement>(null);
   const grid = useRef<HTMLDivElement>(null);
-  /* Fokus dipindah ke hari hanya saat membuka kalender atau menavigasi grid
-     dengan keyboard; tombol bulan tetap memegang fokusnya sendiri. */
   const fokusKeGrid = useRef(true);
 
   const bulan = new Date(fokus.getFullYear(), fokus.getMonth(), 1);
@@ -88,7 +78,6 @@ export function PemilihTanggal({
     tutup();
   }
 
-  /* Fokus mengikuti hari yang disorot setiap kali berpindah. */
   useEffect(() => {
     if (!buka || !fokusKeGrid.current) return;
     grid.current?.querySelector<HTMLButtonElement>(`[data-iso="${keIso(fokus)}"]`)?.focus();

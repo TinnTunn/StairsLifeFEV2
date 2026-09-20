@@ -1,3 +1,5 @@
+// Halaman detail proyek dari sisi mahasiswa.
+
 "use client";
 
 import Link from "next/link";
@@ -15,14 +17,6 @@ import { MahasiswaShell } from "../../MahasiswaShell";
 import styles from "./detail.module.css";
 import { TautanKembali } from "@/components/navigation/TautanKembali";
 
-/**
- * Detail proyek versi di dalam shell aplikasi.
- *
- * Isinya komponen yang sama dengan halaman publik /proyek/[id], jadi brief yang
- * dibaca pelamar tidak pernah berbeda. Yang berbeda hanya kepalanya: di sini
- * sidebar dan topbar aplikasi tetap tampil, dan tautan kembali mengarah ke
- * daftar cari di dalam aplikasi, bukan ke halaman publik.
- */
 export default function DetailProyekAplikasi({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
   const { t } = useBahasa();

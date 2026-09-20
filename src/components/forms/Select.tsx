@@ -1,3 +1,5 @@
+// Kolom pilihan daftar.
+
 "use client";
 
 import type { ComponentPropsWithoutRef } from "react";
@@ -60,7 +62,6 @@ export function Select({
           aria-describedby={error ? ids.errorId : hint ? ids.hintId : undefined}
           className={[s.select, s[size], className].filter(Boolean).join(" ")}
         >
-          {/* placeholder "" berarti selalu ada nilai terpilih, tanpa opsi kosong. */}
           {placeholder === "" ? null : <option value="">{placeholder ?? t.komponen.select.pilih}</option>}
           {items.map((o) => (
             <option key={o.value} value={o.value} disabled={o.disabled}>

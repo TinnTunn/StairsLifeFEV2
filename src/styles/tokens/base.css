@@ -1,7 +1,4 @@
-/* ============================================================
-   RESET & DASAR — cukup untuk halaman spesimen, kartu, dan UI kit.
-   Di Next.js, blok ini setara @layer base di Tailwind.
-   ============================================================ */
+/* Token dasar: setelan ulang dan nilai akar. */
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -37,19 +34,15 @@ button, input, select, textarea { font: inherit; color: inherit; }
 
 ::selection { background: var(--primary-soft); color: var(--primary-text); }
 
-/* Scrollbar hangat, tipis */
 * { scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent; }
 *::-webkit-scrollbar { width: 10px; height: 10px; }
 *::-webkit-scrollbar-thumb { background: var(--border-default); border-radius: var(--radius-pill); border: 3px solid transparent; background-clip: content-box; }
 *::-webkit-scrollbar-thumb:hover { background: var(--border-strong); background-clip: content-box; }
 
-/* Helper dipakai lintas komponen */
 .sl-visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .sl-container { width: 100%; max-width: var(--width-container); margin-inline: auto; padding-inline: var(--pad-page-x); }
 .sl-divider { height: 1px; background: var(--border-subtle); border: 0; }
 
-/* Switch — satu-satunya komponen yang butuh selector :checked (state tidak
-   bisa dibaca dari inline style). Warna & durasi tetap dari token. */
 .sl-switch-track { }
 input[role="switch"]:checked ~ .sl-switch-track {
   background: var(--primary);
@@ -64,8 +57,6 @@ input[role="switch"]:focus-visible ~ .sl-switch-track {
   outline-offset: var(--focus-ring-offset);
 }
 
-/* Keyframes komponen — didefinisikan sekali di sini, bukan disuntikkan
-   per instance. <style> di dalam <button> bukan konten yang valid. */
 @keyframes sl-spin { to { transform: rotate(360deg) } }
 @keyframes sl-shimmer { 0% { background-position: 100% 0 } 100% { background-position: -100% 0 } }
 @keyframes sl-fade { from { opacity: 0 } to { opacity: 1 } }

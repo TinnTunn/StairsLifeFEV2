@@ -1,3 +1,5 @@
+// Penampil nominal rupiah dengan pemisah ribuan.
+
 import type { ComponentPropsWithoutRef } from "react";
 import { formatRupiah } from "@/lib/format";
 import styles from "./Money.module.css";
@@ -15,7 +17,6 @@ const TONE: Record<Tone, string> = {
 export interface MoneyProps extends Omit<ComponentPropsWithoutRef<"span">, "children"> {
   value: number | string;
   size?: "sm" | "md" | "lg";
-  /** held dipakai untuk dana yang ada tapi belum bisa dipakai siapa pun. */
   tone?: Tone;
   sign?: boolean;
   label?: string;

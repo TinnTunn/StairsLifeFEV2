@@ -1,8 +1,5 @@
-/* Tautan kembali: tenang, bukan tombol aksi.
+/* Gaya tautan kembali. */
 
-   Yang perlu menonjol di halaman turunan adalah isinya, bukan jalan pulangnya.
-   Tingginya mengikuti sasaran sentuh minimum supaya tetap mudah ditekan di
-   layar sempit meski tampilannya ringan. */
 .kembali {
   display: inline-flex;
   align-items: center;

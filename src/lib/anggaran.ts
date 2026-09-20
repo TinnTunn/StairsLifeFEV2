@@ -1,10 +1,8 @@
+// Penyusun label rentang anggaran proyek.
+
 import { formatRupiah } from "./format";
 import type { Project } from "./types";
 
-/**
- * Rentang anggaran, bukan satu angka: backend menyimpan budget_min dan budget_max.
- * Sengaja di luar komponen "use client" supaya Server Component bisa memanggilnya.
- */
 export function labelAnggaran(
   project: Pick<Project, "budget_min" | "budget_max">,
   k: { anggaranSampai: string; anggaranMulai: string; anggaranKosong: string },

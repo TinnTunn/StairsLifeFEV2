@@ -1,6 +1,5 @@
-/* Label keadaan: kotak bersudut lembut, huruf kecil berjarak, tanpa titik
-   indikator. Warnanya cukup dibawa latar dan teks; titik berwarna membuatnya
-   terbaca sebagai lampu yang menyala sekarang. */
+/* Gaya lencana status. */
+
 .badge {
   display: inline-flex;
   align-items: center;

@@ -1,4 +1,5 @@
-/* Daftar proyek publik, saringan, detail proyek, dan tombol lamar. */
+// Kamus Indonesia: proyek dan lamaran.
+
 export const proyek = {
   daftar: {
     meta: "Cari proyek",

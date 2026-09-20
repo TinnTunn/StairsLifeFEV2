@@ -1,3 +1,5 @@
+// Rakitan kamus bahasa Indonesia.
+
 export { umum } from "./umum";
 export { navigasi } from "./navigasi";
 export { beranda } from "./beranda";

@@ -1,4 +1,5 @@
-/* Formulir pasang proyek gaya V2: tiga bagian bernomor di kartu terpisah. */
+/* Gaya formulir pasang proyek. */
+
 .form {
   display: flex;
   flex-direction: column;
@@ -28,7 +29,6 @@
   animation-delay: 140ms;
 }
 
-/* legend di dalam fieldset tidak ikut flex gap, jadi jaraknya diberi sendiri. */
 .bagianJudul {
   float: left;
   width: 100%;
@@ -66,8 +66,6 @@
   align-items: start;
 }
 
-/* Setiap layar yang menyangkut dana menjawab ke mana uangnya pergi, sebelum
-   pengguna menekan tombol. */
 .note {
   display: flex;
   align-items: flex-start;

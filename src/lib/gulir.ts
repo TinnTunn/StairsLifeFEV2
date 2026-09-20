@@ -1,38 +1,18 @@
+// Pengelola penguncian gulir halaman saat lapisan atas terbuka.
+
 "use client";
 
 import { usePathname } from "next/navigation";
 import { useEffect, type RefObject } from "react";
-
-/* Pengelola posisi gulir antarhalaman.
-   - Navigasi maju (klik tautan, router.push): halaman baru selalu mulai dari atas.
-     Perilaku bawaan Next tidak menjamin ini saat html memakai scroll-behavior
-     smooth dan header lengket, jadi tautan dari footer sempat membuka halaman
-     berikutnya di posisi bawah.
-   - Back/Forward: posisi terakhir halaman itu dipulihkan, termasuk untuk
-     kontainer gulir di dalam shell aplikasi yang tidak ditangani browser.
-
-   Posisi dicatat dari event gulir dan dikunci tepat sebelum navigasi (klik
-   tautan atau popstate). Setelah itu event gulir diabaikan: saat halaman
-   berganti, browser memotong posisi ke tinggi halaman baru dan event itu akan
-   menimpa posisi halaman lama.
-
-   Pemulihan bawaan browser dimatikan (scrollRestoration manual). Browser
-   memulihkan posisi sebelum Next selesai merender halaman tujuan, jadi
-   hasilnya terpotong ke tinggi halaman yang masih lama. */
 
 const KUNCI_SIMPAN = "sl-posisi-gulir";
 const BATAS_TUNGGU = 3000;
 const KUNCI_TRANSISI = 5000;
 const BATAS_MUAT = 15000;
 
-/* URL tujuan popstate terakhir, dipakai sekali per ruang gulir. Tidak memakai
-   jendela waktu: halaman dinamis bisa butuh lebih dari satu detik sebelum
-   pathname berganti. */
 let popstate: { kunci: string; dipakai: Set<string> } | null = null;
 const posisi = new Map<string, number>();
 const penyimpan = new Set<() => void>();
-/* Ruang gulir yang masih boleh dipulihkan setelah reload atau Back lintas
-   dokumen. Dihapus saat posisi ditulis atau ada navigasi baru. */
 const pulihMuat = new Set<string>();
 
 function simpanSemua() {
@@ -52,16 +32,12 @@ if (typeof window !== "undefined") {
     pulihMuat.add("konten");
   }
 
-  /* Listener modul terdaftar sebelum router Next, dan React belum merender
-     halaman baru saat event ini berjalan, jadi posisi yang dibaca masih milik
-     halaman lama. */
   window.history.scrollRestoration = "manual";
   window.addEventListener("popstate", () => {
     simpanSemua();
     pulihMuat.clear();
     popstate = { kunci: kunciSekarang(), dipakai: new Set() };
   });
-  /* Reload dan pindah ke situs lain: simpan langsung, tanpa jeda. */
   window.addEventListener("pagehide", () => {
     penyimpan.forEach((f) => f());
     tulisPenyimpanan();
@@ -140,9 +116,6 @@ export function useKelolaGulir(target: Target) {
     const e = pengendali(target);
     if (!e) return;
 
-    /* Pada navigasi maju, efek ini bisa berjalan sebelum Next memperbarui URL,
-       jadi path diambil dari usePathname dan query hanya dipakai bila URL
-       sudah menunjuk halaman ini. */
     const search = window.location.pathname === pathname ? window.location.search : "";
     const kunci = `${e.ruang}:${pathname}${search}`;
     let transisiSampai = 0;
@@ -164,7 +137,6 @@ export function useKelolaGulir(target: Target) {
 
     const penanda = popstate;
     const lewatPopstate = penanda !== null && `${e.ruang}:${penanda.kunci}` === kunci && !penanda.dipakai.has(e.ruang);
-    /* Muat pertama setelah reload atau Back dari situs lain juga dipulihkan. */
     const dariRiwayat = lewatPopstate || (pulihMuat.has(e.ruang) && performance.now() < BATAS_MUAT);
 
     let batal = false;
@@ -172,7 +144,6 @@ export function useKelolaGulir(target: Target) {
       penanda?.dipakai.add(e.ruang);
       pulihMuat.delete(e.ruang);
     };
-    /* Pengguna mulai menggulir sendiri sebelum isi siap: jangan ditarik balik. */
     const berhenti = () => {
       batal = true;
       selesai();
@@ -183,12 +154,6 @@ export function useKelolaGulir(target: Target) {
       const tujuan = posisi.get(kunci) ?? 0;
       interaksi.forEach((n) => window.addEventListener(n, berhenti, { once: true, passive: true }));
       const mulai = Date.now();
-      /* Isi halaman aplikasi dimuat setelah mount, jadi tunggu sampai cukup
-         tinggi sebelum memulihkan posisi. setTimeout, bukan rAF, supaya tetap
-         berjalan di tab yang sedang tidak terlihat. Percobaan pertama juga
-         ditunda dan penanda popstate baru dipakai setelah posisi ditulis:
-         StrictMode menjalankan efek dua kali saat mount, dan jalan pertama yang
-         langsung dibatalkan tidak boleh menghabiskan penanda. */
       const coba = () => {
         if (batal) return;
         if (e.tinggi() >= tujuan || Date.now() - mulai > BATAS_TUNGGU) {
@@ -213,7 +178,6 @@ export function useKelolaGulir(target: Target) {
   }, [pathname]);
 }
 
-/** Dipasang sekali di layout akar untuk gulir jendela (halaman publik). */
 export function PengelolaGulirJendela() {
   useKelolaGulir("jendela");
   return null;

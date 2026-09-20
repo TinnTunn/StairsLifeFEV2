@@ -1,7 +1,5 @@
-/* Rekam jejak: angka ringkas, daftar portofolio, lalu ulasan.
+/* Gaya rekam jejak pengguna. */
 
-   Dipakai halaman profil publik dan halaman profil sendiri, supaya keduanya
-   tidak pernah menampilkan isi yang berbeda tentang orang yang sama. */
 .angka {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));

@@ -1,3 +1,5 @@
+// Halaman admin untuk ringkasan keuangan dan daftar pembayaran.
+
 "use client";
 
 import type { ReactNode } from "react";

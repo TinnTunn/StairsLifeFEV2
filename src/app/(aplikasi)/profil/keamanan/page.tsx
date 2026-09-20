@@ -1,3 +1,5 @@
+// Halaman keamanan akun: ganti kata sandi dan email.
+
 "use client";
 
 import { useState, type FormEvent, type ReactNode } from "react";
@@ -92,7 +94,6 @@ function GantiSandi() {
     setLoading(true);
     try {
       const token = await akun.gantiPassword({ current_password: lama, new_password: baru });
-      /* Sesi perangkat lain dicabut; perangkat ini memakai pasangan token baru. */
       const kini = readSession();
       if (kini) writeSession({ ...kini, token: token.token, refresh_token: token.refresh_token });
       setLama("");

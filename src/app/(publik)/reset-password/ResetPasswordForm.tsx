@@ -1,3 +1,5 @@
+// Formulir atur ulang kata sandi.
+
 "use client";
 
 import { useSearchParams } from "next/navigation";

@@ -1,4 +1,5 @@
-/* Formulir ubah profil gaya V2: bagian bernomor dalam kartu, pratinjau foto bulat. */
+/* Gaya formulir ubah profil. */
+
 .form {
   display: flex;
   flex-direction: column;
@@ -103,7 +104,6 @@
   gap: var(--space-3);
 }
 
-/* Bilah simpan melayang di bawah supaya tombol simpan selalu terjangkau di formulir panjang. */
 .kaki {
   position: sticky;
   bottom: 12px;
@@ -121,8 +121,6 @@
   box-shadow: var(--shadow-lg);
 }
 
-/* Di bawah 1024px ruang bawah dipakai bottom nav, jadi bilah simpan tidak
-   ikut melayang supaya tidak menutupi kolom di tengah layar. */
 @media (max-width: 1023px) {
   .kaki {
     position: static;

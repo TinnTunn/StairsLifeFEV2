@@ -1,3 +1,5 @@
+// Halaman ringkasan admin: angka utama dan grafik tren.
+
 "use client";
 
 import Link from "next/link";
@@ -79,9 +81,6 @@ function Isi() {
 
   return (
     <>
-      {/* Tanpa pita sambutan. Judul dan penjelasannya sudah ada di topbar, dan
-          di panel operasional ruang teratas milik antrean yang harus ditindak,
-          bukan kalimat pemasaran. */}
       <div className={app.stats}>
         <Stat label={r.statProyek} icon="Briefcase" nilai={s.active_projects} />
         <Stat label={r.statPengguna} icon="Users" nilai={s.total_users} />
@@ -164,8 +163,6 @@ function Isi() {
               </span>
               <div className={app.rowMain}>
                 <span className={app.rowTitle}>
-                  {/* Bukan tautan: halaman proyek publik sudah dihapus, dan
-                      admin tidak punya halaman detail proyek sendiri. */}
                   {p.title}
                 </span>
                 <span className={app.rowMeta}>

@@ -1,3 +1,5 @@
+// Hook pemuat data asinkron beserta cache dan muat ulangnya.
+
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
@@ -10,9 +12,6 @@ export interface AsyncState<T> {
   error: string | null;
 }
 
-/* Cache per tab untuk data yang boleh tampil sebentar sebelum diperbarui.
-   Kunci selalu memuat id pengguna, dan seluruh isinya dibuang saat sesi
-   berganti, jadi data satu akun tidak pernah tampil untuk akun lain. */
 const cache = new Map<string, unknown>();
 let pemilikCache: string | null = null;
 
@@ -27,7 +26,6 @@ if (typeof window !== "undefined") {
   });
 }
 
-/** Buang cache, dipakai saat keluar atau setelah aksi yang mengubah banyak data. */
 export function bersihkanCacheData(): void {
   cache.clear();
 }
@@ -42,20 +40,6 @@ function tandaDeps(deps: unknown[]): string {
 
 type StateBertanda<T> = AsyncState<T> & { tanda: string };
 
-/**
- * Pemuat data sisi klien untuk area terautentikasi.
- * Halaman ini tidak bisa dirender di server karena token hidup di localStorage,
- * jadi pemuatannya terjadi setelah mount. setState dipanggil dari callback
- * promise, bukan langsung di badan efek.
- *
- * - `muatUlang` dipakai setelah aksi yang mengubah data. Data lama tetap tampil
- *   dan loading tidak kembali true, supaya halaman tidak berkedip ke kerangka.
- * - Saat deps berubah (mis. pindah tab), yang tampil adalah kerangka, bukan data
- *   tab sebelumnya yang sudah tidak cocok dengan tab yang dipilih.
- * - `kunciCache` (opsional): data terakhir disimpan dan langsung ditampilkan
- *   saat halaman dibuka lagi, lalu diperbarui di belakang. Jangan dipakai untuk
- *   angka uang yang harus selalu terbaru, seperti saldo.
- */
 export function useAsync<T>(
   load: () => Promise<T>,
   deps: unknown[],
@@ -84,7 +68,6 @@ export function useAsync<T>(
       .catch((e: unknown) => {
         if (batal) return;
         setState((lama) =>
-          // Data dari cache tetap ditampilkan bila pembaruan di belakang gagal.
           lama.tanda === tanda && lama.data !== null && kunci
             ? lama
             : { tanda, data: null, loading: false, error: e instanceof Error ? e.message : teksGalat().umum },

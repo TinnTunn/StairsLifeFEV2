@@ -1,3 +1,5 @@
+// Dialog modal dengan jebakan fokus dan tutup lewat Escape.
+
 "use client";
 
 import { useEffect, useId, useRef, type ReactNode } from "react";
@@ -19,7 +21,6 @@ export interface ModalProps {
   footer?: ReactNode;
   size?: "sm" | "md" | "lg";
   tone?: "default" | "danger" | "success";
-  /** false untuk keputusan dana: pengguna harus memilih, bukan menutup begitu saja. */
   dismissible?: boolean;
 }
 
@@ -42,15 +43,6 @@ export function Modal({
   const titleId = useId();
   const descId = useId();
 
-  /* onClose dan dismissible disimpan di ref, dan efek di bawah sengaja hanya
-     bergantung pada `open`.
-
-     Pemanggil menulis onClose sebagai fungsi inline, jadi identitasnya baru di
-     setiap render. Ketika keduanya masih jadi dependensi, satu ketikan di
-     dalam modal sudah cukup membuat efek ini dibersihkan lalu dipasang ulang:
-     pembersihannya mengembalikan fokus ke pemicu, pemasangannya memindahkan
-     fokus ke elemen pertama di dialog. Akibatnya kolom isian di dalam modal
-     hanya menerima satu huruf, sisanya jatuh ke tombol. */
   const onCloseRef = useRef(onClose);
   const dismissibleRef = useRef(dismissible);
   useEffect(() => {
@@ -61,8 +53,6 @@ export function Modal({
   useEffect(() => {
     if (!open) return;
 
-    /* Simpan pemicu supaya fokus kembali ke tempat asalnya saat modal tutup.
-       Tanpa ini pengguna keyboard dilempar ke awal halaman. */
     returnFocusRef.current = document.activeElement as HTMLElement | null;
 
     const scrollbar = window.innerWidth - document.documentElement.clientWidth;
@@ -74,9 +64,6 @@ export function Modal({
     const first = dialogRef.current?.querySelector<HTMLElement>(FOCUSABLE);
     (first ?? dialogRef.current)?.focus();
 
-    /* Jebakan fokus saja tidak cukup: dengan kursor virtual, pembaca layar
-       tetap bisa menyusuri halaman di belakang overlay. inert mengeluarkan
-       seluruh isi di luar dialog dari fokus sekaligus dari pohon aksesibilitas. */
     const diluar = Array.from(document.body.children).filter(
       (anak) => !anak.contains(dialogRef.current) && !anak.hasAttribute("inert"),
     );
@@ -90,8 +77,6 @@ export function Modal({
       }
       if (event.key !== "Tab" || !dialogRef.current) return;
 
-      /* Jebakan fokus: tanpa ini Tab keluar dari dialog ke halaman di belakangnya,
-         yang secara visual tertutup overlay sehingga fokusnya menghilang. */
       const nodes = Array.from(dialogRef.current.querySelectorAll<HTMLElement>(FOCUSABLE));
       if (nodes.length === 0) return;
       const firstNode = nodes[0];

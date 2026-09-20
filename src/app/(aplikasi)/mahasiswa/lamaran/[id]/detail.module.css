@@ -1,4 +1,5 @@
-/* Detail lamaran gaya V2: judul besar, callout sukses, dua kartu berdampingan. */
+/* Gaya halaman detail lamaran. */
+
 .head {
   display: flex;
   flex-direction: column;

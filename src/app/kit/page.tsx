@@ -1,3 +1,5 @@
+// Halaman contoh seluruh komponen design system.
+
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Icon } from "@/components/actions/Icon";
@@ -43,12 +45,6 @@ const STATUSES = [
   "dibagi_sebagian",
 ];
 
-/**
- * Halaman internal untuk memeriksa komponen di kedua tema dan di setiap
- * breakpoint. Tidak tersambung ke navigasi mana pun dan tidak diindeks.
- * Hanya ada saat pengembangan: di build produksi rutenya 404, dan teksnya
- * sengaja tidak masuk kamus karena bukan halaman untuk pengguna.
- */
 export default function KitPage() {
   if (process.env.NODE_ENV === "production") notFound();
   return (

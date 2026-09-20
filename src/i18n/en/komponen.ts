@@ -1,3 +1,5 @@
+// Kamus Inggris: teks di dalam komponen bersama.
+
 import type { komponen as Id } from "../id/komponen";
 
 export const komponen: typeof Id = {

@@ -1,11 +1,10 @@
-/* Menempel di bawah supaya tidak menutupi topbar dan judul halaman, dan tetap
-   di atas bottom nav di layar sempit. */
+/* Gaya bilah offline. */
+
 .bilah {
   position: fixed;
   left: 50%;
   bottom: calc(var(--height-bottomnav, 0px) + var(--space-4));
   transform: translateX(-50%);
-  /* Setingkat toast: di atas isi halaman dan bottom nav, di bawah modal. */
   z-index: 80;
   display: flex;
   align-items: flex-start;

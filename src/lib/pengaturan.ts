@@ -1,20 +1,17 @@
+// Pengaturan publik dari backend beserta perhitungan komisinya.
+
 "use client";
 
 import { useEffect, useState } from "react";
 import { apiFetch, USE_MOCK } from "./api/client";
 
-/** Angka yang menentukan uang pengguna. Sumbernya GET /settings/public. */
 export interface PengaturanPublik {
-  /** Persen komisi yang dipakai saat tagihan dibuat. */
   platform_fee: number;
   withdrawal_min_amount: number;
   withdrawal_admin_fee: number;
   verification_sla_days: number;
 }
 
-/* Nilai bawaan backend, hanya dipakai di mode contoh tanpa server. Di mode
-   sungguhan, angka yang tidak terbaca tidak diganti tebakan: layar menulis
-   bahwa angkanya belum bisa dihitung. */
 const CONTOH: PengaturanPublik = {
   platform_fee: 5,
   withdrawal_min_amount: 50_000,
@@ -22,7 +19,6 @@ const CONTOH: PengaturanPublik = {
   verification_sla_days: 2,
 };
 
-/** Sama persis dengan PaymentsService: Math.round(nominal * persen / 100). */
 export function hitungKomisi(nominal: number, persen: number): number {
   return Math.round((Number(nominal) || 0) * (persen / 100));
 }
@@ -49,7 +45,6 @@ export function ambilPengaturanPublik(): Promise<PengaturanPublik> {
 export interface StatusPengaturan {
   data: PengaturanPublik | null;
   loading: boolean;
-  /** true bila pengaturan gagal dibaca; layar tidak boleh menebak angkanya. */
   gagal: boolean;
 }
 

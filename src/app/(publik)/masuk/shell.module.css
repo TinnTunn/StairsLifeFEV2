@@ -1,14 +1,10 @@
-/* Halaman masuk dan daftar gaya V2: kolom aurora gelap di kiri, kartu formulir
-   di atas cream-mesh di kanan. Panelnya menjawab pertanyaan yang membuat orang
-   ragu mendaftar (siapa memegang uangnya), bukan hiasan pengisi ruang. */
+/* Gaya kerangka halaman autentikasi. */
 
 .shell {
   display: grid;
   min-height: calc(100dvh - var(--height-topbar));
 }
 
-/* Di bawah 1024px panel disembunyikan: di layar kecil formulir harus jadi hal
-   pertama yang terlihat. */
 .art {
   display: none;
 }
@@ -36,7 +32,6 @@
   animation: sl-naik 560ms var(--ease-out) backwards;
 }
 
-/* Garis gradien brand di tepi atas kartu (auth-card V2). */
 .card::before {
   content: "";
   position: absolute;
@@ -49,7 +44,6 @@
   max-width: 720px;
 }
 
-/* Isi kartu masuk berurutan sekali saat halaman dibuka. */
 .card > * > * {
   animation: sl-naik 560ms var(--ease-out) backwards;
 }
@@ -96,7 +90,6 @@
     color: var(--on-dark);
   }
 
-  /* Dua bulatan cahaya yang melayang pelan (slOrbA/slOrbB V2). */
   .art::before,
   .art::after {
     content: "";
@@ -153,7 +146,6 @@
   animation: sl-naik 600ms var(--ease-out) 80ms backwards;
 }
 
-/* Frasa aksen berkilau pelan (slTextShimmer V2) memakai warna spark logo. */
 .aksen {
   background: linear-gradient(100deg, var(--spark) 0%, var(--on-dark) 50%, var(--spark) 100%);
   background-size: 220% 100%;
@@ -204,7 +196,6 @@
   color: var(--spark);
 }
 
-/* Kartu kaca yang melayang: alur satu kontrak, bukan testimoni. */
 .alur {
   padding: 16px 18px;
   border: var(--border-width) solid var(--glass-border-dark);

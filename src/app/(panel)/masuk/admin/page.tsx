@@ -1,3 +1,5 @@
+// Halaman masuk khusus admin.
+
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { Icon } from "@/components/actions/Icon";
@@ -12,14 +14,6 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: t.auth.masukAdmin.meta, robots: { index: false, follow: false } };
 }
 
-/**
- * Pintu masuk panel admin.
- *
- * Halaman masuk biasa membingkai produk untuk mahasiswa dan usaha: panel
- * cerita escrow, ajakan mendaftar gratis. Untuk pengurus platform bingkai itu
- * salah; yang dibutuhkan hanya satu kartu masuk yang tenang, keterangan bahwa
- * aksesnya terbatas, dan pengingat bahwa setiap tindakan tercatat.
- */
 export default async function MasukAdmin() {
   const { t } = await ambilKamus();
   const a = t.auth.masukAdmin;

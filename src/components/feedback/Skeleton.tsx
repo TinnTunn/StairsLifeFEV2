@@ -1,3 +1,5 @@
+// Kerangka pemuatan untuk teks dan kartu.
+
 "use client";
 
 import { useBahasa } from "@/i18n/BahasaProvider";
@@ -20,11 +22,6 @@ export function Skeleton({ width = "100%", height = 14, circle = false, classNam
   );
 }
 
-/**
- * Pembungkus kerangka selalu membawa label teks untuk pembaca layar: balok
- * abu-abu sendirian tidak mengumumkan apa pun, jadi pengguna pembaca layar
- * tidak tahu ada yang sedang dimuat.
- */
 export function SkeletonCard({ lines = 2, media = false, label }: { lines?: number; media?: boolean; label?: string }) {
   const { t } = useBahasa();
   return (

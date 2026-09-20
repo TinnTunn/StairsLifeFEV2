@@ -1,3 +1,5 @@
+/* Gaya kaki halaman publik. */
+
 .footer {
   position: relative;
   overflow: hidden;
@@ -5,7 +7,6 @@
   color: var(--on-dark-muted);
 }
 
-/* Cahaya terakota tipis di tepi atas, gema aurora hero di penutup halaman. */
 .footer::before {
   content: "";
   position: absolute;
@@ -61,8 +62,8 @@
   font-weight: var(--weight-semibold);
   text-decoration: none;
   transition:
-    background-color var(--duration-fast) var(--ease-out),
-    color var(--duration-fast) var(--ease-out);
+  background-color var(--duration-fast) var(--ease-out),
+  color var(--duration-fast) var(--ease-out);
 }
 
 .link:hover {
@@ -84,20 +85,4 @@
   gap: var(--space-3) var(--space-8);
   font-size: var(--text-caption);
   color: var(--on-dark-subtle);
-}
-
-.kredit {
-  color: inherit;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.kredit:hover {
-  color: var(--on-dark);
-}
-
-.kredit:focus-visible {
-  outline: var(--focus-ring-width) solid var(--focus-ring);
-  outline-offset: 2px;
-  border-radius: var(--radius-xs);
 }

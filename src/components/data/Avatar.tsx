@@ -1,3 +1,5 @@
+// Avatar pengguna dengan huruf awal sebagai cadangan.
+
 "use client";
 
 import { useBahasa } from "@/i18n/BahasaProvider";
@@ -6,8 +8,6 @@ import styles from "./Avatar.module.css";
 const SIZES = { xs: 24, sm: 32, md: 40, lg: 56, xl: 72 } as const;
 type Size = keyof typeof SIZES;
 
-/* Inisial, bukan foto orang yang dikarang. Placeholder yang terlihat seperti
-   wajah asli menyamarkan bahwa datanya belum ada. */
 function initials(name: string): string {
   return name
     .split(/\s+/)
@@ -59,11 +59,6 @@ export function Avatar({
         style={{ width: px, height: px, fontSize: initialSize(px) }}
       >
         {src ? (
-          /* next/image butuh domain terkonfigurasi; avatar datang dari Supabase
-             Storage dengan host yang berbeda antar lingkungan. */
-          /* width dan height ditulis supaya kotaknya sudah punya ukuran sebelum
-             gambar tiba: tanpa itu isi di sekitarnya bergeser saat foto selesai
-             diunduh. */
           // eslint-disable-next-line @next/next/no-img-element
           <img src={src} alt="" className={styles.photo} width={px} height={px} loading="lazy" decoding="async" />
         ) : (
@@ -78,38 +73,6 @@ export function Avatar({
         </span>
       ) : online ? (
         <span className={styles.online} style={{ width: dot, height: dot }} title={t.komponen.avatar.aktif} />
-      ) : null}
-    </span>
-  );
-}
-
-export interface AvatarGroupProps {
-  people: Array<{ name: string; src?: string | null }>;
-  size?: Size;
-  max?: number;
-  className?: string;
-}
-
-export function AvatarGroup({ people, size = "sm", max = 4, className }: AvatarGroupProps) {
-  const px = SIZES[size];
-  const shown = people.slice(0, max);
-  const rest = people.length - shown.length;
-  const overlap = -Math.round(px * 0.3);
-
-  return (
-    <span className={[styles.group, className].filter(Boolean).join(" ")}>
-      {shown.map((p, i) => (
-        <span key={`${p.name}-${i}`} className={styles.stacked} style={{ marginLeft: i === 0 ? 0 : overlap }}>
-          <Avatar name={p.name} src={p.src} size={size} />
-        </span>
-      ))}
-      {rest > 0 ? (
-        <span
-          className={styles.more}
-          style={{ marginLeft: overlap, width: px, height: px, fontSize: px <= 32 ? 11 : 13 }}
-        >
-          +{rest}
-        </span>
       ) : null}
     </span>
   );

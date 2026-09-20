@@ -1,3 +1,5 @@
+// Halaman detail proyek milik pemilik bisnis beserta pelamarnya.
+
 "use client";
 
 import Link from "next/link";
@@ -17,18 +19,6 @@ import { DaftarPelamar } from "./DaftarPelamar";
 import styles from "./detail.module.css";
 import { TautanKembali } from "@/components/navigation/TautanKembali";
 
-/**
- * Detail proyek milik pemilik usaha.
- *
- * Isinya sama persis dengan yang dibaca mahasiswa (brief, hasil yang diminta,
- * keahlian, anggaran, tenggat), karena itulah yang menentukan apakah lamaran
- * masuk. Bedanya satu: panel sampingnya bukan tombol lamar, melainkan jumlah
- * pelamar, dan di bawahnya daftar pelamar beserta keputusannya.
- *
- * Halaman inilah tujuan setelah proyek dipasang. Sebelumnya proyek baru
- * langsung membuka daftar pelamar yang pasti masih kosong, sehingga pemilik
- * usaha tidak pernah melihat hasil proyek yang baru saja dia tulis.
- */
 export default function DetailProyekBisnis({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
   const { t } = useBahasa();

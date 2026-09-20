@@ -1,3 +1,5 @@
+// Klien fetch backend: envelope respons, token, penyegaran sesi, dan unggahan.
+
 import { bahasaAktif, teksGalat } from "@/i18n/aktif";
 import { KAMUS } from "@/i18n/kamus";
 import { formatRupiah } from "../format";
@@ -11,11 +13,8 @@ export const USE_MOCK = process.env.NEXT_PUBLIC_USE_MOCK === "1";
 
 export class ApiError extends Error {
   readonly status: number;
-  /** Validasi DTO gagal mengirim beberapa pesan sekaligus. */
   readonly messages: string[];
-  /** Terisi saat login ditolak karena akun disuspend. */
   readonly suspended?: { reason: string };
-  /** Kode stabil dari backend, mis. WITHDRAWAL_BELOW_MIN. */
   readonly code?: string;
   readonly params?: Record<string, string | number>;
 
@@ -36,10 +35,6 @@ export class ApiError extends Error {
   }
 }
 
-/**
- * Login akun yang disuspend membalas 401 dengan message berupa string JSON,
- * bukan objek. Tanpa parsing ini pengguna hanya melihat JSON mentah.
- */
 function readSuspended(message: string | string[]): { reason: string } | undefined {
   if (typeof message !== "string" || !message.trimStart().startsWith("{")) return undefined;
   try {
@@ -51,13 +46,6 @@ function readSuspended(message: string | string[]): { reason: string } | undefin
   return undefined;
 }
 
-/**
- * Pesan yang tidak berguna bagi pengguna diganti.
- * Error yang tidak diturunkan dari HttpException lolos dari filter global
- * backend dan tiba sebagai "Internal server error" dalam bahasa Inggris, tanpa
- * kunci success. Diteruskan apa adanya, pengguna membaca istilah
- * teknis asing yang tidak memberi tahu apa pun soal langkah berikutnya.
- */
 function pesanManusiawi(pesan: string, status: number): string {
   if (pesan === "Internal server error" || (status >= 500 && !/[a-z]{3,}\s[a-z]{3,}/i.test(pesan))) {
     return teksGalat().server;
@@ -66,12 +54,6 @@ function pesanManusiawi(pesan: string, status: number): string {
   return pesan;
 }
 
-/**
- * Pesan galat dalam bahasa aktif. Backend menulis pesannya dalam bahasa
- * Indonesia; kode yang dikenal diterjemahkan dari kamus di kedua bahasa supaya
- * nadanya sama dengan antarmuka. Kode yang tidak dikenal memakai pesan server
- * di mode Indonesia, dan pesan umum per status di mode Inggris.
- */
 export function pesanDariKode(
   status: number,
   code: string | undefined,
@@ -104,10 +86,6 @@ async function toApiError(res: Response): Promise<ApiError> {
   return new ApiError(res.status, messages, undefined, body.code, body.params);
 }
 
-/* Batas waktu satu permintaan. Tanpa ini, backend yang menggantung (bukan
-   menolak) membuat kerangka pemuatan berputar tanpa akhir dan tombol terkunci
-   selamanya. Unggahan diberi batas jauh lebih longgar: berkas hasil kerja boleh
-   sampai 50 MB dan koneksi seluler butuh waktu. */
 const TEMPO_MS = 25_000;
 const TEMPO_UNGGAH_MS = 5 * 60_000;
 
@@ -117,13 +95,6 @@ function sinyal(ms: number, milik?: AbortSignal): AbortSignal {
   return typeof AbortSignal.any === "function" ? AbortSignal.any([milik, batas]) : milik;
 }
 
-/**
- * fetch melempar TypeError telanjang saat jaringan putus, dan pesannya
- * ("Failed to fetch") sampai ke layar apa adanya dalam bahasa Inggris.
- * Di sini kegagalan jaringan dan kehabisan waktu diubah jadi ApiError dengan
- * pesan yang bisa dibaca pengguna. Pembatalan yang disengaja (deps berubah,
- * komponen dibongkar) diteruskan apa adanya supaya tidak tampil sebagai galat.
- */
 function lemparGalatKirim(e: unknown): never {
   if (e instanceof DOMException && e.name === "AbortError") throw e;
   const habis = e instanceof DOMException && e.name === "TimeoutError";
@@ -139,10 +110,8 @@ export interface RequestOptions {
   method?: "GET" | "POST" | "PATCH" | "DELETE";
   body?: unknown;
   query?: Record<string, string | number | boolean | undefined>;
-  /** Kirim tanpa Authorization walau ada token. Dipakai endpoint publik. */
   anonymous?: boolean;
   signal?: AbortSignal;
-  /** Diteruskan ke fetch Next untuk halaman yang dirender di server. */
   next?: { revalidate?: number; tags?: string[] };
 }
 
@@ -179,14 +148,6 @@ async function send<T>(path: string, options: RequestOptions, token?: string): P
   return bukaBungkusGanda(envelope.data) as T;
 }
 
-/**
- * Interceptor backend membuka { data, message } dengan `data?.data ?? data`.
- * Saat service mengembalikan data null, `??` jatuh ke objek utuhnya, sehingga
- * yang tiba adalah { data: null, message } alih-alih null. Tanpa ini, "belum ada
- * pengajuan verifikasi" dan "kontrak belum punya pembayaran" terbaca sebagai
- * objek yang ada. Hanya kasus null yang terbungkus ganda, jadi hanya itu yang
- * dibuka. Hapus setelah interceptor backend diperbaiki.
- */
 function bukaBungkusGanda(data: unknown): unknown {
   if (data === null || typeof data !== "object" || Array.isArray(data)) return data;
   const keys = Object.keys(data);
@@ -194,16 +155,11 @@ function bukaBungkusGanda(data: unknown): unknown {
   return bungkus && (data as { data: unknown }).data == null ? null : data;
 }
 
-/* Refresh token berotasi dan hanya berlaku sekali (lihat SesiService di
-   backend). Beberapa permintaan yang kedaluwarsa bersamaan harus berbagi satu
-   refresh; kalau masing-masing mengirim refresh token yang sama, hanya yang
-   pertama berhasil dan sisanya membuat pengguna keluar. */
 let refreshBerjalan: Promise<Session | null> | null = null;
 
 function perbaruiSesi(lama: Session): Promise<Session | null> {
   if (refreshBerjalan) return refreshBerjalan;
   refreshBerjalan = (async () => {
-    // Tab lain mungkin sudah memperbarui token lebih dulu.
     const kini = readSession();
     if (!kini) return null;
     if (kini.refresh_token !== lama.refresh_token) return kini;
@@ -218,8 +174,6 @@ function perbaruiSesi(lama: Session): Promise<Session | null> {
     } catch (e) {
       const setelah = readSession();
       if (setelah && setelah.refresh_token !== lama.refresh_token) return setelah;
-      // Sesi benar-benar berakhir hanya bila server menolaknya. Galat jaringan
-      // tidak boleh mengeluarkan pengguna.
       if (e instanceof ApiError && (e.status === 401 || e.status === 403)) {
         tandaiSesiBerakhir();
         clearSession();
@@ -248,9 +202,6 @@ export async function apiFetch<T>(path: string, options: RequestOptions = {}): P
 
 export type JenisUnggahan = "avatar" | "ktm" | "selfie" | "deliverable" | "evidence" | "chat-image";
 
-/* Batas ukuran per jenis, mengikuti upload.controller.ts di backend. Diperiksa
-   di klien supaya pengguna tidak menunggu unggahan besar selesai hanya untuk
-   ditolak server di ujung. */
 export const BATAS_UNGGAH: Record<JenisUnggahan, number> = {
   avatar: 10 * 1024 * 1024,
   ktm: 10 * 1024 * 1024,
@@ -260,7 +211,6 @@ export const BATAS_UNGGAH: Record<JenisUnggahan, number> = {
   deliverable: 50 * 1024 * 1024,
 };
 
-/** Berkas pertama yang melebihi batas jenisnya, beserta batas itu dalam MB. */
 export function berkasTerlaluBesar(
   berkas: File[],
   type: JenisUnggahan,
@@ -270,12 +220,6 @@ export function berkasTerlaluBesar(
   return lewat ? { nama: lewat.name, batasMb: Math.round(batas / (1024 * 1024)) } : null;
 }
 
-/**
- * Upload memakai multipart, bukan JSON.
- * Urutan field penting: multer membaca req.body.type untuk memilih daftar
- * ekstensi yang diizinkan, dan req.body hanya terisi dari field yang sudah
- * lewat di stream. type harus ditambahkan sebelum file.
- */
 async function kirimUnggah<T>(file: File, type: JenisUnggahan, token?: string): Promise<T> {
   const form = new FormData();
   form.append("type", type);
@@ -297,13 +241,6 @@ async function kirimUnggah<T>(file: File, type: JenisUnggahan, token?: string): 
   return bukaBungkusGanda((await res.json() as ApiEnvelope<T>).data) as T;
 }
 
-/**
- * Unggahan ikut alur pembaruan token yang sama dengan apiFetch.
- * Token akses hanya berlaku satu jam, sedangkan unggah KTM, hasil kerja, dan
- * bukti sengketa terjadi setelah formulir panjang diisi: persis saat token
- * paling mungkin sudah kedaluwarsa. Tanpa ini pengguna kehilangan pekerjaannya
- * hanya karena harus masuk ulang.
- */
 export async function apiUpload<T>(file: File, type: JenisUnggahan): Promise<T> {
   const session = readSession();
 

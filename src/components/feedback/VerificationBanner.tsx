@@ -1,3 +1,5 @@
+// Pita ajakan menyelesaikan verifikasi akun.
+
 "use client";
 
 import Link from "next/link";
@@ -25,18 +27,13 @@ const IKON: Record<Tampil, IconName> = {
 
 export interface VerificationBannerProps {
   status: Status;
-  /** Bisnis hanya pernah melihat status disuspend; verifikasi khusus mahasiswa. */
   role?: Role;
   reason?: string;
-  /** Tautan tujuan tombol. Tanpa ini tombolnya tidak dirender, bukan dirender mati. */
   href?: string;
   actionLabel?: string;
   className?: string;
 }
 
-/* Verifikasi hanya berlaku untuk mahasiswa. Bisnis tidak diverifikasi:
-   menyetor dana kontrak ke escrow adalah verifikasinya. Pembekuan akun tetap
-   berlaku untuk kedua peran. */
 export function VerificationBanner({ status, role = "mahasiswa", reason, href, actionLabel, className }: VerificationBannerProps) {
   const { t } = useBahasa();
   if (status === "terverifikasi") return null;

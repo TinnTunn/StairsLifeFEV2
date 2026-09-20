@@ -1,3 +1,5 @@
+// Daftar ikon yang boleh dipakai beserta nama pendeknya.
+
 import {
   AlarmClock,
   AlertTriangle,
@@ -74,12 +76,6 @@ import {
   ZoomIn,
 } from "lucide-react";
 
-/* Instagram dibuang: Lucide 1.x tidak lagi memuat ikon brand, dan tautan
-   sosial lebih jelas ditulis sebagai teks bernama daripada glyph.
-
-   Registri ikon tertutup, bukan impor dinamis dari seluruh Lucide.
-   Dua alasan: hanya ikon yang benar-benar dipakai yang ikut ke bundel, dan
-   menambah ikon jadi keputusan sadar, bukan refleks (antislop R-04). */
 export const ICONS = {
   AlarmClock,
   AlertTriangle,
@@ -158,5 +154,4 @@ export const ICONS = {
 
 export type LucideName = keyof typeof ICONS;
 
-/** Nama Lucide ditambah ikon PNG pilihan pemilik produk (lihat icon-gambar.ts). */
 export type IconName = LucideName | import("./icon-gambar").NamaIkonGambar;

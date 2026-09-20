@@ -1,3 +1,5 @@
+// Hook sesi pengguna yang sedang masuk.
+
 "use client";
 
 import { useEffect, useSyncExternalStore } from "react";
@@ -16,11 +18,6 @@ function subscribe(onChange: () => void) {
 
 const tanpaLangganan = () => () => {};
 
-/* Status akun di sesi disalin saat login dan tidak pernah berubah sendiri.
-   Mahasiswa yang disetujui admin atau akun yang dibekukan tetap membawa nilai
-   lama sampai login ulang, dan tombol lamar tetap terkunci. Sesi disegarkan
-   dari /users/me, paling sering sekali per menit supaya perpindahan halaman
-   tidak menambah satu permintaan setiap kali. */
 const JEDA_MS = 60_000;
 let terakhir = 0;
 let berjalan: Promise<void> | null = null;
@@ -57,11 +54,6 @@ export function segarkanSesi(): Promise<void> {
   return berjalan;
 }
 
-/**
- * siap bernilai false selama render server dan render hidrasi pertama, saat
- * localStorage belum terbaca. Tanpa pembeda ini, pengguna yang sudah masuk
- * sempat melihat layar "halaman ini butuh akun" setiap kali halaman dimuat.
- */
 export function useSesi(): { session: Session | null; siap: boolean } {
   const session = useSyncExternalStore(subscribe, readSession, () => null);
   const siap = useSyncExternalStore(tanpaLangganan, () => true, () => false);

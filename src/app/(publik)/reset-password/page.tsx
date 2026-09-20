@@ -1,3 +1,5 @@
+// Halaman atur ulang kata sandi dari tautan email.
+
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { ambilKamus } from "@/i18n/server";
@@ -10,7 +12,6 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: t.auth.reset.meta, robots: { index: false, follow: false } };
 }
 
-/* Backend menyusun tautannya sebagai ${APP_URL}/reset-password?token=... */
 export default async function ResetPassword() {
   const { t } = await ambilKamus();
   return (

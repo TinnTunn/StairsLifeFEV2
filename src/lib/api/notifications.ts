@@ -1,8 +1,9 @@
+// Klien API notifikasi.
+
 import type { Notification } from "../types";
 import { apiFetch } from "./client";
 
 export const notifications = {
-  /** Backend membatasi 50 terbaru dan tidak menyediakan paginasi. */
   list: () => apiFetch<Notification[]>("/notifications"),
 
   unreadCount: () => apiFetch<{ count: number }>("/notifications/unread-count"),

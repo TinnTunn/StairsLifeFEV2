@@ -1,15 +1,12 @@
+// Klien API autentikasi.
+
 import type { AuthResult, UserRole } from "../types";
 import { apiFetch } from "./client";
-
-/* ValidationPipe backend memakai forbidNonWhitelisted, jadi satu field asing
-   membuat permintaan ditolak 400. Payload di bawah harus persis sama dengan
-   DTO-nya, tidak boleh ada tambahan. */
 
 export interface RegisterPayload {
   full_name: string;
   email: string;
   password: string;
-  /** admin ditolak backend: akun admin dibuat internal. */
   role: Exclude<UserRole, "admin">;
   university?: string;
   major?: string;
@@ -29,7 +26,6 @@ export const auth = {
       anonymous: true,
     }),
 
-  /** Refresh token dikirim di body, bukan header Authorization. */
   refresh: (refresh_token: string) =>
     apiFetch<AuthResult>("/auth/refresh", {
       method: "POST",
@@ -61,9 +57,6 @@ export const auth = {
       anonymous: true,
     }),
 
-  /* Mencabut sesi refresh di server. Dikirim tanpa Authorization: access
-     token yang kedaluwarsa akan memicu refresh, yang merotasi refresh token
-     sebelum logout sempat mencabut yang lama. */
   logout: (refresh_token?: string) =>
     apiFetch<null>("/auth/logout", {
       method: "POST",

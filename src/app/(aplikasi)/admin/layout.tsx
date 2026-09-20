@@ -1,3 +1,5 @@
+// Judul tab untuk rute panel admin.
+
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { ambilKamus } from "@/i18n/server";

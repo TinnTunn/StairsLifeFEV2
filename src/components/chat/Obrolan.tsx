@@ -1,3 +1,5 @@
+// Komponen obrolan: daftar pesan, tanda dibaca, dan kolom kirim.
+
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState, type FormEvent, type KeyboardEvent , type ReactNode } from "react";
@@ -13,12 +15,6 @@ const JEDA_POLLING = 5_000;
 
 type PesanLokal = PesanObrolan & { status?: "mengirim" | "gagal" };
 
-/**
- * Percakapan berbasis polling REST, bukan WebSocket. Endpoint REST backend
- * sudah menandai pesan dibaca dan memancarkan event realtime ke pihak lain;
- * menarik setiap 5 detik selama tab terlihat cukup untuk percakapan kerja,
- * dan tidak menambah koneksi terbuka atau aturan CSP untuk socket.
- */
 export function Obrolan({
   sumber,
   pembuka,
@@ -26,9 +22,7 @@ export function Obrolan({
   onLawan,
 }: {
   sumber: SumberObrolan;
-  /** Catatan di atas percakapan, mis. peringatan bertransaksi di luar platform. */
   pembuka?: string;
-  /** Kepala percakapan (lawan bicara dan tombol kembali) yang menempel di kotak. */
   kepala?: ReactNode;
   onLawan?: (lawan: { id: string; full_name: string } | null) => void;
 }) {
@@ -39,10 +33,6 @@ export function Obrolan({
 
   const [pesan, setPesan] = useState<PesanLokal[] | null>(null);
   const [galatMuat, setGalatMuat] = useState<string | null>(null);
-  /* Nama lawan bicara dipakai sebagai cadangan label gelembung: pesan yang
-     datang lewat realtime tidak selalu membawa objek pengirimnya, dan tanpa ini
-     pesan yang sama tertulis "pihak lain" sekarang lalu bernama sungguhan
-     setelah halaman dimuat ulang. */
   const [namaLawan, setNamaLawan] = useState<string | null>(null);
   const [draf, setDraf] = useState("");
   const daftar = useRef<HTMLDivElement>(null);
@@ -57,7 +47,6 @@ export function Obrolan({
 
   useEffect(() => {
     let batal = false;
-    /* setState hanya di dalam callback promise, tidak langsung di badan efek. */
     const tarik = () => {
       const permintaan = USE_MOCK ? Promise.resolve({ pesan: [] as PesanObrolan[], lawan: null }) : chat.ambil(sumber);
       permintaan
@@ -67,7 +56,6 @@ export function Obrolan({
           onLawanRef.current?.(r.lawan ?? null);
           setGalatMuat(null);
           setPesan((lama) => {
-            // Pesan yang masih dikirim atau gagal tetap tampil di bawah.
             const tertunda = (lama ?? []).filter((p) => p.status);
             return [...r.pesan, ...tertunda];
           });
@@ -84,8 +72,6 @@ export function Obrolan({
       if (document.visibilityState === "visible" && navigator.onLine) tarik();
     };
     document.addEventListener("visibilitychange", saatTerlihat);
-    /* Saat jaringan putus, polling hanya menumpuk galat. Berhenti selama offline
-       lalu tarik sekali begitu koneksi kembali. */
     window.addEventListener("online", saatTerlihat);
     return () => {
       batal = true;
@@ -96,8 +82,6 @@ export function Obrolan({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [kunci]);
 
-  /* Gulir ke bawah hanya bila pengguna memang sedang di bawah, supaya pesan
-     baru tidak menarik orang yang sedang membaca riwayat. */
   useLayoutEffect(() => {
     const el = daftar.current;
     if (el && diBawah.current) el.scrollTop = el.scrollHeight;
@@ -215,10 +199,6 @@ export function Obrolan({
                       ) : (
                         <>
                           <time dateTime={p.created_at}>{formatJam(p.created_at)}</time>
-                          {/* Dua centang selalu, seperti aplikasi pesan yang sudah
-                              dikenal: abu-abu berarti terkirim, biru berarti sudah
-                              dibuka lawan bicara (backend menandainya saat ruang
-                              dibuka). Warnanya yang berubah, bukan jumlahnya. */}
                           {milikku ? (
                             <span
                               className={styles.centang}

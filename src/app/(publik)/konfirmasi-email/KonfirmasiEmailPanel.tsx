@@ -1,3 +1,5 @@
+// Panel hasil konfirmasi perubahan email.
+
 "use client";
 
 import { useSearchParams } from "next/navigation";
@@ -11,7 +13,6 @@ import { readSession, writeSession } from "@/lib/api/session";
 
 type Keadaan = "memeriksa" | "berhasil" | "gagal" | "tanpa_token";
 
-/* Link dari email konfirmasi: ${APP_URL}/konfirmasi-email?token=... */
 export function KonfirmasiEmailPanel() {
   const token = useSearchParams().get("token");
   const { t } = useBahasa();
@@ -23,14 +24,12 @@ export function KonfirmasiEmailPanel() {
 
   useEffect(() => {
     if (!token || USE_MOCK || sudahJalan.current) return;
-    /* Token sekali pakai; StrictMode memanggil efek dua kali. */
     sudahJalan.current = true;
     akun
       .konfirmasiEmail(token)
       .then((r) => {
         setEmail(r.email);
         setKeadaan("berhasil");
-        // Kalau pemilik sedang masuk di perangkat ini, email di sesi ikut diperbarui.
         const kini = readSession();
         if (kini) writeSession({ ...kini, user: { ...kini.user, email: r.email } });
       })

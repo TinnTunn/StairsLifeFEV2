@@ -1,3 +1,5 @@
+// Logo StairsLife dalam beberapa ragam warna.
+
 import styles from "./Logo.module.css";
 
 const WOOD_FILE = {
@@ -5,9 +7,6 @@ const WOOD_FILE = {
   walnut: "/assets/logo-mark-wood-walnut.svg",
 } as const;
 
-/* Varian datar dirender inline, bukan lewat <img>. Seluruh gunanya adalah
-   fill="currentColor", dan <img> tidak mewarisi color dari induknya, jadi
-   lewat <img> warnanya selalu jatuh ke hitam yang tidak ada di palet. */
 function FlatMark({ size }: { size: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" fill="none" aria-hidden="true" className={styles.mark}>
@@ -21,9 +20,7 @@ function FlatMark({ size }: { size: number }) {
 export interface LogoProps {
   size?: number;
   wordmark?: boolean;
-  /** Kayu hanya terbaca di 22px ke atas. Di bawah itu, dan di layar padat data, pakai "flat". */
   wood?: "teak" | "walnut" | "flat";
-  /** "ink" untuk logo di atas footer, hero, atau panel tinta tetap. */
   surface?: "default" | "ink";
   className?: string;
 }

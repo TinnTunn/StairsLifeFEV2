@@ -1,4 +1,5 @@
-/* Halaman sistem: hasil pembayaran, galat, 404, dan rute yang belum dibangun. */
+// Kamus Indonesia: halaman galat dan 404.
+
 export const sistem = {
   pembayaran: {
     meta: "Hasil pembayaran",

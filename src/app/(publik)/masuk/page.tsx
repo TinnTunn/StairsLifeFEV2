@@ -1,3 +1,5 @@
+// Halaman masuk pengguna.
+
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -21,7 +23,6 @@ export default async function Masuk() {
           <h1 className={styles.title}>{m.judul}</h1>
           <p className={styles.subtitle}>{m.sub}</p>
         </div>
-        {/* useSearchParams butuh Suspense agar halaman tetap bisa dirender statis. */}
         <Suspense fallback={null}>
           <LoginForm />
         </Suspense>

@@ -1,6 +1,4 @@
-/* Terjemahan kode galat backend (lihat src/common/filters/kode-galat.ts di
-   StairsLifeBEV2). Kode yang tidak ada di sini memakai pesan asli dari server
-   dalam mode Indonesia, atau pesan umum per status dalam mode Inggris. */
+// Kamus Indonesia: pesan galat dari backend.
 
 type Rupiah = (n: number) => string;
 
@@ -84,7 +82,6 @@ export const galatApi = {
     ACCOUNT_HAS_BALANCE: (rp: Rupiah, p: { amount?: number }) =>
       `Masih ada saldo ${rp(p.amount ?? 0)}. Tarik saldo dulu sebelum menghapus akun.`,
   },
-  /** Dipakai dalam mode Inggris saat kodenya tidak dikenal; di mode Indonesia pesan server dipakai. */
   perStatus: {
     400: "Permintaan belum bisa diproses. Periksa isian lalu coba lagi.",
     401: "Sesimu sudah berakhir. Silakan masuk lagi.",

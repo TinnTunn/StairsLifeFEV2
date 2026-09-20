@@ -1,5 +1,5 @@
-/* Halaman sistem (404, galat, rute yang belum dibangun) gaya V2: kanvas
-   cream-mesh, logo di pojok, kartu di tengah dengan angka besar bergradien. */
+/* Gaya layar sistem (galat dan 404). */
+
 .layar {
   position: relative;
   min-height: 100dvh;

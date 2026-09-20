@@ -1,14 +1,4 @@
-/* Sistem gerak StairsLife.
-   Dial MOTION 2 di landing dan halaman masuk atau daftar, MOTION 2 ringan di
-   aplikasi (transisi dan animasi masuk, tanpa koreografi scroll). Keputusan
-   pemilik produk 14 September 2026, lihat DESIGN.md dan DECISIONS.md.
-
-   Aturan yang dipegang di seluruh berkas ini:
-   - Tidak ada loop tanpa akhir. Semua gerak dipicu sekali: halaman dibuka,
-     elemen terlihat, atau pengguna menyentuh sesuatu.
-   - Tanpa bounce dan spring. Easing masuk memakai --ease-entrance.
-   - Angka uang tidak pernah dianimasikan.
-   - prefers-reduced-motion mematikan transform dan keadaan tersembunyi. */
+/* Kelas gerak bersama beserta penghormatan prefers-reduced-motion. */
 
 @keyframes sl-naik {
   from {
@@ -50,8 +40,6 @@
   }
 }
 
-/* Pengaman scroll-reveal: kalau RevealObserver gagal jalan (bundel JS rusak,
-   error hidrasi), elemen tetap muncul sendiri setelah 2,5 detik. */
 @keyframes sl-pengaman {
   to {
     opacity: 1;
@@ -59,9 +47,6 @@
   }
 }
 
-/* Scroll-reveal. Keadaan tersembunyi hanya berlaku saat kelas js ada di
-   <html>, yang disetel skrip tema inline sebelum paint. Tanpa JS, tidak ada
-   yang pernah tersembunyi. */
 .js [data-reveal]:not([data-terlihat]) {
   opacity: 0;
   transform: translateY(24px);
@@ -80,9 +65,6 @@
   transform: scale(0.94);
 }
 
-/* Di layar sempit, kolom kiri dan kanan sudah bertumpuk jadi satu kolom.
-   Geser dari samping di sana tidak menunjukkan arah apa pun dan hanya
-   berisiko mendorong isi keluar layar, jadi semuanya naik dari bawah. */
 @media (max-width: 767px) {
   .js [data-reveal="kiri"]:not([data-terlihat]),
   .js [data-reveal="kanan"]:not([data-terlihat]) {
@@ -90,7 +72,6 @@
   }
 }
 
-/* --urutan diisi per elemen untuk stagger dalam satu kelompok. */
 [data-reveal] {
   transition:
     opacity 640ms var(--ease-entrance),
@@ -118,7 +99,6 @@
   }
 }
 
-/* Kilau yang menyapu tombol utama saat hover (V2). */
 @keyframes sl-kilau {
   from {
     left: -130%;
@@ -128,7 +108,6 @@
   }
 }
 
-/* Masuk dengan sedikit pegas, dipakai kartu dan modal gaya V2. */
 @keyframes sl-pop {
   from {
     opacity: 0;
@@ -140,7 +119,6 @@
   }
 }
 
-/* Kartu hero melayang pelan seperti V2. Mati saat gerak diredam. */
 @keyframes sl-melayang {
   0%,
   100% {
@@ -151,7 +129,6 @@
   }
 }
 
-/* Cahaya aurora bergeser pelan di belakang hero (V2). */
 @keyframes sl-aurora {
   0% {
     transform: translate3d(-3%, -2%, 0) scale(1);
@@ -164,7 +141,6 @@
   }
 }
 
-/* Denyut titik status hidup. */
 @keyframes sl-denyut {
   0% {
     box-shadow: 0 0 0 0 var(--denyut-warna, rgba(22, 112, 79, 0.5));
@@ -177,7 +153,6 @@
   }
 }
 
-/* Halo conic yang berputar di belakang kartu hero (V2 sl-orbit). */
 @keyframes sl-orbit {
   from {
     transform: translate(-50%, -50%) rotate(0deg);
@@ -187,7 +162,6 @@
   }
 }
 
-/* Kilau menyapu pil anggaran secara berkala (V2 sl-sweep). */
 @keyframes sl-sapu {
   0% {
     transform: translateX(-120%);
@@ -198,7 +172,6 @@
   }
 }
 
-/* Kilau berjalan di dalam teks aksen (slTextShimmer V2). */
 @keyframes sl-kilau-teks {
   to {
     background-position: -220% 0;

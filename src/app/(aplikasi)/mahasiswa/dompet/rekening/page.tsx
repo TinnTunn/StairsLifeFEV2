@@ -1,3 +1,5 @@
+// Halaman kelola rekening bank tujuan penarikan.
+
 "use client";
 
 import { useState, type FormEvent } from "react";
@@ -67,8 +69,6 @@ function Isi() {
 
   function tambah(event: FormEvent) {
     event.preventDefault();
-    /* bank_code dijaga backend dengan pola huruf besar, angka, dan underscore.
-       Diseragamkan di sini supaya pengguna tidak ditolak hanya karena huruf kecil. */
     const isi = {
       bank_name: form.bank_name.trim(),
       bank_code: form.bank_code.trim().toUpperCase(),
@@ -76,9 +76,6 @@ function Isi() {
       account_holder: form.account_holder.trim(),
     };
 
-    /* Aturan yang sama dengan CreateBankAccountDto. Sebagian pesan DTO itu
-       bawaan class-validator berbahasa Inggris dan menyebut nama kolom
-       ("account_number must be longer than..."), jadi dicegat di sini lebih dulu. */
     const g = {
       bank_name: isi.bank_name.length < 2 ? r.salahNamaBank : undefined,
       bank_code: !/^[A-Z0-9_]{2,20}$/.test(isi.bank_code) ? r.salahKode : undefined,

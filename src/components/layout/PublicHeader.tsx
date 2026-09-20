@@ -1,3 +1,5 @@
+// Kepala halaman publik.
+
 "use client";
 
 import Link from "next/link";
@@ -12,8 +14,6 @@ import { LanguageToggle } from "../LanguageToggle";
 import { ThemeToggle } from "../ThemeToggle";
 import styles from "./PublicHeader.module.css";
 
-/* Tiga seksi di beranda, sama seperti navbar FE V2. Di halaman lain tautannya
-   kembali ke beranda lalu melompat ke seksinya. */
 const SEKSI = [
   { id: "cara-kerja", kunci: "caraKerja" },
   { id: "fitur", kunci: "fitur" },
@@ -24,10 +24,6 @@ export function PublicHeader() {
   const pathname = usePathname();
   const { t } = useBahasa();
   const [open, setOpen] = useState(false);
-  /* Tidak ada tombol "ke berandaku" di sini. Halaman publik adalah keadaan
-     belum masuk: begitu seseorang sampai ke beranda, sesinya ditutup
-     (lihat AkhiriSesi), jadi jembatan kembali ke aplikasi hanya akan
-     menampilkan keadaan yang sudah tidak berlaku. */
 
   const [bergeser, setBergeser] = useState(false);
   const [seksiAktif, setSeksiAktif] = useState<string | null>(null);
@@ -46,7 +42,6 @@ export function PublicHeader() {
     };
   }, []);
 
-  /* Scroll-spy: tautan seksi yang sedang terlihat mendapat garis aktif. */
   useEffect(() => {
     if (pathname !== "/" || !("IntersectionObserver" in window)) return;
     const elemen = SEKSI.map((s) => document.getElementById(s.id)).filter((el): el is HTMLElement => el !== null);
@@ -63,8 +58,6 @@ export function PublicHeader() {
     return () => io.disconnect();
   }, [pathname]);
 
-  /* Menu ditutup saat rute berganti, disesuaikan saat render supaya panel
-     tidak sempat terlihat terbuka satu frame di halaman baru. */
   const [lastPath, setLastPath] = useState(pathname);
   if (lastPath !== pathname) {
     setLastPath(pathname);

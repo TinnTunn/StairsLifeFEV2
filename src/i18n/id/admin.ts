@@ -1,4 +1,5 @@
-/* Panel admin: ringkasan, moderasi, dana, komunikasi, dan pengaturan. */
+// Kamus Indonesia: panel admin.
+
 export const admin = {
   umum: {
     cari: "Cari",

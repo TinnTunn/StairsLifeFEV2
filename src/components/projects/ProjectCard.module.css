@@ -1,10 +1,5 @@
-/* Kartu proyek mengikuti rujukan rancangan pemilik produk: kartu bundar lega,
-   avatar bulat, judul besar, satu baris penanda, lalu kaki berisi anggaran dan
-   aksinya.
+/* Gaya kartu proyek. */
 
-   Judulnya tautan sungguhan yang area kliknya diperluas ke seluruh kartu lewat
-   ::after, jadi tombol Lamar di dalamnya tetap bisa dijangkau keyboard dan
-   tetap punya tujuannya sendiri. */
 .card {
   position: relative;
   display: flex;
@@ -22,8 +17,6 @@
     box-shadow var(--duration-base) var(--ease-out);
 }
 
-/* Bayangan hanya saat disorot: design system meminta kartu diam memakai garis,
-   bukan bayangan, supaya grid penuh kartu tidak terbaca berat. */
 .card:has(.titleLink:hover),
 .card:has(.titleLink:focus-visible) {
   transform: translateY(-2px);
@@ -46,11 +39,6 @@
   transform: translateY(-2px);
 }
 
-/* Tinggi dua baris judul ditambah barisnya nama usaha dipesan di sini, bukan
-   di judulnya: kalau dipesan di judul, judul satu baris menyisakan celah
-   menganga sebelum nama usahanya. Dipesan di blok ini, nama usaha tetap
-   menempel pada judulnya dan sisa ruangnya jatuh di bawah keduanya, sehingga
-   baris penanda tetap sejajar di semua kartu. */
 .headText {
   flex: 1;
   min-width: 0;
@@ -59,18 +47,6 @@
   );
 }
 
-/* Judul selalu memakan dua baris, dipotong kalau lebih.
-
-   Sebelumnya judul pendek satu baris dan judul panjang dua baris, jadi baris
-   penanda dan garis kaki di kartu bersebelahan berhenti sejajar dan gridnya
-   terlihat bergoyang. Tinggi yang dipesan membuat setiap kartu punya susunan
-   yang sama persis, berapa pun panjang judulnya.
-
-   leading-snug, bukan leading-tight: pada judul yang membungkus, jarak 1,05
-   membuat dua barisnya hampir bersentuhan.
-
-   text-wrap: balance membagi kata rata antara dua baris, jadi tidak ada baris
-   kedua yang hanya berisi satu kata. */
 .title {
   margin: 0;
   display: -webkit-box;
@@ -126,9 +102,6 @@
   text-transform: uppercase;
 }
 
-/* Garis pemisah memisahkan zona identitas (avatar, judul, nama usaha) dari
-   zona isi. Dua baris tetap, jadi kartu sebelah-menyebelah punya tinggi yang
-   sama walau briefnya panjang pendek. */
 .ringkas {
   margin: 0;
   padding-top: var(--space-5);
@@ -150,8 +123,6 @@
   gap: var(--space-3) var(--space-5);
 }
 
-/* Sudut sedang, bukan pil: diminta pemilik produk supaya penanda tingkat tidak
-   terbaca sebagai lencana status. */
 .tier {
   padding: 4px var(--space-4);
   border-radius: var(--radius-md);
@@ -203,8 +174,6 @@
   border-top: var(--border-width) solid var(--border-subtle);
 }
 
-/* Baris kedua kaki: jumlah pelamar di kiri, tombol di kanan. Isinya pendek dan
-   panjangnya hampir tetap, jadi baris ini tidak pernah membungkus. */
 .footBawah {
   display: flex;
   align-items: center;
@@ -249,8 +218,6 @@
   color: var(--brand);
 }
 
-/* Satu-satunya kontrol dengan tujuan sendiri di dalam kartu, jadi ia harus
-   berada di atas lapisan tautan yang meregang. */
 .lamar {
   position: relative;
   z-index: 1;

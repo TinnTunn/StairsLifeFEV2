@@ -1,5 +1,5 @@
-/* Empty state gaya V2: ikon di atas lingkaran brand yang lembut, judul tebal,
-   deskripsi pendek, dan satu aksi. */
+/* Gaya tampilan daftar kosong. */
+
 .wrap {
   display: flex;
   flex-direction: column;

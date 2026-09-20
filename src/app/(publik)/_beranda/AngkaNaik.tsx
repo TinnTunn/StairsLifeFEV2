@@ -1,13 +1,11 @@
+// Animasi angka yang menghitung naik saat terlihat.
+
 "use client";
 
 import { useEffect, useRef, useState } from "react";
 import { useBahasa } from "@/i18n/BahasaProvider";
 import { LOCALE } from "@/i18n/jenis";
 
-/**
- * Angka statistik yang berhitung naik saat terlihat (count-up V2). Nilai
- * akhirnya ditulis ke pembaca layar sejak awal, jadi animasinya hanya visual.
- */
 export function AngkaNaik({ nilai, awalan = "", akhiran = "" }: { nilai: number; awalan?: string; akhiran?: string }) {
   const { bahasa } = useBahasa();
   const ref = useRef<HTMLSpanElement>(null);

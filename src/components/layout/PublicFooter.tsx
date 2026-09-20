@@ -1,3 +1,5 @@
+// Kaki halaman publik.
+
 "use client";
 
 import Link from "next/link";
@@ -5,8 +7,6 @@ import { useBahasa } from "@/i18n/BahasaProvider";
 import { Logo } from "../brand/Logo";
 import styles from "./PublicFooter.module.css";
 
-/* Footer gaya V2: rata tengah di atas tinta. Hanya rute dan seksi yang benar
-   benar ada yang ditautkan. */
 export function PublicFooter() {
   const { t } = useBahasa();
   const f = t.navigasi.footer;

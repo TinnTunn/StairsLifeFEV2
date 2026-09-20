@@ -1,8 +1,5 @@
-/* Gaya bersama halaman aplikasi (dipakai mahasiswa, bisnis, dan kontrak),
-   mengikuti app-shell V2: kartu sapaan aurora, bento stat tile dengan garis
-   aksen, dan daftar baris dalam kartu berbayang lembut. */
+/* Gaya beranda mahasiswa. */
 
-/* ---------- Kartu sapaan ---------- */
 .sapa {
   position: relative;
   overflow: hidden;
@@ -74,7 +71,6 @@
   gap: 10px;
 }
 
-/* ---------- Bento stat tile ---------- */
 .stats {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -113,7 +109,6 @@
   animation: sl-pop 500ms var(--ease-out) backwards;
 }
 
-/* Garis aksen berwarna di tepi atas tile. */
 .stat::before {
   content: "";
   position: absolute;
@@ -150,8 +145,6 @@
   gap: 8px;
 }
 
-/* Tombol di kepala kartu statistik meniru petak ikonnya, jadi kartu yang punya
-   kontrol dan kartu yang tidak tetap sebangun. */
 .statTombol {
   width: 32px;
   height: 32px;
@@ -197,8 +190,6 @@
   color: var(--text-strong);
 }
 
-/* Nominal rupiah lebih panjang dari hitungan biasa, jadi sedikit diperkecil
-   dan diberi warna uang masuk. */
 .statUang {
   font-size: var(--text-h1);
   color: var(--money-in);
@@ -206,7 +197,6 @@
   font-variant-numeric: proportional-nums;
 }
 
-/* ---------- Judul bagian ---------- */
 .sectionHead {
   display: flex;
   align-items: center;
@@ -250,7 +240,6 @@
   gap: var(--gap-card);
 }
 
-/* ---------- Daftar baris ---------- */
 .rows {
   display: flex;
   flex-direction: column;
@@ -354,8 +343,6 @@
   gap: var(--space-3);
 }
 
-/* Rentang anggaran di baris daftar: angka tetap menonjol tapi tidak setebal
-   nominal di kartu, karena di daftar yang dicari orang adalah judulnya. */
 .anggaran {
   font-size: var(--text-body-sm);
   font-weight: var(--weight-bold);
@@ -364,7 +351,6 @@
   white-space: nowrap;
 }
 
-/* ---------- Umpan balik ---------- */
 .galat {
   display: flex;
   align-items: flex-start;
@@ -412,8 +398,6 @@
   }
 }
 
-/* Di HP tetap dua kolom supaya empat angka muat dalam satu layar. Diletakkan
-   di akhir berkas supaya menimpa aturan dasar tile di atas. */
 @media (max-width: 640px) {
   .stats {
     gap: 10px;

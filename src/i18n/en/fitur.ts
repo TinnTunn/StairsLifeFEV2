@@ -1,3 +1,5 @@
+// Kamus Inggris: fitur lintas peran seperti profil dan sengketa.
+
 import type { fitur as Id } from "../id/fitur";
 
 export const fitur: typeof Id = {
@@ -47,7 +49,6 @@ export const fitur: typeof Id = {
       system: "Announcement",
       withdrawal: "Withdrawal",
     },
-    /* Kunci: judul dari backend tanpa emoji di depannya. */
     judulTerjemahan: {
       "Tier Naik!": "Your tier went up",
       "Sengketa Diselesaikan": "Dispute resolved",

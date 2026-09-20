@@ -1,23 +1,18 @@
+// Tema terang dan gelap beserta skrip pemasang awalnya.
+
 export type Theme = "light" | "dark" | "system";
 
 export const THEME_STORAGE_KEY = "stairslife-theme";
 
-/* Dijalankan sebelum paint pertama lewat <script dangerouslySetInnerHTML>.
-   Tanpa ini halaman sempat memakai tema sistem lalu berkedip ke pilihan pengguna.
-   Ditulis sebagai string karena harus inline di <head>, bukan bundel terpisah. */
 export const themeInitScript = `
 (function(){
-  /* Kelas js menyalakan keadaan tersembunyi untuk scroll-reveal. Tanpa JS,
-     kelas ini tidak ada dan seluruh konten tampil apa adanya. */
   document.documentElement.classList.add("js");
   try {
     var t = localStorage.getItem(${JSON.stringify(THEME_STORAGE_KEY)});
     if (t === "light" || t === "dark") {
       document.documentElement.setAttribute("data-theme", t);
     }
-  } catch (e) {
-    /* Mode privat memblokir localStorage. Tema sistem tetap benar tanpa ini. */
-  }
+  } catch (e) {}
 })();
 `.trim();
 

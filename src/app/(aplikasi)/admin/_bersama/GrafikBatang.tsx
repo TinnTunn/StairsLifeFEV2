@@ -1,3 +1,5 @@
+// Grafik batang satu seri untuk angka panel admin.
+
 "use client";
 
 import { useState, type KeyboardEvent } from "react";
@@ -10,7 +12,6 @@ export interface TitikGrafik {
   nilai: number;
 }
 
-/** Angka sumbu dibulatkan ke atas supaya garis atas selalu bilangan bersih. */
 function batasAtas(maks: number): number {
   if (maks <= 0) return 1;
   if (maks <= 5) return maks;
@@ -18,12 +19,6 @@ function batasAtas(maks: number): number {
   return Math.ceil(maks / pangkat) * pangkat;
 }
 
-/**
- * Grafik batang satu seri untuk hitungan harian 30 hari. Satu seri tidak
- * butuh legenda: judul kartu sudah menyebut yang digambar. Nilai tiap hari
- * tersedia lewat tooltip (arahkan kursor atau fokus lalu tombol panah) dan
- * lewat tabel, jadi tooltip tidak pernah jadi satu-satunya jalan.
- */
 export function GrafikBatang({
   judul,
   data,

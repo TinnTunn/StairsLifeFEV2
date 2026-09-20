@@ -1,3 +1,5 @@
+// Pembaca lamaran, kontrak, dan dompet milik pengguna.
+
 import { teksGalat } from "@/i18n/aktif";
 import { applications as applicationsApi } from "../api/applications";
 import { ApiError, USE_MOCK } from "../api/client";
@@ -9,9 +11,6 @@ import { wallet as walletApi } from "../api/wallet";
 import { MOCK_PROJECTS } from "../mock/projects";
 import { MOCK_APPLICATIONS, MOCK_CONTRACTS, MOCK_PAYMENTS, MOCK_WALLET } from "../mock/work";
 import type { Application, Contract, Payment, Project, Review, Wallet } from "../types";
-
-/* Pola yang sama dengan data/projects: satu titik peralihan, halaman tidak
-   pernah memeriksa USE_MOCK sendiri. */
 
 export interface Hasil<T> {
   data: T;
@@ -27,11 +26,6 @@ async function ambil<T>(mock: T, nyata: () => Promise<T>, kosong: T): Promise<Ha
   if (USE_MOCK) return { data: mock, sample: true };
   try {
     const data = await nyata();
-    /* Yang seharusnya daftar tapi datang bukan daftar dikembalikan sebagai
-       daftar kosong. Respons sebentuk itu (versi backend lain, proxy yang
-       membungkus ulang, galat yang terlanjur berstatus 200) membuat setiap
-       .map di halaman menjatuhkan seluruh layar, bukan sekadar menampilkan
-       daftar kosong. Persis itu yang pernah meruntuhkan halaman cari proyek. */
     if (Array.isArray(kosong) && !Array.isArray(data)) return { data: kosong, sample: false };
     return { data, sample: false };
   } catch (error) {
@@ -43,11 +37,6 @@ export const myApplications = () => ambil<Application[]>(MOCK_APPLICATIONS, appl
 
 export const myContracts = () => ambil<Contract[]>(MOCK_CONTRACTS, contractsApi.mine, []);
 
-export const myPayments = () => ambil<Payment[]>(MOCK_PAYMENTS, paymentsApi.mine, []);
-
-/* Bentuk respons dirapikan di sini: halaman dompet membaca recent_transactions
-   langsung, jadi respons tanpa bidang itu (versi backend lain, proxy) akan
-   menjatuhkan seluruh halaman, bukan sekadar mengosongkan daftar mutasi. */
 export const myWallet = async (): Promise<Hasil<Wallet>> => {
   const hasil = await ambil<Wallet>(MOCK_WALLET, walletApi.summary, {
     amount: 0,
@@ -69,10 +58,6 @@ export const myWallet = async (): Promise<Hasil<Wallet>> => {
 export async function getApplication(id: string): Promise<Hasil<Application | null>> {
   if (USE_MOCK) return { data: MOCK_APPLICATIONS.find((a) => a.id === id) ?? null, sample: true };
   try {
-    /* GET /applications/:id hanya mengirim kolom mentah, tanpa proyek, pemilik
-       usaha, atau kontrak. /applications/my membawa ketiganya, jadi lamaran
-       dicari di sana dulu. Endpoint detail tetap dipanggil kalau tidak ketemu,
-       supaya 404 dan 403 dari backend tetap sampai ke halaman. */
     const milikku = (await applicationsApi.mine()).find((a) => a.id === id);
     if (milikku) return { data: milikku, sample: false };
     return { data: await applicationsApi.detail(id), sample: false };
@@ -120,8 +105,6 @@ export async function projectApplications(projectId: string): Promise<Hasil<Appl
 }
 
 export async function contractReviews(contractId: string): Promise<Hasil<Review[]>> {
-  /* Belum ada ulasan contoh: kontrak contoh masih berjalan, jadi daftar kosong
-     adalah keadaan yang benar, bukan data yang hilang. */
   if (USE_MOCK) return { data: [], sample: true };
   try {
     return { data: await reviewsApi.byContract(contractId), sample: false };

@@ -1,3 +1,5 @@
+/* Gaya penampil nominal rupiah. */
+
 .wrap {
   display: inline-flex;
   flex-direction: row;
@@ -15,8 +17,6 @@
   letter-spacing: 0;
 }
 
-/* sl-money membawa tabular-nums dari token tipografi, sehingga kolom rupiah
-   tetap rata walau digitnya berbeda lebar. */
 .value {
   white-space: nowrap;
 }

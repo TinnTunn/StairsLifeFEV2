@@ -1,3 +1,5 @@
+/* Gaya lonceng notifikasi. */
+
 .akar {
   position: relative;
   display: flex;
@@ -68,8 +70,6 @@
   }
 }
 
-/* Di layar sempit panel menempel ke tepi layar, bukan ke tombol, supaya tidak
-   terpotong di kiri. */
 @media (max-width: 639px) {
   .akar {
     position: static;

@@ -1,14 +1,7 @@
+// Konfigurasi uji E2E Playwright terhadap dev server di port 3001.
+
 import { defineConfig, devices } from "@playwright/test";
 
-/**
- * Uji ujung ke ujung antarmuka. Semua panggilan browser ke API StairsLife
- * dimock di tes (lihat tests/e2e/api-tiruan.ts), jadi uji ini tidak menulis
- * ke database dan tidak menyentuh Xendit. Halaman publik yang dirender server
- * tetap boleh jalan tanpa backend: tes tidak bergantung pada isinya.
- *
- * Lokal: memakai Chrome yang terpasang (channel chrome) supaya tidak perlu
- * mengunduh browser. CI: `npx playwright install --with-deps chromium`.
- */
 export default defineConfig({
   testDir: "tests/e2e",
   timeout: 60_000,

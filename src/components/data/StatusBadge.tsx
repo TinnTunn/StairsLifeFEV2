@@ -1,3 +1,5 @@
+// Lencana status yang memetakan enum backend ke label Indonesia.
+
 "use client";
 
 import type { ComponentPropsWithoutRef } from "react";
@@ -21,7 +23,6 @@ type Family =
 
 export type StatusKey = keyof Kamus["komponen"]["status"];
 
-/** Keluarga warna setiap status. Labelnya ada di kamus (t.komponen.status). */
 const FAMILY: Record<StatusKey, Family> = {
   draft: "draft",
   aktif: "aktif",
@@ -53,7 +54,6 @@ const FAMILY: Record<StatusKey, Family> = {
 
 export interface StatusBadgeProps extends ComponentPropsWithoutRef<"span"> {
   status: string;
-  /** Menimpa label bawaan. Warnanya tetap mengikuti status. */
   label?: string;
   size?: "sm" | "md";
 }
@@ -62,13 +62,6 @@ function isStatusKey(s: string): s is StatusKey {
   return s in FAMILY;
 }
 
-/**
- * Label status berbentuk kotak bersudut lembut.
- *
- * Tanpa titik warna dan tanpa bentuk pil: titik kecil berwarna adalah bahasa
- * lampu indikator ("sedang menyala sekarang"), padahal status di sini adalah
- * keterangan keadaan, dan warnanya sudah dibawa latar serta teksnya.
- */
 export function StatusBadge({ status, label, size = "md", className, ...rest }: StatusBadgeProps) {
   const { t } = useBahasa();
   const key: StatusKey = isStatusKey(status) ? status : "draft";

@@ -1,8 +1,8 @@
+// robots.txt yang disusun dari alamat situs.
+
 import type { MetadataRoute } from "next";
 import { SITUS_URL } from "@/lib/situs";
 
-/* Hanya halaman publik yang layak diindeks. Area yang butuh akun sudah
-   ber-noindex, tetapi tetap dilarang di sini supaya tidak dirayapi percuma. */
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {

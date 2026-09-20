@@ -1,3 +1,5 @@
+// Aksi kontrak sesuai peran: bayar, setujui, atau selesaikan.
+
 "use client";
 
 import { useState } from "react";
@@ -22,7 +24,6 @@ import { useAsync } from "@/lib/useAsync";
 import app from "../../mahasiswa/dashboard.module.css";
 import styles from "./kontrak.module.css";
 
-/** Aksi berisiko dengan pesan galat yang sama: mode contoh, galat API, atau jaringan. */
 function useAksi(t: Kamus) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -67,9 +68,7 @@ export function ContractActions({
   payment: Payment | null;
   mahasiswa: boolean;
   sudahMengulas: boolean;
-  /** Selama sengketa berjalan, dana hanya bergerak lewat putusan admin. */
   sengketaAktif?: boolean;
-  /** Dipanggil setelah aksi berhasil, supaya halaman memuat ulang kontrak, pembayaran, dan ulasan. */
   onBerubah: () => void;
 }) {
   if (!mahasiswa && (!payment || payment.status === "pending" || payment.status === "expired" || payment.status === "failed")) {
@@ -87,8 +86,6 @@ export function ContractActions({
   return null;
 }
 
-/* Bisnis: buat tagihan lalu diarahkan ke Xendit.
-   Backend mengembalikan invoice_url untuk dituju, bukan QR untuk dirender. */
 function BayarEscrow({ contract, payment }: { contract: Contract; payment: Payment | null }) {
   const { t } = useBahasa();
   const b = t.aplikasi.kontrak.aksi.bayar;
@@ -98,8 +95,6 @@ function BayarEscrow({ contract, payment }: { contract: Contract; payment: Payme
   function bayar() {
     void jalankan(async () => {
       const invoice = await payments.createInvoice(contract.id, contract.agreed_budget);
-      /* Halaman pembayaran ada di domain Xendit, jadi ini benar-benar
-         meninggalkan aplikasi. Router Next tidak dipakai di sini. */
       window.location.href = invoice.invoice_url;
     });
   }
@@ -114,8 +109,6 @@ function BayarEscrow({ contract, payment }: { contract: Contract; payment: Payme
       </h3>
       <p className={styles.warn}>{kedaluwarsa ? b.isiUlang : b.isi}</p>
       <p className={styles.rincian}>
-        {/* Tagihan yang sudah dibuat membawa komisi pastinya; tagihan baru
-            memakai persen dari pengaturan backend. */}
         {payment && !kedaluwarsa && payment.platform_fee > 0 ? (
           b.rincian(
             formatRupiah(contract.agreed_budget),
@@ -140,16 +133,12 @@ function BayarEscrow({ contract, payment }: { contract: Contract; payment: Payme
   );
 }
 
-/* Mahasiswa: unggah hasil lalu tandai kontrak menunggu review. */
 function KirimHasil({ contract, onBerubah }: { contract: Contract; onBerubah: () => void }) {
   const { t } = useBahasa();
   const k = t.aplikasi.kontrak.aksi.kirim;
   const { loading, error, setError, jalankan, galat } = useAksi(t);
   const [files, setFiles] = useState<File[]>([]);
   const [catatan, setCatatan] = useState("");
-  /* Berkas hasil kerja boleh sampai 50 MB dan diunggah satu per satu, jadi
-     jedanya bisa menit-menit di koneksi seluler. Tanpa penanda berkas ke
-     berapa, layar diam itu terbaca sebagai aplikasi yang macet. */
   const [progres, setProgres] = useState<string | null>(null);
 
   async function kirim() {
@@ -164,9 +153,6 @@ function KirimHasil({ contract, onBerubah }: { contract: Contract; onBerubah: ()
     }
     const berhasil = await jalankan(async () => {
       try {
-        /* Unggah satu per satu: endpoint upload menerima satu berkas per
-           permintaan. Kolom deliverable_url menyimpan satu URL apa adanya,
-           atau array ter-JSON kalau lebih dari satu. */
         const hasil: UploadResult[] = [];
         for (const [i, f] of files.entries()) {
           setProgres(k.mengunggah(i + 1, files.length));
@@ -227,7 +213,6 @@ function KirimHasil({ contract, onBerubah }: { contract: Contract; onBerubah: ()
   );
 }
 
-/* Bisnis: setujui (melepas dana, tidak bisa dibatalkan) atau minta perbaikan. */
 function PutusHasil({
   contract,
   payment,
@@ -245,8 +230,6 @@ function PutusHasil({
   const [alasan, setAlasan] = useState("");
 
   const diterima = payment?.net_amount ?? contract.agreed_budget;
-  /* Kiriman yang sedang dilihat klien. Backend menolak keputusan bila yang
-     menunggu review sudah kiriman lain (DELIVERABLE_CHANGED). */
   const riwayat = useAsync(() => contractDeliverables(contract.id), [contract.id, contract.status]);
   const kirimanDilihat = (riwayat.data?.data ?? []).find((x) => x.status === "pending")?.id;
 
@@ -277,8 +260,6 @@ function PutusHasil({
         </Button>
       </div>
 
-      {/* dismissible false: ini keputusan dana, jadi pengguna harus memilih
-          salah satu, bukan menutupnya dengan Escape tanpa sadar. */}
       <Modal
         open={konfirmasi}
         onClose={() => setKonfirmasi(false)}
@@ -338,7 +319,6 @@ function PutusHasil({
   );
 }
 
-/* Ulasan dua arah setelah kontrak selesai. */
 function BeriUlasan({
   contract,
   mahasiswa,

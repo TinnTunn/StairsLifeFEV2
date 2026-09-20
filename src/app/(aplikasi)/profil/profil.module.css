@@ -1,4 +1,5 @@
-/* Profil gaya V2: sampul aurora tipis, avatar menumpang di tepinya, fakta dalam grid kartu kecil. */
+/* Gaya halaman profil sendiri. */
+
 .card {
   position: relative;
   overflow: hidden;
@@ -28,9 +29,6 @@
   opacity: 0.45;
 }
 
-/* Hanya avatar yang menumpang di sampul. Dulu seluruh baris ditarik ke atas
-   dan dirata bawah dengan avatar, sehingga blok nama yang lebih tinggi dari
-   avatar ikut naik ke sampul dan tertutup sampul yang digambar di atasnya. */
 .head {
   position: relative;
   display: grid;
@@ -51,7 +49,6 @@
 
 .headText {
   min-width: 0;
-  /* 48px tumpangan avatar ditambah jarak, supaya nama mulai di bawah sampul. */
   padding-top: calc(48px + var(--space-3));
   display: flex;
   flex-direction: column;
@@ -82,11 +79,6 @@
   align-items: center;
 }
 
-/* Tiga label identitas berdiri berdampingan: peran, status verifikasi, dan
-   tingkat. Sebelumnya bentuknya pil, kotak, lalu pil lagi, dengan dua ukuran
-   huruf dan dua gaya huruf yang berbeda, sehingga barisnya terbaca berantakan.
-   Ukurannya kini mengikuti lencana status yang jadi acuan, jadi ketiganya
-   sebangun dan hanya warnanya yang membedakan. */
 .peran,
 .chip {
   display: inline-flex;
@@ -178,15 +170,6 @@
   color: var(--brand);
 }
 
-.note {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 0;
-  font-size: var(--text-caption);
-  color: var(--text-muted);
-}
-
 @media (max-width: 640px) {
   .card {
     padding: 0 18px 18px;
@@ -196,7 +179,6 @@
     margin: 0 -18px;
   }
 
-  /* Di layar sempit nama, email, dan rating turun ke bawah avatar. */
   .head {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -237,8 +219,6 @@
   }
 }
 
-/* Kepala seksi rekam jejak: judul dan penjelasan di kiri, jalan ke profil
-   publik di kanan. Di layar sempit tombolnya turun, bukan menggencet judul. */
 .jejakKepala {
   display: flex;
   align-items: flex-start;

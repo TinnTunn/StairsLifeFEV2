@@ -1,35 +1,25 @@
-/* ============================================================
-   TIPOGRAFI
-   Bricolage Grotesque = display/judul (opsz variabel, dipakai besar).
-   Archivo = seluruh UI, teks, label, dan ANGKA (tabular untuk uang).
-   Tidak ada font mono; nominal rupiah pakai Archivo + font-variant-numeric.
-   ============================================================ */
+/* Token tipografi: ukuran, tebal, dan jarak huruf. */
 
 :root {
-  /* --font-display-src / --font-sans-src disuplai next/font/google di layout root.
-     Dipisah supaya next/font tidak beradu spesifisitas dengan :root di sini,
-     dan tumpukan fallback design system tetap utuh saat font belum dimuat. */
   --font-display: var(--font-display-src), "Bricolage Grotesque", "Archivo", system-ui, -apple-system, sans-serif;
   --font-sans: var(--font-sans-src), "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-numeric: var(--font-sans-src), "Archivo", system-ui, sans-serif;
 
-  /* Skala — mobile-first, angka dalam rem (root 16px) */
-  --text-display-1: 2.75rem;   /* 44px — hero landing */
-  --text-display-2: 2.125rem;  /* 34px — judul seksi ekspresif */
-  --text-h1: 1.75rem;          /* 28px */
-  --text-h2: 1.375rem;         /* 22px */
-  --text-h3: 1.125rem;         /* 18px */
-  --text-body-lg: 1.0625rem;   /* 17px — paragraf landing */
-  --text-body: 0.9375rem;      /* 15px — teks aplikasi */
-  --text-body-sm: 0.875rem;    /* 14px — teks sekunder, sel tabel */
-  --text-label: 0.8125rem;     /* 13px — label form */
-  --text-caption: 0.75rem;     /* 12px — meta, timestamp */
-  --text-overline: 0.625rem;   /* 10px — eyebrow, all-caps */
+  --text-display-1: 2.75rem;
+  --text-display-2: 2.125rem;
+  --text-h1: 1.75rem;
+  --text-h2: 1.375rem;
+  --text-h3: 1.125rem;
+  --text-body-lg: 1.0625rem;
+  --text-body: 0.9375rem;
+  --text-body-sm: 0.875rem;
+  --text-label: 0.8125rem;
+  --text-caption: 0.75rem;
+  --text-overline: 0.625rem;
 
-  /* Nominal uang */
-  --text-money-lg: 1.5rem;     /* 24px — saldo dompet */
-  --text-money: 1.1875rem;     /* 19px — harga proyek */
-  --text-money-sm: 0.9375rem;  /* 15px — baris transaksi */
+  --text-money-lg: 1.5rem;
+  --text-money: 1.1875rem;
+  --text-money-sm: 0.9375rem;
 
   --leading-tight: 1.05;
   --leading-snug: 1.25;
@@ -50,19 +40,18 @@
 
 @media (min-width: 768px) {
   :root {
-    --text-display-1: 3.5rem;   /* 56px */
-    --text-display-2: 2.5rem;   /* 40px */
-    --text-h1: 2rem;            /* 32px */
+    --text-display-1: 3.5rem;
+    --text-display-2: 2.5rem;
+    --text-h1: 2rem;
   }
 }
 
 @media (min-width: 1280px) {
   :root {
-    --text-display-1: 4.25rem;  /* 68px */
+    --text-display-1: 4.25rem;
   }
 }
 
-/* Kelas utilitas tipografi — dipakai kartu spesimen & UI kit */
 .sl-display-1 { font-family: var(--font-display); font-size: var(--text-display-1); line-height: var(--leading-tight); letter-spacing: var(--tracking-display); font-weight: var(--weight-semibold); }
 .sl-display-2 { font-family: var(--font-display); font-size: var(--text-display-2); line-height: var(--leading-tight); letter-spacing: var(--tracking-display); font-weight: var(--weight-semibold); }
 .sl-h1 { font-family: var(--font-display); font-size: var(--text-h1); line-height: var(--leading-snug); letter-spacing: var(--tracking-heading); font-weight: var(--weight-semibold); }

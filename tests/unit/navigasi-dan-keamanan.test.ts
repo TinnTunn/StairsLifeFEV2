@@ -1,3 +1,5 @@
+// Uji unit izin rute dan penyaring jalur pengalihan.
+
 import { describe, expect, it } from "vitest";
 import { izinUntukRute } from "@/components/layout/nav-items";
 import { KAMUS } from "@/i18n/kamus";

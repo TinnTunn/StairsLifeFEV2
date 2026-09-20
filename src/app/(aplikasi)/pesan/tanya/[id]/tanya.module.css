@@ -1,4 +1,5 @@
-/* Tombol kembali di kepala percakapan: bulat kecil, sejajar avatar. */
+/* Gaya halaman obrolan tanya jawab. */
+
 .kembali {
   display: grid;
   place-items: center;

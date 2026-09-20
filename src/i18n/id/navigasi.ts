@@ -1,3 +1,5 @@
+// Kamus Indonesia: label navigasi.
+
 export const navigasi = {
   header: {
     label: "Navigasi utama",

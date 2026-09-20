@@ -1,3 +1,5 @@
+// Halaman cari proyek dengan pencarian dan saringan tingkat.
+
 "use client";
 
 import { useSearchParams } from "next/navigation";
@@ -18,22 +20,11 @@ import styles from "./cari.module.css";
 
 const TIER: ProjectTier[] = ["pemula", "menengah", "mahir"];
 
-/**
- * Cari proyek di dalam shell aplikasi.
- *
- * Halaman publik /proyek tetap ada untuk tamu dan mesin pencari, tapi
- * mahasiswa yang sudah masuk memakai halaman ini: sidebar dan topbar tetap,
- * tanpa header pemasaran dan footer publik yang membuat orang merasa keluar
- * dari aplikasi. Susunannya mengikuti tab Cari Project di FE V2: judul, jumlah,
- * bilah cari, chip, lalu grid kartu.
- */
 export default function CariProyek() {
   const { t } = useBahasa();
   const c = t.aplikasi.mahasiswa.cari;
   return (
     <MahasiswaShell title={c.judul} subtitle={c.sub}>
-      {/* useSearchParams butuh batas Suspense supaya sisa halaman tetap bisa
-          dirender lebih dulu. */}
       <Suspense fallback={<SkeletonCard lines={3} label={c.memuat} />}>
         <Isi />
       </Suspense>
@@ -56,10 +47,6 @@ function Isi() {
     () => listProjects({ search: search || undefined, tier }),
     [search, tier ?? ""],
   );
-  /* Bentuknya harus persis sama dengan pemakai kunci cache "lamaran-saya" yang
-     lain (beranda dan daftar lamaran): cache dibagi per kunci, jadi menyimpan
-     array di sini sementara halaman lain menyimpan { data, sample } membuat
-     halaman yang dibuka belakangan membaca bentuk yang salah. */
   const lamaran = useAsync(myApplications, [], "lamaran-saya");
 
   if (hasil.loading) return <SkeletonCard lines={4} label={c.memuat} />;
@@ -108,8 +95,6 @@ function Isi() {
               />
             ))}
           </div>
-          {/* Backend GET /projects belum punya paginasi, jadi seluruh proyek
-              terbuka dimuat sekaligus dan itu dikatakan apa adanya. */}
           <p className={styles.catatan}>{d.catatanSemua}</p>
         </>
       )}

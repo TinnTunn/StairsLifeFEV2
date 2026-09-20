@@ -1,3 +1,5 @@
+// Navigasi bawah untuk layar sempit.
+
 "use client";
 
 import Link from "next/link";
@@ -8,7 +10,6 @@ import { isActive, type NavItem } from "./Sidebar";
 import styles from "./BottomNav.module.css";
 
 export interface BottomNavProps {
-  /** Maksimal 5. Lebih dari itu target sentuh turun di bawah 44px pada layar 360px. */
   items: NavItem[];
   className?: string;
 }

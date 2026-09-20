@@ -344,3 +344,89 @@ backend, karena entitas di produk ini adalah proyek, bukan lowongan.
 |---|---|
 | Bisnis tidak diverifikasi | Menyetor dana kontrak ke escrow adalah verifikasinya. Bisnis tidak bisa menerima pelamar tanpa membayar lebih dulu, jadi uang yang benar-benar berpindah membuktikan lebih banyak daripada dokumen yang diunggah. Backend sudah bekerja begitu: `POST /auth/register` menyetel `is_verified: true` untuk akun bisnis, dan itu benar, bukan bug |
 | `VerificationBanner` khusus mahasiswa | Turunan dari keputusan di atas. Untuk bisnis, komponen ini hanya menampilkan pembekuan akun; status verifikasi apa pun tidak dirender |
+
+## Pembersihan kode mati dan kebijakan komentar (20 September 2026)
+
+Satu baris penjelas di paling atas tiap berkas kode, tidak ada komentar lain.
+Diterapkan ke 333 berkas frontend dan 132 berkas backend; 989 dan 892 komentar dibuang.
+Alasannya milik pemilik produk, dan konsekuensinya diterima: alasan di balik keputusan
+tidak lagi hidup di sebelah kodenya, jadi berkas inilah satu-satunya tempat alasan itu
+disimpan. Menambah komentar penjelas kembali ke kode berarti melanggar aturan ini.
+
+Yang tetap dipertahankan karena bukan dokumentasi melainkan instruksi untuk alat:
+direktif `eslint-disable`, `@ts-expect-error`, dan sejenisnya, termasuk yang dibungkus
+kurung kurawal di JSX. Penghapusnya memakai parser TypeScript, bukan pencocokan pola,
+supaya string, regex, dan komentar JSX tidak salah terbaca.
+
+Berkas di `prisma/migrations/` sengaja tidak disentuh: isinya SQL yang sudah dijalankan
+di basis data, dan menyunting catatan yang sudah terpakai tidak menghasilkan apa pun
+selain risiko.
+
+| Dibuang | Isi |
+|---|---|
+| `components/feedback/Toast.tsx` dan gayanya | 169 baris, tidak dirujuk satu berkas pun |
+| `AvatarGroup`, `myPayments`, tipe `ChatMessage` | Ekspor yang tidak pernah diimpor siapa pun |
+| 32 kelas CSS Module | 13 di antaranya sisa pemindahan rekam jejak ke `RekamJejak` |
+| 6 berkas `*.entity.ts` backend | Antarmuka peninggalan sebelum Prisma, 129 baris |
+| `PaginationDto`, tipe `XenditDisbursementWebhook` | Tidak dipakai; webhook disbursement sudah punya tipe sendiri di tempat ia dipakai |
+| 6 impor dan tipe mati di backend | Terdeteksi ESLint, sebelumnya tertutup 85 galat format |
+| `PUBLIC_BASE_URL` di `.env` backend | Tidak dibaca satu baris kode pun, dan akan ikut tersalin ke Railway tanpa guna |
+
+`src/common/cors.util.ts` tidak dibuang meski tidak diimpor siapa pun, melainkan
+disambungkan. Logikanya ternyata disalin utuh ke tiga tempat: `main.ts`,
+`chat.gateway.ts`, dan `notifications.gateway.ts`. Alasan yang ditulis di sana, bahwa
+decorator `@WebSocketGateway()` butuh nilai compile-time, keliru: argumen decorator
+dievaluasi saat modul dimuat, jadi pemanggilan fungsi yang diimpor bekerja sama saja.
+Berkas yang justru dibuat untuk mencegah pergeseran konfigurasi malah menjadi satu
+satunya salinan yang tidak dipakai. Sekarang ketiganya mengimpor dari sana.
+
+## Lockfile dan CI (20 September 2026)
+
+`npm ci` gagal di GitHub Actions dengan `EUSAGE`: `package-lock.json` memuat paket
+opsional lintas platform seperti `@img/sharp-wasm32` dan
+`@unrs/resolver-binding-wasm32-wasi`, tetapi tidak memuat simpul untuk dependensinya
+(`@emnapi/core`, `@emnapi/runtime`). npm menolak membuat simpul bagi dependensi paket
+yang tidak berlaku di platform mana pun, namun `npm ci` tetap memvalidasinya.
+
+Membangun ulang lockfile tidak cukup, karena npm mengulang keputusan yang sama.
+Jalan keluarnya: `@emnapi/core` dan `@emnapi/runtime` dipasang sebagai devDependency
+dengan versi dipatok tepat `1.10.0`, satu satunya versi yang memenuhi permintaan eksak
+`@unrs/resolver-binding-wasm32-wasi` sekaligus rentang `^1.7.1` milik
+`@napi-rs/wasm-runtime`. Keduanya tidak pernah diimpor kode ini; keberadaannya semata
+supaya pohon dependensi di lockfile lengkap. `npm ci` dipertahankan, bukan diganti
+`npm install`, karena reproducibility lebih berharga daripada dua baris devDependency.
+
+Langkah `Build` di CI diberi `NEXT_PUBLIC_API_BASE_URL` dan `NEXT_PUBLIC_SITE_URL`
+berbentuk produksi (`https://api.contoh.test/api/v1`), terpisah dari env level job.
+`scripts/cek-produksi.mjs` menolak localhost dan http saat `CI=true`, dan GitHub Actions
+selalu menyetel `CI=true`, jadi build di CI akan berhenti tanpa ini. Env level job tetap
+localhost karena dev server yang dipakai uji E2E harus cocok dengan alamat yang dimock
+`tests/e2e/api-tiruan.ts`. Berkas itu kini membaca `NEXT_PUBLIC_API_BASE_URL` dengan
+localhost sebagai cadangan, supaya keduanya tidak bisa bergeser diam diam.
+
+## Ikon chat dan bintang (20 September 2026)
+
+Ikon chat dan bintang diganti dengan aset baru dari pemilik produk. `Komentar`
+sekarang dua balon percakapan, dan kunci `Level` (tiga bintang bergaris) diganti
+`Bintang` berisi satu bintang. Nama kuncinya ikut berubah supaya isinya sesuai
+namanya; `IconName` bertipe union sehingga `tsc` menolak rujukan yang tertinggal.
+
+Yang perlu diingat kalau aset ini diganti lagi: sistem ikon memakai PNG sebagai
+**CSS mask**, jadi hanya kanal alpha yang dipakai dan seluruh warna di berkasnya
+dibuang. Bintang emas tetap tampil emas karena warnanya datang dari `currentColor`
+milik induknya, bukan dari berkasnya.
+
+Konsekuensinya menggigit ikon chat. Berkas aslinya berisi outline hitam dengan
+bagian dalam **putih pekat**, bukan transparan: 55,6% pikselnya opaque, dan alpha
+di titik tengah 255. Dipasang apa adanya, mask-nya jadi gumpalan pejal, bukan dua
+balon. Alpha-nya dibangun ulang dari kegelapan piksel (`alpha = alpha x (1 - luminance)`),
+sehingga garisnya jadi opaque dan bagian dalamnya transparan; cakupan opaque turun
+ke 16,8% dan bentuknya kembali seperti gambar aslinya. Bintang tidak butuh
+perlakuan ini karena memang bidang pejal.
+
+Ambang `min: 20` dipertahankan untuk keduanya. Di bawah ukuran itu ikon jatuh ke
+Lucide (`MessageSquare` dan `Star`), yang berarti tombol dan kartu berikon 16 sampai
+18px tidak berubah sama sekali. Yang berubah hanya tempat berukuran 20px ke atas:
+sidebar, navigasi bawah, keadaan kosong halaman pesan, dan deretan fitur di beranda.
+Bintang di komponen `Rating` juga tidak tersentuh: ia SVG sendiri karena butuh isian
+sebagian untuk nilai pecahan, yang tidak bisa dilakukan mask PNG.

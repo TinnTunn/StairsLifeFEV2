@@ -1,3 +1,5 @@
+// Halaman 404 untuk rute yang tidak ada.
+
 import type { Metadata } from "next";
 import { ambilKamus } from "@/i18n/server";
 import { TombolBeranda } from "@/components/layout/TombolBeranda";

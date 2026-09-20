@@ -1,3 +1,5 @@
+// Formulir banding akun disuspend.
+
 "use client";
 
 import { useState, type FormEvent } from "react";
@@ -13,11 +15,6 @@ import styles from "../masuk/auth.module.css";
 
 const POLA_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-/**
- * Banding akun yang dibekukan. Pemilik akun tidak bisa masuk, jadi form ini
- * publik dan hanya meminta email akun. Backend selalu membalas sama, apa pun
- * emailnya, supaya status akun orang lain tidak bisa ditebak dari sini.
- */
 export function FormBanding({ emailAwal = "", onKembali }: { emailAwal?: string; onKembali?: () => void }) {
   const { t } = useBahasa();
   const b = t.fitur.banding;

@@ -1,3 +1,5 @@
+// Halaman profil publik seorang pengguna.
+
 "use client";
 
 import { use } from "react";
@@ -16,25 +18,10 @@ import { users } from "@/lib/api/users";
 import { useAsync } from "@/lib/useAsync";
 import styles from "./pengguna.module.css";
 
-/**
- * Profil publik satu pengguna beserta portofolio kontrak yang sudah selesai.
- *
- * Sebelum ini, pemilik usaha memutuskan menerima atau menolak pelamar hanya
- * dari avatar, tingkat, dan daftar keahlian. Endpoint portofolio sudah ada di
- * backend tapi belum pernah dipakai, padahal riwayat kerja yang sudah dinilai
- * orang lain justru bukti paling kuat di marketplace seperti ini.
- *
- * Dua hal sengaja tidak ditampilkan meski dikirim backend: total penghasilan
- * (angka pendapatan orang lain bukan urusan calon pemberi kerja) dan tautan
- * berkas hasil kerja (itu milik klien sebelumnya, bukan bahan pamer publik).
- */
 export default function ProfilPengguna({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
   const { t } = useBahasa();
   const { session } = useSesi();
-  /* Halaman ini dicapai dari detail proyek maupun dari kartu pelamar, jadi
-     tujuan tetap mana pun akan salah separuh waktu. Cadangannya beranda peran
-     yang sedang masuk, dipakai hanya kalau halamannya dibuka langsung. */
   const cadangan = session ? BERANDA_PERAN[session.user.role] : "/mahasiswa";
   return (
     <Halaman title={t.fitur.profilPublik.judul} subtitle={t.fitur.profilPublik.sub}>
@@ -66,9 +53,6 @@ function Isi({ id }: { id: string }) {
 
   const [profil, portofolio] = hasil.data;
 
-  /* Profil tanpa bidang user tidak bisa digambar sama sekali, jadi ditangani
-     di sini sebagai layar gagal biasa. Tanpa penjaga ini seluruh halaman
-     tumbang di baris pertama yang membaca nama. */
   if (!profil?.user) {
     return <EmptyState icon="UserSearch" title={g.gagalJudul} description={t.umum.galat.muatUlangHalaman} />;
   }

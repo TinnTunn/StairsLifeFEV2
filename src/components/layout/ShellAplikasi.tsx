@@ -1,3 +1,5 @@
+// Pemasang kerangka aplikasi beserta penjaga peran satu kali.
+
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
@@ -26,10 +28,8 @@ import {
 } from "./nav-items";
 import type { SidebarEntry } from "../navigation/Sidebar";
 
-/** Rute yang dipakai semua peran, termasuk admin. */
 const UNTUK_SEMUA = ["/notifikasi"];
 
-/** Peran yang dibutuhkan rute ini. null: halaman bersama mahasiswa dan bisnis. */
 function peranUntuk(pathname: string): UserRole | null {
   for (const peran of ["admin", "mahasiswa", "bisnis"] as const) {
     if (pathname === `/${peran}` || pathname.startsWith(`/${peran}/`)) return peran;
@@ -43,17 +43,6 @@ const NAV = {
   admin: { sidebar: NAV_ADMIN, bottom: BOTTOM_ADMIN },
 };
 
-/**
- * Penjaga dan shell untuk seluruh area yang butuh akun, dipasang sekali di
- * layout (aplikasi).
- *
- * Penjaga ini sisi klien, bukan middleware, karena token hidup di
- * localStorage. Ini bukan lapisan keamanan: yang benar-benar menolak akses
- * adalah guard di backend. Fungsinya mengarahkan orang ke tempat yang benar.
- *
- * Navigasi mengikuti peran yang sedang masuk, bukan rute, jadi mahasiswa yang
- * membuka /kontrak tetap melihat sidebar mahasiswa dan shell tidak dibongkar.
- */
 export function ShellAplikasi({ children }: { children: ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -61,31 +50,18 @@ export function ShellAplikasi({ children }: { children: ReactNode }) {
   const { t } = useBahasa();
   const p = t.komponen.penjaga;
 
-  /* Sesi dibaca ulang di dalam efek, bukan dari snapshot render: snapshot
-     server selalu null, dan pada render hidrasi pertama nilai itulah yang
-     dipakai. Kalau efek memercayainya, setiap pengguna yang sudah masuk akan
-     dilempar ke halaman login begitu halaman dimuat ulang. */
-  /* adaSesi ikut jadi dependensi supaya sesi yang dicabut di tengah jalan
-     (refresh token ditolak server) langsung mengarahkan ke halaman masuk,
-     bukan menunggu pengguna berpindah halaman sendiri dari layar "butuh akun". */
   const adaSesi = session !== null;
   useEffect(() => {
     if (readSession() === null && !sedangKeluar()) {
-      /* Rute panel punya pintu masuknya sendiri: halaman masuk biasa membingkai
-         produk untuk mahasiswa dan usaha, bukan untuk pengurus platform. */
       const pintu = pathname.startsWith("/admin") ? "/masuk/admin" : "/masuk";
       router.replace(`${pintu}?lanjut=${encodeURIComponent(pathname)}`);
     }
   }, [pathname, router, adaSesi]);
 
-  /* Status akun (terverifikasi, dibekukan) disegarkan saat berpindah halaman,
-     paling sering sekali per menit. */
   useEffect(() => {
     void segarkanSesi();
   }, [pathname]);
 
-  /* Izin admin menentukan menu yang tampil. Backend tetap menolak endpoint
-     yang tidak diizinkan; menu hanya berhenti menawarkan pintu yang terkunci. */
   const perannya = session?.user.role;
   const [akses, setAkses] = useState<{ untuk: string; nilai: AksesAdmin } | null>(null);
   useEffect(() => {
@@ -126,7 +102,6 @@ export function ShellAplikasi({ children }: { children: ReactNode }) {
   };
   const saring = <T extends SidebarEntry>(daftar: T[]): T[] => {
     const hasil = daftar.filter((x) => !("href" in x) || boleh(x.href));
-    // Judul seksi yang tidak lagi punya isi ikut dibuang.
     return hasil.filter((x, i) => !("section" in x) || (hasil[i + 1] !== undefined && !("section" in hasil[i + 1])));
   };
 
@@ -166,9 +141,6 @@ export function ShellAplikasi({ children }: { children: ReactNode }) {
       bottom={saring(NAV[role].bottom)}
       topbarExtra={<LoncengNotifikasi />}
     >
-      {/* Akun yang dibekukan saat sedang masuk: sesi refresh sudah dicabut
-          backend, tetapi access token berlaku sampai satu jam. Selama itu
-          pengguna diberi tahu dan diarahkan ke banding. */}
       {session.user.is_suspended && role !== "admin" ? (
         <VerificationBanner
           status="disuspend"

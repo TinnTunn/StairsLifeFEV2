@@ -1,3 +1,5 @@
+// Formulir masuk admin.
+
 "use client";
 
 import Link from "next/link";
@@ -15,15 +17,6 @@ import { jalurAman } from "@/lib/jalur";
 import { idKolom, useGalatKolom } from "@/lib/useGalatKolom";
 import styles from "./admin.module.css";
 
-/**
- * Masuk khusus panel admin.
- *
- * Terpisah dari halaman masuk biasa karena isinya memang beda: tidak ada ajakan
- * mendaftar (akun admin tidak dibuat sendiri), tidak ada cerita produk, dan
- * peran diperiksa sebelum sesinya ditulis. Akun bukan admin yang berhasil
- * masuk di sini ditolak dengan alasan yang jelas, bukan dibiarkan mendarat di
- * layar "halaman ini untuk admin".
- */
 export function FormAdmin() {
   const router = useRouter();
   const params = useSearchParams();
@@ -31,8 +24,6 @@ export function FormAdmin() {
   const a = t.auth.masukAdmin;
   const f = t.auth.bidang;
 
-  /* Tujuan hanya diikuti bila memang di dalam panel admin: parameter lanjut
-     datang dari URL dan tidak boleh jadi jalan ke halaman lain. */
   const tujuan = jalurAman(params.get("lanjut"));
   const lanjut = tujuan && tujuan.startsWith("/admin") ? tujuan : "/admin";
 
@@ -64,8 +55,6 @@ export function FormAdmin() {
     try {
       const hasil = await auth.login(email.trim(), password);
       if (hasil.user.role !== "admin") {
-        /* Sesi sengaja tidak ditulis: masuk di pintu admin dengan akun biasa
-           bukan setengah berhasil, tapi pintu yang salah. */
         setError(a.bukanAdmin);
         return;
       }

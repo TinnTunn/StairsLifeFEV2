@@ -1,4 +1,5 @@
-/* ============ Pita statistik (stats-banner V2) ============ */
+/* Gaya bagian isi beranda publik. */
+
 .stats {
   background: var(--brand);
   border-bottom: var(--border-width) solid var(--brand-pressed);
@@ -40,7 +41,6 @@
   }
 }
 
-/* ============ Seksi umum ============ */
 .section {
   width: 100%;
   max-width: var(--width-container);
@@ -91,7 +91,6 @@
   color: var(--text-muted);
 }
 
-/* ============ Bento ============ */
 .bento {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -202,7 +201,6 @@
   opacity: 1;
 }
 
-/* ============ Chip ikon fitur (feat-ico V2) ============ */
 .featIco {
   width: 48px;
   height: 48px;
@@ -243,7 +241,6 @@
   transform: translateY(-3px) rotate(-5deg);
 }
 
-/* ============ Untuk siapa (aud-switch V2) ============ */
 .audWrap {
   display: flex;
   flex-direction: column;
@@ -371,7 +368,6 @@
   }
 }
 
-/* ============ Tentang kami ============ */
 .tentangGrid {
   display: grid;
   gap: 16px;
@@ -516,7 +512,6 @@
   margin-top: auto;
 }
 
-/* ============ CTA aurora ============ */
 .cta {
   position: relative;
   overflow: hidden;
@@ -591,8 +586,6 @@
   }
 }
 
-/* Tautan header (/#cara-kerja, /#fitur, /#tentang) mendarat di bawah header
-   yang lengket, bukan di belakangnya. */
 .section[id],
 .sectionCream[id] {
   scroll-margin-top: var(--height-topbar);

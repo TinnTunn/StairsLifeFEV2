@@ -1,22 +1,8 @@
-/* ============================================================
-   WARNA — StairsLife "Bata"
-   Netral pasir/kertas hangat + terakota sebagai satu-satunya aksi utama.
-   Aturan: bodi antarmuka netral; terakota hanya untuk aksi utama, status
-   escrow, dan momen keberhasilan. Hijau khusus "aman/selesai".
-   Ungu/indigo/violet DILARANG — warna brand lama.
-   ============================================================ */
+/* Token warna. */
 
 :root {
-  /* Tanpa pilihan pengguna, skemanya ikut sistem. Dua aturan di bawah ini
-     menyamakannya dengan tema yang benar-benar dipakai saat pengguna memaksa
-     salah satu, dan itu bukan soal rapi-rapi saja: warna yang digambar
-     peramban sendiri (isian otomatis, scrollbar, pemilih tanggal, tombol putar
-     angka) diambil dari skema ini, bukan dari token kita. Saat keduanya
-     berbeda, Chrome menulis teks isian otomatis dengan warna skema yang salah,
-     dan teksnya jadi putih di atas kolom putih. */
   color-scheme: light dark;
 
-  /* --- Skala netral pasir (base) --- */
   --sand-25: #FCF8F2;
   --sand-50: #F7F1E8;
   --sand-100: #F1E7D9;
@@ -24,13 +10,12 @@
   --sand-300: #DCD0C0;
   --sand-400: #C3B4A2;
   --sand-500: #9C8B7E;
-  --sand-600: #7B6B5B; /* teks subtle — digelapkan dari #857567 agar lolos 4.5:1 di atas kertas */
+  --sand-600: #7B6B5B;
   --sand-700: #6A5D53;
   --sand-800: #43392F;
   --sand-900: #2E261F;
   --sand-950: #231D18;
 
-  /* --- Terakota (base primary) --- */
   --clay-50: #FBEDE2;
   --clay-100: #F6DAC6;
   --clay-200: #F2D6BF;
@@ -42,9 +27,6 @@
   --clay-800: #85390F;
   --clay-900: #63290A;
 
-  /* --- Kayu teak: KHUSUS balok logo (bukan warna UI) ---
-     Tone utama dipilih karena bekerja di mode terang DAN gelap dengan satu
-     file; walnut (--wood-800/900) disimpan untuk cetak dan merchandise. */
   --wood-100: #F0D6AC;
   --wood-200: #E0C08A;
   --wood-300: #CB9C5C;
@@ -56,7 +38,6 @@
   --wood-900: #3A2414;
   --wood-sheen: rgba(240, 214, 172, 0.26);
 
-  /* --- Semantik base --- */
   --green-50: #E4F1EA;
   --green-500: #16704F;
   --green-600: #0F5B40;
@@ -71,11 +52,6 @@
   --blue-500: #1D4ED8;
   --blue-600: #1A3FA8;
 
-  /* ==========================================================
-     ALIAS SEMANTIK — pakai ini di komponen, bukan base di atas.
-     ========================================================== */
-
-  /* Permukaan */
   --bg-page: var(--sand-25);
   --bg-surface: #FFFFFF;
   --bg-surface-raised: #FFFFFF;
@@ -87,7 +63,6 @@
   --bg-selected: var(--clay-50);
   --bg-overlay: rgba(35, 29, 24, 0.48);
 
-  /* Teks */
   --text-strong: var(--sand-950);
   --text-base: #33291F;
   --text-muted: var(--sand-700);
@@ -100,14 +75,12 @@
   --text-link: var(--clay-700);
   --text-link-hover: var(--clay-800);
 
-  /* Garis */
   --border-subtle: var(--sand-200);
   --border-default: var(--sand-300);
   --border-strong: var(--sand-400);
   --border-focus: var(--clay-600);
   --border-inverse: rgba(255, 255, 255, 0.18);
 
-  /* Aksi utama */
   --primary: var(--clay-600);
   --primary-hover: var(--clay-700);
   --primary-active: var(--clay-800);
@@ -117,7 +90,6 @@
   --primary-text: var(--clay-700);
   --focus-ring: rgba(180, 83, 31, 0.32);
 
-  /* Semantik feedback */
   --success: var(--green-500);
   --success-soft: var(--green-50);
   --success-text: var(--green-600);
@@ -136,11 +108,6 @@
   --info-text: var(--blue-600);
   --info-border: #C7D5F5;
 
-  /* ---- Status siklus proyek & escrow ----
-     Satu warna per tahap, semua di dalam keluarga pasir/terakota/hijau/kuning/merah.
-     TIDAK ada biru di sistem status: chip biru di atas netral hangat terasa
-     seperti komponen dari sistem lain. "Sedang dikerjakan" memakai chip garis
-     netral, dibedakan lewat bentuk, bukan warna baru. */
   --status-draft-bg: #F1E7D9;
   --status-draft-fg: #6A5D53;
   --status-draft-bd: #E3D6C4;
@@ -169,7 +136,6 @@
   --status-ditolak-fg: #8A5A4C;
   --status-ditolak-bd: #E3D6C4;
 
-  /* Uang: nominal masuk vs keluar vs tertahan */
   --money-in: var(--green-600);
   --money-out: var(--sand-700);
   --money-held: var(--clay-700);
@@ -183,12 +149,6 @@
   color-scheme: dark;
 }
 
-/* ============================================================
-   MODE GELAP — mengikuti sistem (prefers-color-scheme),
-   bisa dipaksa dengan [data-theme="dark"] / [data-theme="light"].
-   Bukan sekadar inversi: pasir jadi kayu gelap, terakota dinaikkan
-   terangnya agar tetap lolos 4.5:1 dengan teks gelap.
-   ============================================================ */
 @media (prefers-color-scheme: dark) {
   :root {
     --bg-page: #14100D;
@@ -237,7 +197,7 @@
     --warning-soft: #2A2011;
     --warning-text: #E3B457;
     --warning-border: #453419;
-    --danger: #E4594C; /* diterangkan dari #D8483C (4,2:1) -> 5,0:1 dengan --text-on-danger */
+    --danger: #E4594C;
     --danger-hover: #EE6C5F;
     --danger-soft: #2C1614;
     --danger-text: #F08A80;
@@ -281,7 +241,6 @@
   }
 }
 
-/* Paksa gelap tanpa menunggu preferensi sistem */
 :root[data-theme="dark"] {
   --bg-page: #14100D;
   --bg-surface: #1C1613;
@@ -325,7 +284,7 @@
   --warning-soft: #2A2011;
   --warning-text: #E3B457;
   --warning-border: #453419;
-  --danger: #E4594C; /* diterangkan dari #D8483C (4,2:1) -> 5,0:1 dengan --text-on-danger */
+  --danger: #E4594C;
   --danger-hover: #EE6C5F;
   --danger-soft: #2C1614;
   --danger-text: #F08A80;
@@ -366,9 +325,6 @@
   --money-held: #F0A272;
 }
 
-/* Paksa terang: dipakai saat sistem gelap tapi pengguna memilih mode terang.
-   Nilai identik dengan blok :root di atas; hanya specificity-nya lebih tinggi
-   agar menang atas @media (prefers-color-scheme: dark). */
 :root[data-theme="light"] {
   --bg-page: var(--sand-25);
   --bg-surface: #FFFFFF;
@@ -381,7 +337,6 @@
   --bg-selected: var(--clay-50);
   --bg-overlay: rgba(35, 29, 24, 0.48);
 
-  /* Teks */
   --text-strong: var(--sand-950);
   --text-base: #33291F;
   --text-muted: var(--sand-700);
@@ -394,14 +349,12 @@
   --text-link: var(--clay-700);
   --text-link-hover: var(--clay-800);
 
-  /* Garis */
   --border-subtle: var(--sand-200);
   --border-default: var(--sand-300);
   --border-strong: var(--sand-400);
   --border-focus: var(--clay-600);
   --border-inverse: rgba(255, 255, 255, 0.18);
 
-  /* Aksi utama */
   --primary: var(--clay-600);
   --primary-hover: var(--clay-700);
   --primary-active: var(--clay-800);
@@ -411,7 +364,6 @@
   --primary-text: var(--clay-700);
   --focus-ring: rgba(180, 83, 31, 0.32);
 
-  /* Semantik feedback */
   --success: var(--green-500);
   --success-soft: var(--green-50);
   --success-text: var(--green-600);
@@ -430,11 +382,6 @@
   --info-text: var(--blue-600);
   --info-border: #C7D5F5;
 
-  /* ---- Status siklus proyek & escrow ----
-     Satu warna per tahap, semua di dalam keluarga pasir/terakota/hijau/kuning/merah.
-     TIDAK ada biru di sistem status: chip biru di atas netral hangat terasa
-     seperti komponen dari sistem lain. "Sedang dikerjakan" memakai chip garis
-     netral, dibedakan lewat bentuk, bukan warna baru. */
   --status-draft-bg: #F1E7D9;
   --status-draft-fg: #6A5D53;
   --status-draft-bd: #E3D6C4;
@@ -463,51 +410,30 @@
   --status-ditolak-fg: #8A5A4C;
   --status-ditolak-bd: #E3D6C4;
 
-  /* Uang: nominal masuk vs keluar vs tertahan */
   --money-in: var(--green-600);
   --money-out: var(--sand-700);
   --money-held: var(--clay-700);
 }
 
-/* ============================================================
-   PERMUKAAN BRAND TETAP — TIDAK ikut mode terang/gelap.
-   Ini bukan permukaan aplikasi, tapi set-piece brand: panel
-   pendaftaran, blok "Untuk bisnis", footer, dan pita CTA.
-   Kenapa dipisah dari --bg-inverse: "inverse" berarti "kebalikan
-   tema saat ini", jadi di mode gelap ia menjadi TERANG. Anak-anak
-   di dalamnya yang memaku putih lalu hilang. Set-piece brand harus
-   punya warnanya sendiri yang tidak pernah berubah, lengkap dengan
-   pasangan teksnya.
-   Semua rasio diukur, bukan dikira-kira.
-   ============================================================ */
 :root {
-  /* Permukaan tinta — selalu gelap */
   --ink-surface: #231D18;
   --ink-surface-raised: #2E2620;
   --ink-fill: rgba(255, 255, 255, 0.06);
   --ink-border: rgba(255, 255, 255, 0.14);
   --ink-border-strong: rgba(255, 255, 255, 0.24);
-  --ink-text: #F1E7DC;          /* 13,7:1 */
-  --ink-text-muted: #C3B4A2;    /*  8,2:1 */
-  --ink-text-subtle: #9C8B7E;   /*  5,1:1 */
-  --ink-accent: #F0A272;        /*  8,0:1 — terakota terang */
-  --ink-success: #7FD3AC;       /*  9,4:1 */
+  --ink-text: #F1E7DC;
+  --ink-text-muted: #C3B4A2;
+  --ink-text-subtle: #9C8B7E;
+  --ink-accent: #F0A272;
+  --ink-success: #7FD3AC;
 
-  /* Permukaan terakota — selalu #B4531F, tidak mengikuti --primary
-     (di mode gelap --primary menjadi #E0763A, dan teks putih di
-     atasnya hanya 3,1:1 — gagal AA). */
   --clay-surface: #B4531F;
   --clay-surface-hover: #9A4519;
   --clay-surface-border: rgba(255, 255, 255, 0.22);
-  --clay-surface-text: #FFFFFF; /* 5,0:1 — SATU-SATUNYA warna teks yang lolos di sini */
+  --clay-surface-text: #FFFFFF;
   --clay-surface-fill: rgba(255, 255, 255, 0.14);
 }
 
-/* ---- Status tambahan dari PAGES_AND_FLOWS.md ----
-   Empat kosakata status: lowongan, lamaran, verifikasi, pembayaran.
-   Semua memetakan ke keluarga warna yang sudah ada; hanya "disuspend"
-   dan "seleksi" butuh nilai sendiri karena keduanya perlu bobot berbeda
-   dari status yang mirip (ditolak vs disuspend, aktif vs seleksi). */
 :root {
   --status-seleksi-bg: #FBEDE2;
   --status-seleksi-fg: #8A3D14;

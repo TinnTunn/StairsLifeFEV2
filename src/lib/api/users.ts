@@ -1,3 +1,5 @@
+// Klien API pengguna, profil publik, dan portofolio.
+
 import type { Review, User, Verification } from "../types";
 import { apiFetch } from "./client";
 
@@ -37,8 +39,6 @@ export interface PortfolioItem {
 export const users = {
   me: () => apiFetch<User>("/users/me"),
 
-  /* Nilai kosong diabaikan backend dan nilai lama dipertahankan, kecuali bio
-     yang memang bisa dikosongkan. Kirim hanya field yang benar-benar diubah. */
   updateMe: (payload: UpdateProfilePayload) =>
     apiFetch<User>("/users/me", { method: "PATCH", body: payload }),
 

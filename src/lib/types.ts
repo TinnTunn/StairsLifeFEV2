@@ -1,13 +1,8 @@
-/* Tipe yang mencerminkan backend NestJS di ../StairsLifeBEV2.
-   Diturunkan dari prisma/schema.prisma dan dari select eksplisit di tiap
-   repository, bukan dari tebakan. Entity interface di folder entities backend
-   sengaja tidak dipakai: berkas itu tidak tersambung ke apa pun dan sudah
-   menyimpang dari skema. */
+// Tipe entitas backend beserta pembaca tautan hasil kerja.
 
 export type UserRole = "mahasiswa" | "bisnis" | "admin";
 export type UserTier = "pemula" | "menengah" | "mahir";
 export type ApplicationStatus = "pending" | "shortlisted" | "approved" | "rejected";
-/** cancelled ditambahkan lewat migrasi SQL, tidak ada di schema.prisma. */
 export type ContractStatus = "active" | "pending_review" | "completed" | "disputed" | "cancelled";
 export type PaymentStatus =
   | "pending"
@@ -21,7 +16,6 @@ export type ProjectStatus = "open" | "inProgress" | "completed" | "disputed" | "
 export type ProjectTier = UserTier;
 export type VerificationStatus = "pending" | "approved" | "rejected";
 export type WithdrawalStatus = "pending" | "processing" | "completed" | "rejected" | "failed";
-/** Kolom VarChar, bukan enum. in_review dan mediation dibaca backend tapi tidak pernah ditulis. */
 export type DisputeStatus = "open" | "under_review" | "in_review" | "mediation" | "resolved" | "rejected";
 export type DisputeOutcome = "favor_business" | "favor_student" | "split" | "no_action";
 export type NotificationType =
@@ -40,7 +34,6 @@ export type WalletTransactionType =
   | "withdrawal_done"
   | "withdrawal_refund";
 
-/** Amplop respons dari ResponseInterceptor global. */
 export interface ApiEnvelope<T> {
   success: true;
   data: T;
@@ -48,12 +41,10 @@ export interface ApiEnvelope<T> {
   timestamp: string;
 }
 
-/** Amplop error dari HttpExceptionFilter. message berupa array saat validasi DTO gagal. */
 export interface ApiErrorBody {
   success: false;
   statusCode: number;
   message: string | string[];
-  /** Kode stabil untuk diterjemahkan frontend. */
   code?: string;
   params?: Record<string, string | number>;
   timestamp: string;
@@ -66,7 +57,6 @@ export interface Pagination {
   total_pages: number;
 }
 
-/** Bentuk yang dikembalikan PUBLIC_USER_SELECT di users.repository. */
 export interface User {
   id: string;
   full_name: string;
@@ -87,14 +77,12 @@ export interface User {
   location: string | null;
   skills: string[];
   portfolio_url: string | null;
-  /** Prisma Decimal(3,2) tiba sebagai string, bukan number. */
   rating_avg: string | null;
   total_projects: number;
   created_at: string;
   updated_at: string;
 }
 
-/** User ringkas di dalam respons login, register, dan refresh. */
 export interface AuthUser {
   id: string;
   full_name: string;
@@ -105,7 +93,6 @@ export interface AuthUser {
   is_suspended?: boolean;
   suspension_reason?: string | null;
   email_verified: boolean;
-  /** Tidak dikirim saat login; diisi dari /users/me dan setelah profil diubah. */
   avatar_url?: string | null;
 }
 
@@ -142,7 +129,6 @@ export interface Application {
   estimated_completion: string;
   offered_budget: number | null;
   status: ApplicationStatus;
-  /** Tabel applications tidak punya updated_at: kapan status berubah tidak tercatat. */
   created_at: string;
   projects?: Pick<Project, "id" | "title" | "budget_min" | "budget_max" | "category" | "tier" | "status"> & {
     users?: Pick<User, "id" | "full_name">;
@@ -164,7 +150,6 @@ export interface Contract {
   deadline: string;
   status: ContractStatus;
   progress_pct: number;
-  /** Satu URL, atau array URL yang sudah di-JSON.stringify. Pakai parseDeliverableUrls. */
   deliverable_url: string | null;
   deliverable_notes: string | null;
   started_at: string | null;
@@ -181,7 +166,6 @@ export interface Payment {
   id: string;
   contract_id: string;
   amount: number;
-  /** Komisi platform, default 5 persen, dipotong sekali saat dana dilepas. */
   platform_fee: number;
   net_amount: number;
   status: PaymentStatus;
@@ -269,7 +253,6 @@ export interface Dispute {
   resolved_at: string | null;
 }
 
-/** GET /disputes/my mengembalikan bentuk yang sudah dipetakan ulang, bukan baris mentah. */
 export interface DisputeSummary {
   id: string;
   project: string;
@@ -307,16 +290,6 @@ export interface Notification {
   created_at: string;
 }
 
-export interface ChatMessage {
-  id: string;
-  contract_id: string;
-  sender_id: string;
-  content: string;
-  is_read: boolean;
-  created_at: string;
-  sender?: Pick<User, "id" | "full_name"> & { role: UserRole; avatar_url?: string | null };
-}
-
 export interface Verification {
   id: string;
   user_id: string;
@@ -331,17 +304,12 @@ export interface Verification {
 }
 
 export interface UploadResult {
-  /** URL publik untuk avatar dan chat-image; path storage untuk sisanya. */
   url: string;
   file_name: string;
   size: number;
   mime_type: string;
 }
 
-/**
- * contracts.deliverable_url menyimpan satu URL sebagai string biasa, tapi
- * beberapa URL sebagai JSON array di kolom TEXT yang sama.
- */
 export function parseDeliverableUrls(value: string | null): string[] {
   if (!value) return [];
   if (!value.trimStart().startsWith("[")) return [value];

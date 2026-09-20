@@ -1,3 +1,5 @@
+// Uji unit pemetaan galat backend ke pesan pengguna.
+
 import { afterEach, describe, expect, it } from "vitest";
 import { bahasaAktif } from "@/i18n/aktif";
 import { pesanDariKode } from "@/lib/api/client";

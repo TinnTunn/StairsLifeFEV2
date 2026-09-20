@@ -1,12 +1,12 @@
+// Tampilan daftar kosong beserta ajakan lanjutannya.
+
 import type { ReactNode } from "react";
 import { Icon, type IconName } from "../actions/Icon";
 import styles from "./EmptyState.module.css";
 
 export interface EmptyStateProps {
   icon: IconName;
-  /** Sebut kondisinya apa adanya, bukan "Tidak ada data". */
   title: string;
-  /** Beri ekspektasi: kenapa kosong, dan kapan biasanya terisi. */
   description?: string;
   action?: ReactNode;
   secondaryAction?: ReactNode;

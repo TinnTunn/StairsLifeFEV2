@@ -1,6 +1,4 @@
-/* Checkbox, Radio, dan Switch memakai input asli yang disembunyikan secara
-   visual, bukan dihapus dari pohon aksesibilitas. Kotak yang terlihat adalah
-   saudara input, sehingga :checked dan :focus-visible bisa dibaca dari CSS. */
+/* Gaya kolom pilihan: kotak centang, radio, dan sakelar. */
 
 .row {
   display: flex;
@@ -42,8 +40,6 @@
   border-color: var(--primary);
 }
 
-/* Tanpa aturan ini kotak tidak menunjukkan apa pun saat dijelajah keyboard,
-   karena input aslinya disembunyikan secara visual. */
 .input:focus-visible ~ .box {
   outline: var(--focus-ring-width) solid var(--focus-ring);
   outline-offset: var(--focus-ring-offset);
@@ -114,8 +110,6 @@
   margin-top: 2px;
 }
 
-/* Switch: dipakai untuk pengaturan yang berlaku seketika. Pilihan yang baru
-   berlaku setelah Simpan tetap memakai Checkbox. */
 .track {
   width: 40px;
   height: 22px;

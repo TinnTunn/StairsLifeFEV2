@@ -1,6 +1,4 @@
-/* Tanggal kalender tanpa jam, disimpan sebagai "YYYY-MM-DD" (format yang sama
-   dengan <input type="date">), dihitung di zona waktu lokal supaya tidak
-   bergeser sehari di sekitar tengah malam WIB. */
+// Bantuan tanggal antara input HTML dan ISO backend.
 
 export function keIso(d: Date): string {
   const y = d.getFullYear();
@@ -32,10 +30,6 @@ export function hariIni(): Date {
   return new Date(n.getFullYear(), n.getMonth(), n.getDate());
 }
 
-/**
- * Enam minggu (42 sel) untuk bulan yang memuat `bulan`, dimulai hari Senin,
- * konvensi kalender Indonesia dan Inggris-Britania.
- */
 export function selKalender(bulan: Date): Date[] {
   const awal = new Date(bulan.getFullYear(), bulan.getMonth(), 1);
   const geser = (awal.getDay() + 6) % 7;

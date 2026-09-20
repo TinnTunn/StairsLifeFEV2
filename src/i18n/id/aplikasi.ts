@@ -1,5 +1,5 @@
-/* Area terautentikasi: beranda mahasiswa dan bisnis, lamaran, dompet,
-   verifikasi, proyek bisnis, pelamar, kontrak, dan profil. */
+// Kamus Indonesia: halaman di dalam aplikasi.
+
 export const aplikasi = {
   umum: {
     proyek: "Proyek",

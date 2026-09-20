@@ -1,3 +1,5 @@
+// Kolom isian teks, termasuk mode rupiah dan penyelarasan isian otomatis peramban.
+
 "use client";
 
 import { useEffect, useRef, type ChangeEvent, type ComponentPropsWithoutRef, type ReactNode, type Ref } from "react";
@@ -6,19 +8,11 @@ import { FieldShell, fieldIds, fieldStyles as s, type FieldMeta } from "./FieldS
 
 export interface InputProps extends Omit<ComponentPropsWithoutRef<"input">, "size">, FieldMeta {
   size?: "sm" | "md" | "lg";
-  /** Teks tetap di kiri kolom, misalnya "Rp". */
   prefix?: string;
-  /** Teks tetap di kanan kolom, misalnya "orang". */
   suffix?: string;
   iconLeft?: ReactNode;
-  /** Kontrol di ujung kanan kolom, misalnya tombol tampilkan kata sandi. */
   trailing?: ReactNode;
-  /** Angka dirata-kanan dengan digit tabular agar kolom nominal sejajar. */
   numeric?: boolean;
-  /** Nominal rupiah: yang terbaca berkelompok ribuan, yang disimpan tetap
-      angka mentah. Penangan onChange tetap menerima event aslinya, dan
-      pemisahnya hilang sendiri karena penangan nominal sudah menyaring
-      non-digit. */
   uang?: boolean;
   wrapperClassName?: string;
   ref?: Ref<HTMLInputElement>;
@@ -48,15 +42,6 @@ export function Input({
   const invalid = Boolean(error);
   const dalam = useRef<HTMLInputElement>(null);
 
-  /* Pengisian otomatis peramban menulis nilai langsung ke DOM, dan pada halaman
-     yang baru dibuka itu terjadi sebelum React terpasang. Akibatnya kolom
-     terlihat terisi tapi state pemiliknya masih kosong, lalu tombol kirim
-     menolak dengan "belum diisi" sambil menampilkan isi yang jelas ada. Sekali
-     setelah terpasang, selisih itu disamakan dengan memanggil onChange
-     pemiliknya, seolah pengguna yang mengetiknya.
-
-     Hanya berjalan untuk kolom terkendali (punya onChange) dan hanya kalau DOM
-     benar-benar berisi sesuatu yang berbeda, jadi kolom biasa tidak tersentuh. */
   const onChange = rest.onChange;
   const nilai = rest.value;
   const samakanDenganDom = () => {
@@ -76,11 +61,6 @@ export function Input({
       onChange({ target: el, currentTarget: el } as unknown as ChangeEvent<HTMLInputElement>);
     };
     samakan();
-    /* Pengisian otomatis sering mendarat beberapa ratus milidetik setelah
-       halaman siap, kadang lebih lambat di mesin yang sibuk. Beberapa
-       pemeriksaan susulan menutup jendela itu tanpa memasang pengamat yang
-       hidup terus. Sinyal yang tepat datang dari animationstart di bawah;
-       ini jaring pengamannya untuk peramban yang tidak mendukungnya. */
     const susulan = [120, 400, 900, 1800].map((ms) => window.setTimeout(samakan, ms));
     return () => susulan.forEach(window.clearTimeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -108,17 +88,12 @@ export function Input({
           {...rest}
           value={uang ? tampil : rest.value}
           onAnimationStart={(e) => {
-            /* Sinyal pengisian otomatis dari app.css. */
             if (e.animationName === "sl-autofill") samakanDenganDom();
             rest.onAnimationStart?.(e);
           }}
           onChange={
             uang
               ? (e) => {
-                  /* Menambah titik menggeser isi kolom, dan tanpa ini karet
-                     melompat ke ujung setiap kali satu digit disisipkan di
-                     tengah. Posisinya dihitung dari jumlah digit di kiri karet,
-                     bukan dari indeks huruf, karena titiknya berpindah. */
                   const el = e.currentTarget;
                   const digitKiri = el.value.slice(0, el.selectionStart ?? el.value.length).replace(/\D/g, "").length;
                   requestAnimationFrame(() => {

@@ -1,3 +1,5 @@
+// Penangkap galat agar satu seksi yang gagal tidak menjatuhkan halaman.
+
 "use client";
 
 import { Component, type ErrorInfo, type ReactNode } from "react";
@@ -7,7 +9,6 @@ import { EmptyState } from "./EmptyState";
 
 interface Props {
   children: ReactNode;
-  /** Nama bagian untuk log, mis. "tren admin". */
   nama: string;
 }
 
@@ -15,21 +16,6 @@ interface State {
   gagal: boolean;
 }
 
-/**
- * Batas galat untuk satu bagian halaman.
- *
- * Tanpa ini, satu bidang yang hilang dari respons API membawa seluruh rute ke
- * layar "Ada yang gagal dimuat", termasuk bagian lain yang datanya baik-baik
- * saja. Backend masih berubah, jadi kegagalan seperti itu harus berhenti di
- * kartunya sendiri.
- *
- * Kelas, bukan fungsi: React hanya menyediakan penangkap galat render lewat
- * componentDidCatch dan getDerivedStateFromError.
- *
- * Kamus dibaca langsung, bukan lewat useBahasa, karena komponen kelas tidak
- * memakai hook dan penangkap galat tidak boleh ikut gagal saat konteks bahasa
- * tidak tersedia.
- */
 export class BatasSeksi extends Component<Props, State> {
   state: State = { gagal: false };
 

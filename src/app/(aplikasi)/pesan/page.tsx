@@ -1,3 +1,5 @@
+// Halaman daftar percakapan pengguna.
+
 "use client";
 
 import Link from "next/link";

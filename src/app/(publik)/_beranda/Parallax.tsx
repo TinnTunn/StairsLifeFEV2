@@ -1,12 +1,9 @@
+// Pergeseran lambat elemen latar saat halaman digulir.
+
 "use client";
 
 import { useEffect } from "react";
 
-/**
- * Menggeser elemen [data-parallax] mengikuti posisi scroll, seperti orb hero
- * di landing.js V2. Nilai atributnya adalah kecepatan: negatif naik, positif
- * turun. Dimatikan saat prefers-reduced-motion.
- */
 export function Parallax() {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;

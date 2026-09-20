@@ -1,3 +1,5 @@
+// Formulir masuk pengguna.
+
 "use client";
 
 import Link from "next/link";
@@ -22,8 +24,6 @@ import styles from "./auth.module.css";
 export function LoginForm() {
   const router = useRouter();
   const params = useSearchParams();
-  /* Tujuan yang kembali ke halaman auth sendiri tidak diikuti: navigasinya tidak
-     berpindah halaman dan layar "Selamat datang" akan tertahan. */
   const lanjutMentah = jalurAman(params.get("lanjut"));
   const lanjut = lanjutMentah && !/^\/(masuk|daftar)(\/|\?|$)/.test(lanjutMentah) ? lanjutMentah : null;
   const { t } = useBahasa();
@@ -36,16 +36,10 @@ export function LoginForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const kolom = useGalatKolom<"email" | "password">();
-  /* Layar berputar: "memeriksa" bila pemeriksaan kata sandi terasa lama,
-     "masuk" setelah berhasil sampai beranda selesai dimuat. Formulir ini
-     dibongkar begitu halaman tujuan tampil, jadi layarnya ikut hilang. */
   const [layar, setLayar] = useState<{ jenis: "memeriksa" } | { jenis: "masuk"; nama: string } | null>(null);
 
   useEffect(() => () => tandaiMasuk(false), []);
 
-  /* Penanda "sesi berakhir" ada di sessionStorage, yang tidak ada di server,
-     jadi baru boleh dibaca setelah halaman terpasang. Dibaca di microtask,
-     bukan langsung di badan efek, supaya render hidrasi selesai lebih dulu. */
   const [sesiBerakhir, setSesiBerakhir] = useState(false);
   useEffect(() => {
     let batal = false;
@@ -56,8 +50,6 @@ export function LoginForm() {
       batal = true;
     };
   }, []);
-  /* Login akun beku berhenti di sini; tanpa jalan banding, pengguna yang
-     saldonya masih di dompet tidak punya cara resmi meminta akses kembali. */
   const [beku, setBeku] = useState<{ alasan: string; banding: boolean } | null>(null);
 
   async function submit(event: FormEvent) {
@@ -70,8 +62,6 @@ export function LoginForm() {
     ]);
     if (!valid) return;
     setLoading(true);
-    /* Permintaan cepat cukup memakai spinner di tombol; layar penuh baru
-       muncul bila pemeriksaan melewati 350 ms, supaya tidak berkedip. */
     const tunda = window.setTimeout(() => setLayar({ jenis: "memeriksa" }), 350);
     let berhasil = false;
 
@@ -88,8 +78,6 @@ export function LoginForm() {
       router.replace(lanjut ?? BERANDA[hasil.user.role]);
     } catch (e) {
       if (e instanceof ApiError && e.suspended) {
-        /* Backend membalas 401 dengan message berupa string JSON untuk kasus
-           ini. Client sudah menguraikannya jadi pesan yang bisa dibaca. */
         setBeku({ alasan: e.suspended.reason, banding: false });
       } else if (e instanceof ApiError && e.status === 401) {
         setError(m.tidakCocok);

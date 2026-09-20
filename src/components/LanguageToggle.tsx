@@ -1,3 +1,5 @@
+// Tombol pengalih bahasa Indonesia dan Inggris.
+
 "use client";
 
 import { useBahasa } from "@/i18n/BahasaProvider";
@@ -6,10 +8,6 @@ import styles from "./LanguageToggle.module.css";
 
 const PILIHAN: Bahasa[] = ["id", "en"];
 
-/**
- * Pengganti bahasa ID dan EN. Dua tombol dengan lebar tetap yang sama, jadi
- * posisi header dan tombol di sekitarnya tidak bergeser saat bahasa berganti.
- */
 export function LanguageToggle({ onDark = false, className }: { onDark?: boolean; className?: string }) {
   const { bahasa, gantiBahasa, t, sedangGanti } = useBahasa();
 

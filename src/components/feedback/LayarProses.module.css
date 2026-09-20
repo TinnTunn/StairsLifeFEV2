@@ -1,5 +1,5 @@
-/* Layar proses gaya V2 (masuk, daftar, keluar): aurora penuh layar dengan logo
-   dan cincin berputar. */
+/* Gaya layar tunggu. */
+
 .layar {
   position: fixed;
   inset: 0;
@@ -70,7 +70,6 @@
     animation: none;
   }
 
-  /* Tetap menandakan proses berjalan, tapi jauh lebih pelan. */
   .cincin {
     animation-duration: 3s;
   }

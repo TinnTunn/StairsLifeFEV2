@@ -1,5 +1,5 @@
-/* Verify-banner gaya V2: ikon dalam chip, judul tebal, subjudul, dan tombol
-   aksi yang berwarna senada. */
+/* Gaya pita verifikasi. */
+
 .banner {
   display: flex;
   align-items: center;
@@ -76,7 +76,6 @@
   transition: transform var(--duration-fast) var(--ease-out);
 }
 
-/* Teks tombol memakai warna permukaan di atas isian currentColor. */
 .action {
   -webkit-text-fill-color: var(--bg-surface);
 }

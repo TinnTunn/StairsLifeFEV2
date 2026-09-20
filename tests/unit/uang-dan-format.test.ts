@@ -1,3 +1,5 @@
+// Uji unit pemformat rupiah, tanggal, dan anggaran.
+
 import { describe, expect, it } from "vitest";
 import { labelAnggaran } from "@/lib/anggaran";
 import { formatRupiah, formatTanggal, formatWaktuRelatif, pisahRibuan } from "@/lib/format";
@@ -21,7 +23,6 @@ describe("formatRupiah", () => {
 });
 
 describe("hitungKomisi", () => {
-  /* Harus identik dengan PaymentsService: Math.round(nominal * persen / 100). */
   it("membulatkan seperti backend", () => {
     expect(hitungKomisi(2500000, 5)).toBe(125000);
     expect(hitungKomisi(99999, 5)).toBe(5000);
@@ -57,11 +58,6 @@ describe("tanggal", () => {
 });
 
 describe("batas unggah", () => {
-  /* Angkanya harus sama dengan upload.controller.ts di backend: kalau berbeda,
-     pengguna ditolak di tempat yang salah, entah terlalu dini atau setelah
-     menunggu unggahan panjang. */
-  /* Ukuran dipalsukan, bukan dibuat sungguhan: uji unit tidak perlu menulis
-     puluhan megabita hanya untuk menguji satu perbandingan. */
   const palsu = (nama: string, mb: number) => {
     const f = new File([new Uint8Array(1)], nama, { type: "application/octet-stream" });
     Object.defineProperty(f, "size", { value: Math.round(mb * 1024 * 1024) });

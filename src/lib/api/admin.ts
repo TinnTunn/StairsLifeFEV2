@@ -1,3 +1,5 @@
+// Klien API panel admin.
+
 import type {
   BankAccount,
   Contract,
@@ -12,10 +14,6 @@ import type {
   Verification,
 } from "../types";
 import { apiFetch } from "./client";
-
-/* Klien bertipe untuk AdminController, WithdrawalsController (bagian admin),
-   dan ChatController (kotak dukungan). Semua endpoint di sini dijaga
-   RolesGuard('admin') di backend; frontend hanya menampilkan. */
 
 export interface TitikTren {
   date: string;
@@ -61,7 +59,6 @@ export interface AdminDispute {
   opened_by: string;
   reason: string;
   evidence_url: string | null;
-  /** open | under_review | resolved | rejected, disimpan sebagai varchar. */
   status: string | null;
   admin_notes: string | null;
   resolved_by: string | null;
@@ -131,7 +128,6 @@ export interface AuditLog {
   created_at: string;
 }
 
-/** Modul panel admin; sama dengan IZIN_ADMIN di backend. */
 export const IZIN_ADMIN = [
   "Overview",
   "Projects",
@@ -146,7 +142,6 @@ export const IZIN_ADMIN = [
 export type IzinAdmin = (typeof IZIN_ADMIN)[number];
 
 export interface AksesAdmin {
-  /** true: tidak dibatasi (peran sistem, atau belum tercantum di peran mana pun). */
   penuh: boolean;
   izin: IzinAdmin[];
   peran: string[];
@@ -205,9 +200,6 @@ export interface SupportMessage {
 }
 
 export const admin = {
-  /* Bentuknya dinormalkan: menu admin disaring dari `izin`, jadi respons yang
-     tidak lengkap (versi backend lain, proxy) berarti menu lengkap, bukan
-     shell yang runtuh. Backend tetap yang menolak endpoint terlarang. */
   me: () =>
     apiFetch<Partial<AksesAdmin> | null>("/admin/me").then(
       (r): AksesAdmin => ({
@@ -220,12 +212,10 @@ export const admin = {
   stats: () => apiFetch<AdminStats>("/admin/stats"),
 
   users: (role?: "mahasiswa" | "bisnis") => apiFetch<AdminUser[]>("/admin/users", { query: { role } }),
-  /** Pencarian dan paginasi di server. */
   cariUsers: (q: { role: "mahasiswa" | "bisnis"; q?: string; status?: string; page: number; limit?: number }) =>
     apiFetch<HalamanPengguna>("/admin/users", {
       query: { role: q.role, q: q.q, status: q.status === "semua" ? undefined : q.status, page: q.page, limit: q.limit ?? 20 },
     }),
-  /** Satu endpoint untuk membekukan dan mengaktifkan kembali; backend membalik statusnya. */
   toggleSuspend: (id: string, reason?: string) =>
     apiFetch<AdminUser>(`/admin/users/${id}/suspend`, { method: "PATCH", body: reason ? { reason } : {} }),
 
@@ -249,9 +239,6 @@ export const admin = {
   sendAnnouncement: (payload: Pick<Announcement, "title" | "body" | "target">) =>
     apiFetch<Announcement>("/admin/announcements", { method: "POST", body: payload }),
 
-  /* Dinormalkan seperti admin.me(): halaman keuangan memetakan daily_trend
-     langsung, jadi respons tanpa bidang itu menjatuhkan seluruh halaman alih-alih
-     menampilkan grafik kosong. */
   finances: () =>
     apiFetch<Partial<FinanceSummary> | null>("/admin/finances").then(
       (r): FinanceSummary => ({
@@ -281,7 +268,6 @@ export const admin = {
     apiFetch<{ items: AdminWithdrawal[]; pagination: Pagination }>("/withdrawals", {
       query: { page, limit: 20, status },
     }),
-  /** use_xendit true meneruskan transfer lewat Disbursement API; false berarti admin sudah mentransfer manual. */
   processWithdrawal: (id: string, payload: { action: "approve" | "reject"; reason?: string; use_xendit?: boolean }) =>
     apiFetch<{ id: string; status: string }>(`/withdrawals/${id}/process`, { method: "PATCH", body: payload }),
 

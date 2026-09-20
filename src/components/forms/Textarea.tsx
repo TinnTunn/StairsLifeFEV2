@@ -1,3 +1,5 @@
+// Kolom isian teks panjang beserta penghitung karakter.
+
 "use client";
 
 import { useState, type ChangeEvent, type ComponentPropsWithoutRef } from "react";

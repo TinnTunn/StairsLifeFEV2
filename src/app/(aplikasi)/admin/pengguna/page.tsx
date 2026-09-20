@@ -1,3 +1,5 @@
+// Halaman admin untuk mencari dan mengelola pengguna.
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -39,7 +41,6 @@ function Isi() {
   const [peran, setPeran] = useParamUrl<Peran>("peran", "mahasiswa", ["mahasiswa", "bisnis"]);
   const [status, setStatus] = useParamUrl<Status>("status", "semua", ["semua", "aktif", "dibekukan", "belumVerifikasi"]);
   const [cari, setCari] = useState("");
-  /* Pencarian dikirim ke server setelah jeda mengetik, bukan tiap tombol. */
   const [kueri, setKueri] = useState("");
   const [halaman, setHalaman] = useHalamanUrl();
   const [target, setTarget] = useState<AdminUser | null>(null);
@@ -52,8 +53,6 @@ function Isi() {
     [peran, status, kueri, halaman],
   );
 
-  /* Status "belum terverifikasi" hanya bermakna untuk mahasiswa; bisnis selalu
-     is_verified sejak daftar (lihat DECISIONS.md). */
   const daftarStatus: Status[] = peran === "mahasiswa" ? ["semua", "aktif", "dibekukan", "belumVerifikasi"] : ["semua", "aktif", "dibekukan"];
 
   const items = hasil.data?.items ?? [];

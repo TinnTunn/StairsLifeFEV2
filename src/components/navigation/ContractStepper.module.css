@@ -1,3 +1,5 @@
+/* Gaya penunjuk tahapan kontrak. */
+
 .list {
   display: flex;
   flex-direction: row;
@@ -50,8 +52,6 @@
   font-variant-numeric: tabular-nums;
   font-size: var(--text-overline);
   font-weight: var(--weight-semibold);
-  /* 520ms, bukan 140ms: perpindahan status yang menyangkut uang bergerak
-     lebih lambat supaya terbaca (DESIGN.md, bagian Gerak). */
   transition:
     background-color var(--duration-deliberate) var(--ease-out),
     border-color var(--duration-deliberate) var(--ease-out),
@@ -69,8 +69,6 @@
   background: var(--primary);
   border-color: var(--primary);
   color: var(--text-on-primary);
-  /* Cincin lembut ini menandai satu tahap yang sedang berjalan, bukan efek glow
-     yang dipakai di mana-mana. */
   box-shadow: 0 0 0 4px var(--primary-soft);
 }
 
@@ -97,8 +95,6 @@
   color: var(--success);
 }
 
-/* Garis terisi dari tahap yang selesai menuju tahap berikutnya, bukan
-   berganti warna sekaligus: arah isinya adalah arah dana bergerak. */
 .bar::after {
   content: "";
   position: absolute;
@@ -174,8 +170,6 @@
   line-height: var(--leading-normal);
 }
 
-/* Permukaan tinta tetap punya pasangan warnanya sendiri. Token tema tidak bisa
-   dipakai di sini: di mode terang teksnya jadi gelap di atas latar gelap. */
 .ink .dot {
   border-color: var(--ink-border-strong);
   background: transparent;
@@ -220,8 +214,6 @@
   color: var(--ink-text);
 }
 
-/* Stepper enam tahap tidak muat berjajar di 360px. Ia berbalik jadi vertikal,
-   bukan menyusut sampai labelnya terpotong. */
 @media (max-width: 767px) {
   .responsive {
     flex-direction: column;
