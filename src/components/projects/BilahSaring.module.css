@@ -28,7 +28,7 @@
 }
 
 .cari:focus-within {
-  box-shadow: 0 0 0 1px var(--brand), 0 0 0 4px var(--brand-glow);
+  box-shadow: 0 0 0 var(--focus-ring-width) var(--focus-ring);
 }
 
 .tombolIkon:focus-visible,

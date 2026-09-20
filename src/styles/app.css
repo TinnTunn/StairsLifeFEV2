@@ -20,10 +20,6 @@
   }
 }
 
-:root {
-  --focus-ring: var(--primary);
-}
-
 @media (min-width: 1920px) {
   :root {
     --width-container: 1400px;

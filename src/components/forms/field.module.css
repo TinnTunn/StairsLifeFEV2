@@ -60,7 +60,7 @@
 
 .control:focus-within {
   border-color: var(--brand);
-  box-shadow: 0 0 0 1px var(--brand), 0 0 0 4px var(--brand-glow);
+  box-shadow: 0 0 0 var(--focus-ring-width) var(--focus-ring);
 }
 
 .control:hover:not(:focus-within) {
@@ -161,7 +161,7 @@
 
 .textarea:focus-visible {
   border-color: var(--brand);
-  box-shadow: 0 0 0 1px var(--brand), 0 0 0 4px var(--brand-glow);
+  box-shadow: 0 0 0 var(--focus-ring-width) var(--focus-ring);
 }
 
 .textarea[aria-invalid="true"] {
@@ -213,7 +213,7 @@
 
 .select:focus-visible {
   border-color: var(--brand);
-  box-shadow: 0 0 0 1px var(--brand), 0 0 0 4px var(--brand-glow);
+  box-shadow: 0 0 0 var(--focus-ring-width) var(--focus-ring);
 }
 
 .select[aria-invalid="true"] {

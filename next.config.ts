@@ -1,4 +1,4 @@
-// Konfigurasi Next: header keamanan, CSP, dan pengalihan deep link berbahasa Inggris.
+// Konfigurasi Next: header keamanan, dan pengalihan deep link berbahasa Inggris dari backend.
 
 import type { NextConfig } from "next";
 
