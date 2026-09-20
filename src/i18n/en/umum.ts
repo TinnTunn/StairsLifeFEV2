@@ -32,9 +32,8 @@ export const umum: typeof Id = {
     nama: { id: "Indonesia", en: "English" },
   },
   tema: {
-    sistem: "Theme follows your system. Switch to light.",
     terang: "Light theme. Switch to dark.",
-    gelap: "Dark theme. Follow your system.",
+    gelap: "Dark theme. Switch to light.",
   },
   peran: {
     mahasiswa: "Student",

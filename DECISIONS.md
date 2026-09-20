@@ -430,3 +430,28 @@ Lucide (`MessageSquare` dan `Star`), yang berarti tombol dan kartu berikon 16 sa
 sidebar, navigasi bawah, keadaan kosong halaman pesan, dan deretan fitur di beranda.
 Bintang di komponen `Rating` juga tidak tersentuh: ia SVG sendiri karena butuh isian
 sebagian untuk nilai pecahan, yang tidak bisa dilakukan mask PNG.
+
+## Tema: dua keadaan, bawaan gelap (20 September 2026)
+
+Pengalih tema sebelumnya berputar tiga keadaan, sistem ke terang ke gelap, dengan
+sistem sebagai bawaan. Atas permintaan pemilik produk keadaan "sistem" dihapus:
+sekarang hanya terang dan gelap, dan yang belum pernah memilih mendapat gelap.
+
+Akibatnya `data-theme` selalu terpasang di elemen akar, disetel skrip pemasang
+awal sebelum halaman digambar sehingga tidak ada kedipan tema. `applyTheme` tidak
+lagi perlu mencabut atribut, dan `readStoredTheme` mengembalikan gelap kalau
+penyimpanan kosong.
+
+Blok `@media (prefers-color-scheme: dark)` di `colors.css`, `tema.css`, dan
+`elevation.css` sengaja tidak dibuang meski secara praktis tidak pernah menang
+lagi. Blok itu menyasar `:root` polos, sedangkan `:root[data-theme="..."]` lebih
+spesifik, jadi pilihan pengguna tetap menang. Gunanya tinggal satu: kalau
+JavaScript mati, atribut itu tidak pernah terpasang dan halaman masih mengikuti
+tema sistem alih alih terkunci di satu warna.
+
+Ikon pengalihnya diganti aset dari pemilik produk: matahari untuk terang dan
+bulan sabit untuk gelap. Keduanya beroutline dengan bagian dalam transparan,
+cakupan opaque 8,5% dan 8,6%, jadi bobotnya seimbang dan tidak perlu dibangun
+ulang seperti ikon chat. `Sun` dan `Moon` ditambahkan
+ke registry sebagai cadangan, dan `Palette` dibuang karena hanya dipakai keadaan
+"sistem" yang kini tidak ada.

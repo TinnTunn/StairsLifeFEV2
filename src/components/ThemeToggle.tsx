@@ -4,14 +4,14 @@
 
 import { useSyncExternalStore } from "react";
 import { useBahasa } from "@/i18n/BahasaProvider";
-import { applyTheme, readStoredTheme, type Theme } from "@/lib/theme";
+import { applyTheme, readStoredTheme, TEMA_BAWAAN, type Theme } from "@/lib/theme";
 import { Icon } from "./actions/Icon";
 import { IconButton } from "./actions/IconButton";
 import styles from "./ThemeToggle.module.css";
 
-const NEXT: Record<Theme, Theme> = { system: "light", light: "dark", dark: "system" };
+const NEXT: Record<Theme, Theme> = { light: "dark", dark: "light" };
 
-const GLYPH = { system: "Palette", light: "Eye", dark: "EyeOff" } as const;
+const GLYPH = { light: "Terang", dark: "Gelap" } as const;
 
 function subscribe(onChange: () => void) {
   window.addEventListener("stairslife-theme-change", onChange);
@@ -19,7 +19,7 @@ function subscribe(onChange: () => void) {
 }
 
 export function ThemeToggle({ onDark = false }: { onDark?: boolean }) {
-  const theme = useSyncExternalStore(subscribe, readStoredTheme, () => "system" as Theme);
+  const theme = useSyncExternalStore(subscribe, readStoredTheme, () => TEMA_BAWAAN);
   const { t } = useBahasa();
 
   function cycle() {
@@ -27,7 +27,7 @@ export function ThemeToggle({ onDark = false }: { onDark?: boolean }) {
     window.dispatchEvent(new Event("stairslife-theme-change"));
   }
 
-  const label = theme === "system" ? t.umum.tema.sistem : theme === "light" ? t.umum.tema.terang : t.umum.tema.gelap;
+  const label = theme === "light" ? t.umum.tema.terang : t.umum.tema.gelap;
 
   return (
     <IconButton

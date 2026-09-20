@@ -1,31 +1,27 @@
 // Tema terang dan gelap beserta skrip pemasang awalnya.
 
-export type Theme = "light" | "dark" | "system";
+export type Theme = "light" | "dark";
 
 export const THEME_STORAGE_KEY = "stairslife-theme";
+
+export const TEMA_BAWAAN: Theme = "dark";
 
 export const themeInitScript = `
 (function(){
   document.documentElement.classList.add("js");
+  var t = ${JSON.stringify(TEMA_BAWAAN)};
   try {
-    var t = localStorage.getItem(${JSON.stringify(THEME_STORAGE_KEY)});
-    if (t === "light" || t === "dark") {
-      document.documentElement.setAttribute("data-theme", t);
-    }
+    var s = localStorage.getItem(${JSON.stringify(THEME_STORAGE_KEY)});
+    if (s === "light" || s === "dark") t = s;
   } catch (e) {}
+  document.documentElement.setAttribute("data-theme", t);
 })();
 `.trim();
 
 export function applyTheme(theme: Theme) {
-  const root = document.documentElement;
-  if (theme === "system") {
-    root.removeAttribute("data-theme");
-  } else {
-    root.setAttribute("data-theme", theme);
-  }
+  document.documentElement.setAttribute("data-theme", theme);
   try {
-    if (theme === "system") localStorage.removeItem(THEME_STORAGE_KEY);
-    else localStorage.setItem(THEME_STORAGE_KEY, theme);
+    localStorage.setItem(THEME_STORAGE_KEY, theme);
   } catch {
     /* Pilihan tetap berlaku untuk sesi ini walau tidak bisa disimpan. */
   }
@@ -38,5 +34,5 @@ export function readStoredTheme(): Theme {
   } catch {
     /* abaikan */
   }
-  return "system";
+  return TEMA_BAWAAN;
 }

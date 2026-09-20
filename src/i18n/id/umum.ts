@@ -30,9 +30,8 @@ export const umum = {
     nama: { id: "Indonesia", en: "English" },
   },
   tema: {
-    sistem: "Tema mengikuti sistem. Ganti ke terang.",
     terang: "Tema terang. Ganti ke gelap.",
-    gelap: "Tema gelap. Ikuti sistem.",
+    gelap: "Tema gelap. Ganti ke terang.",
   },
   peran: {
     mahasiswa: "Mahasiswa",
